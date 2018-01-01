@@ -1,0 +1,9 @@
+Thesis description:
+
+1. Research the possibilities of obtaining opendata from Slovak government and Slovak municipalities.
+2. Select those with the most accessible opendata and research their APIs and datasets.
+3. From the possible datasets, select a subset with logical ties (such as real estate ownership
+vs company ownership in a given town, waste management vs waste routes and companies, etc),
+interconnect these sets and publish them.
+4. Confront your solution with similar existing projects (such as uvostat.sk)
+5. Try to push your solution upstream to the original source.
