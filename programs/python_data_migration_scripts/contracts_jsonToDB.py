@@ -3,45 +3,7 @@ import sys
 import datetime
 import os
 
-contracts_table_name = "contracts"
-json_contract_parameters = ["Centrálne_číslo_zmluvy",
-    "Typ",
-    "Druh",
-    "Zmluvné_strany",
-    "Predmet",
-    "Cena_celkom",
-    "Mena",
-    "Dátum_podpisu",
-    "Dátum_zverejnenia",
-    "Názov",
-    "Hlavná_/_dodatok",
-    "Zmluvné_strany_s_údajom_IČO",
-    "Zmluvné_strany_-_adresy",
-    "Miesto_podpisu",
-    "Dátum_účinnosti_zmluvy_po_zverejnení",
-    "Poznámky_k_zverejneniu",
-    "Dátum_povolenia_katastra"]
-    
-contract_columns = [
-"contract_nr INT PRIMARY KEY",
-"type VARCHAR(255)",
-"kind VARCHAR(255)",
-"parties TEXT",
-"subject TEXT",
-"price INT",
-"currency VARCHAR(255)",
-"signature_date DATE",
-"release_date DATE",
-"name VARCHAR(1000)",
-"main_or_appendix VARCHAR(255)",
-"parties_ico TEXT",
-"parties_addresses TEXT",
-"signature_place VARCHAR(255)",
-"validity_date DATE",
-"release_notes TEXT",
-"cadaster_approval_date DATE"
-]
-
+from variables import *
 
 def transformJson(iFile, oFile):
 	with open(iFile) as json_data, open(oFile, "w") as outputFile:
@@ -57,7 +19,7 @@ def isFloat(s):
 
 def isDate(date_text):
     try:
-        datetime.datetime.strptime(date_text, '%d.%m.%Y')
+        datetime.datetime.strptime(date_text, json_resource_dateFormat)
         return True
     except ValueError:
         return False
