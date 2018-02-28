@@ -43,7 +43,7 @@ def getTableNameBySelection(selection):
 
 def transformJson(iFile, oFile):
 	with open(iFile) as json_data, open(oFile, "w") as outputFile:
-		temp = json_data.read().replace("\\r", ";;")
+		temp = json_data.read().replace("\\r", " ")
 		outputFile = outputFile.write(temp)
 
 def isFloat(s):

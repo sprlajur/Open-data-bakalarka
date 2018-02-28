@@ -1,0 +1,13 @@
+./thesis/FITthesis.toc
+./thesis/FITthesis.log
+./thesis/FITthesis.out
+./thesis/FITthesis.lof
+./thesis/FITthesis.cls
+./thesis/FITthesis.auf
+
+*.toc
+*.log
+*.out
+*.lof
+*.cls
+*.auf
