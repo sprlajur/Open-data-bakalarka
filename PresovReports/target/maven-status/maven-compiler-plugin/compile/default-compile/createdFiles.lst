@@ -1,0 +1,15 @@
+DAO/AbstractEntityDAO.class
+DAO/ContractEntityDAO.class
+rpo/RPOLegalPerson.class
+rpo/RPOJsonParser.class
+servlets/URLs.class
+entity/InvoiceEntity.class
+servlets/HomeServlet.class
+presentation/TableContractsDataFormatter.class
+entity/ContractEntity.class
+servlets/PartyDetailServlet.class
+rpo/RPOApiDataGetter.class
+entity/OrderEntity.class
+servlets/AllContractsServlet.class
+entity/GrantEntity.class
+servlets/AbstractServlet.class
