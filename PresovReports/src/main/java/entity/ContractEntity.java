@@ -261,7 +261,7 @@ public class ContractEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.ContractEntity[ id=" + id + " ]";
+        return "ContractEntity{" + "id=" + id + ", contractNr=" + contractNr + ", type=" + type + ", kind=" + kind + ", parties=" + parties + ", subject=" + subject + ", price=" + price + ", currency=" + currency + ", signatureDate=" + signatureDate + ", releaseDate=" + releaseDate + ", name=" + name + ", mainOrAppendix=" + mainOrAppendix + ", partiesIco=" + partiesIco + ", partiesAddresses=" + partiesAddresses + ", signaturePlace=" + signaturePlace + ", validityDate=" + validityDate + ", releaseNotes=" + releaseNotes + ", cadasterApprovalDate=" + cadasterApprovalDate + '}';
     }
-    
+
 }

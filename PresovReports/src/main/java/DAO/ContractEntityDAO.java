@@ -34,4 +34,8 @@ public class ContractEntityDAO extends AbstractEntityDAO{
         }
         return null;
     }
+    
+    public ContractEntity getContractByID(Integer id){
+        return entityManager.find(ContractEntity.class, id);
+    }
 }

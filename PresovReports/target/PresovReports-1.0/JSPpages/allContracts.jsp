@@ -51,6 +51,7 @@
                 <td><%=TableContractsDataFormatter.formatSubject(contract.getSubject())%></td>
                 <td><%=TableContractsDataFormatter.dateFormatter(contract.getSignatureDate().toString())%></td>
                 <td><%=TableContractsDataFormatter.dataOrEmptyString(contract.getPrice()) + " " + TableContractsDataFormatter.dataOrEmptyString(contract.getCurrency())%></td>
+                <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_CONTRACTS_URL + "/" + Urls.CONTRACT_DETAIL + UrlParameters.CONTRACT_DETAIL_ID_PARAMETER.getURLParameter() + contract.getId()%>">detail</a> </td>
             </tr>
             <% }%>
         </table>

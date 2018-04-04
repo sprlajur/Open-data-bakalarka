@@ -10,7 +10,8 @@ package constants;
  * @author sprlajur
  */
 public enum UrlParameters {
-    PARTY_DETAIL_ICO_PARAMETER("ico");
+    PARTY_DETAIL_ICO_PARAMETER("ico"),
+    CONTRACT_DETAIL_ID_PARAMETER("id");
 
     private final String parameter;
 

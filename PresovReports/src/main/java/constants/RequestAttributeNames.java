@@ -12,4 +12,5 @@ package constants;
 public class RequestAttributeNames {
     public static final String LEGAL_PERSON = "person";
     public static final String ALL_CONTRACTS = "allContracts";
+    public static final String CONTRACT = "contract";
 }

@@ -8,8 +8,11 @@
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/RPOLegalPerson.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/PartyDetailServlet.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/entity/GrantEntity.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/constants/RequestAttributeNames.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/constants/Urls.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/entity/OrderEntity.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/AbstractServlet.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/AllContractsServlet.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/constants/UrlParameters.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/DAO/AbstractEntityDAO.java
-/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/URLs.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/contractDetailServlet.java
