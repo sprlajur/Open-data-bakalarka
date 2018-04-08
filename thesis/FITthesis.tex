@@ -21,6 +21,7 @@
 % \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
 % \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
 % \makeglossaries
+\setlength{\textfloatsep}{0.1cm}
 
 \newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
 \newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
@@ -114,7 +115,7 @@ Most data need further processing (to save the data in the database, connect the
   \label{fig:5-star}
 \end{figure}
 
-	\section{Open data success stories}
+	\section{Open data in the world}
 	Open data barometer is a World Wide Web Foundation's global measure of how governments are publishing and using open data for accountability, innovation and social impact. Barometer ranks governments on:
 \begin{itemize}
 	\item Readiness for open data initiatives.
@@ -143,32 +144,38 @@ Following in the UK’s footsteps in open data guidelines would be a good place 
 
 One of the interesting applications of UK's open data is the \textbf{LMI For All} project. It is an online data portal, developed by the UK Commission for Employment and Skills, which brings together existing national sources of high quality labour market information (LMI) that can inform people’s choices about their careers. The online portal includes LMI that can help answering the questions people ask when thinking about their careers, like how much people earn or what type of persons do what kind of jobs, etc. It includes information from the Annual Survey of Hours and Earnings, the Labour Force Survey, the Employer Skills Survey and Working Futures. All of its data are made freely available  via an Application Programming Interface (API) for use in websites and applications. \linebreak
 Other interesting applications built using UK's open data can be seen at \href{https://data.gov.uk/apps}{data.gov.uk/apps}. These include Car Insurance Comparison Application, All GB Railway Stations, Inheritance Tax Calculator UK and more.
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{pictures/LMIForAll.png}
-  \caption{LMI for all data providing scheme. \cite{lmiforall}}
-  \label{fig:LMI for all}
-\end{figure}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.5]{pictures/LMIForAll.png}
+  		\caption{LMI for all data providing scheme. \cite{lmiforall}}
+  		\label{fig:LMI for all}
+	\end{figure}
 
-\subsection{European Union initiatives}
+	\subsection{Open Government Partnership}
+	Open Government Parthership (OGP) is the international governments initiative, which was launched in 2011 by 8 founding governments (Brasil, Indonesia, Mexico, Norway, Philippines, South Africa, United Kingdom and United States). The focus of the initiative is the improvement of government by promoting transparency, efectiveness and responsibility, harnessing new technologies and setting up institutions, which help citizens to participate in governing. To become a member of OGP, participating countries must commit to uphold the principles of open and transparent government by endorsing the \href{https://www.opengovpartnership.org/open-government-declaration}{Open Government Declaration}. In total there are over 70 OGP participating countries and 15 subnational governments and together they have made over 2,500 commitments to make their governments more open and accountable. \cite{opengovernmentpartnership}
+	
+	\subsection{European Union initiatives}
 \textbf{Open Data Europe Portal} is the open data portal of the European Union containing datasets that are collected and published by the European Institutions. \linebreak
 The \textbf{European Data Portal} is an initiative of the European Commission, and is part of the Digital Single Market. The European Data Portal was created to gather Public Sector Information of the 28 European Member States and the four EFTA countries. Information regarding the provision of data and the benefits of re-using data is also included. Going beyond the harvesting of metadata, the strategic objective of the European Data Portal is to improve accessibility and increase the value of Open Data. Within the Portal, sections are dedicated to: searching datasets, providing data, using data, training and library. It also contains ratings of open data of every involved country. \cite{eudataportal}
-	\section{Open data in Slovakia}
-	//TODO Political support
-	Slovakia ranked 29th in the above mentioned Open data barometer for 2016. It moved 7 places up the ranking since 2015, which indicates, that openning data is on the rise. According to European Data portal factsheet for 2017, a lot of interesting observations were made. Main possitives of Slovak open data initiatives are: presence of action Plan of Open Government for 2017-2019; presence of national guidelines on data publication; data licensing 100\% free of charge and big amount of regional data initiatives. On the contrary, the main negatives/barriers are: less then 25\% of the data are  uploaded automatically; lack of integrated regional portals; passive approach of Open Data holders, mainly by municipalities and lack of promotion of prescribed technical standards. \cite{eudataportalfactsheet}
-	\subsection{Slovak open data portal - data.gov.sk}
+\chapter{Open data in Slovakia}
+	\section{Introduction}
+	Slovakia ranked 29th in the above mentioned Open data barometer for 2016. It moved 7 places up the ranking since 2015. According to European Data portal's 2017 published factsheet, which summarizes state, readinnes, challenges and shortcommings of open data in every member country, main possitives of Slovak open data are: presence of action Plan of Open Government for 2017-2019; presence of national guidelines on data publication; data licensing 100\% free of charge and big amount of regional data initiatives. On the contrary, the main negatives/barriers are: less then 25\% of the data uploaded automatically; lack of integrated regional portals; passive approach of Open Data holders, mainly by municipalities and lack of promotion of prescribed technical standards. \cite{eudataportalfactsheet}
+	\section{Political support}
+	A lot of positive steps were made towards open government in Slovakia during short government of Iveta Radičová (2010-2012). Most notable ones were making publishing of contracts on the internet mandatory (see \ref{crz}) and introduction of electronical auction for public procurements. On 20th September 2011, the Government of the Slovak Republic joined the Open Government Partnership and in 2012 approved the first  action plan for the Open Government Initiative for years 2012-2013, which created an open data portal. On June 2016, a new  office - Deputy Prime Minister's office for investments and informatization was set up, with one of the main tasks being creation and implementation of uniform state policy in the field of informatization of the society. In March 2017, \href{https://www.opengovpartnership.org/sites/default/files/Slovakia_NAP_2017-2019_EN.pdf}{Open Government Partnership National Action Plan} for years 2017-2019 was adopted by the Slovak government. This plan addresses open data (by formulating new commitments on publicly available APIs and open source software), open education, public policy making process and open justice.
+	\section{Slovak open data portal - data.gov.sk}
 	Official government open data portal - data.gov.sk was launched in 2013 and according to description present on the website "was created under the Open Government Initiative, which aims to improve governance through increasing transparency, efficiency and accountability". Declared goals of the portal are publishing data and metadata (data describing data like column descriptors, etc.) in machine-readable form using open standards and licenses. Website allows users to search datasets by organizations that publish them, license, file formats and also tags. It also supports full-text search by the name and description of dataset and even by  their location on the map.
 	Following are some statistics from the portal (March 2018):
 	\begin{itemize}
 		\item 4399 unique visitors on average per month
-		\item 30\% of the visitors are foreign 
-		\item most data sets are available in CSV format
-		\item  99\% of the datasets are machine readable
+		\item 30\% of the visitors foreign 
+		\item most datasets available in CSV format
+		\item  99\% of the datasets machine-readable
 		\item 66 organizations publishing data
 		\item 1425 datasets available
 	\end{itemize}
 	The most active organizations by number of published datasets are following:
-\begin{center}
+	\begin{center}
+	\label{toporganizations}
         \begin{tabular}{  p{0.65\linewidth} | c }
         \textbf{Organization} & \textbf{Number of datasets} \\ \hline
         Slovak Statistical Office & 625 \\
@@ -196,8 +203,8 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
         \begin{tabular}{  p{0.65\linewidth} | c }
         \textbf{License} & \textbf{Number of datasets} \\ \hline
         Creative Commons Attribution Share-Alike & 737 \\
-        Creative Commons Attribution CCZero & 87 \\
-        Creative Commons Attribution Attribution & 24 \\
+        Creative Commons CCZero & 87 \\
+        Creative Commons Attribution & 24 \\
         Other non-commercial & 14 \\
         GNU Free documentation license & 7 \\
         \end{tabular}
@@ -214,34 +221,155 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
         Parliament & 63 \\
         \end{tabular}
     \end{center}
-    \subsection{Other state projects}
-    Beside above-described official Slovak open data portal, several other big state-run projects are running. The most important ones are Central Register of Contracts and Business register.
-    \subsubsection{Central Register of Contracts}
+    \section{Other state projects}
+    Beside above-described official Slovak open data portal, several other big state-run projects are present. The most important ones are Central Register of Contracts and Business register.
+    \subsection{Central Register of Contracts}
+    \label{crz}
     	Started on 1st January 2011, Central Register of Contracts (available at \href{https://www.crz.gov.sk}{crz.gov.sk}) is a website containing contracts (with their appendices and  attachments) concluded by so-called obliged entities - Government Office, ministries, central government authorities, public bodies and their subordinate organizations (contributors, budgetary organizations, etc.) since the beginning of 2011. As of March 2018, the database contains 1 578 659 contracts. All contracts concluded prior to 2011 are available on older address \href{http://www.zmluvy.gov.sk}{zmluvy.gov.sk}. Operator of the both websites is the Government Office of the Slovak Republic. The register have proven to be successful. The procurement costs of public orders fell by almost one third in the very first year of the register’s operation due to reduced financial mismanagement. Iveta Radičová, former Slovak Prime Minister during whose government the project was started described its success by these words:
 \begin{displayquote}“Following the first year of the register’s operation, savings in public finances amounted to an average of 30 percent of costs. There were also some areas – for example, the transport sector – where the savings reached 50 percent. The Office of the Government alone saved EUR 3.5 million in the first year of the register’s operation. The publication of a contract also prevented an overpriced purchase of flowers for EUR 9 million at the Ministry of Education.”
 \end{displayquote} \cite{joinupcrz}
-    \subsubsection{Business register}   
+    \section{Business register}   
      The Business Register (available at \href{http://www.orsr.sk}{orsr.sk}) is a public registry that contains particular information specified by the law about individual entrepreneurs, companies and other legal entities. The registry is owned and maintained by the Ministry of Justice of Slovakia. It can be searched by business name, identification number, registered seat, registration number or name of a person. The register provides information from January 2001 onwards.
 
-	\subsection{Non-state initiatives}
+	\section{Non-state initiatives}
 	In addition to official projects of Slovak republic and municipalities, there are several civic assosiations, non-profit organizations and private companies dedicated to state open data. Some of them are trying to improve the quality and usefullness of the available data, others are interconnecting them on logical ties with other sources and present them in attractive form. Most often their main goal is to bring more transparency to public spending and state government. Next section looks at the most important ones.
-	\subsubsection{Slovensko.digital}
+	\subsection{Slovensko.digital}
 	Slovensko.digital (\href{https://slovensko.digital}{slovensko.digital} is a civic association aimed at improving the quality of state digital services in Slovakia. 
 	Their goals are sumarized on their website:
 	\begin{displayquote}
 		"We want the digital services of the state to be simple, meaningful and have a normal price. We need to increase the transparency and efficiency of spending of public resources as well as the participation of the professional public in the electronisation of public administration."
 	\end{displayquote}
 	In accordance with these goals, Slovensko.digital set up the \href{https://platforma.slovensko.digital}{platform} for all IT specialists, who want to join the discussions about state IT projects. This civic association's IT specialists systematically rate the state IT projects in one of their project called \href{https://redflags.slovensko.digital/}{Red Flags}. The association is also trying to push for strict rules for new IT projects. They've also started several project as part of \href{https://ekosystem.slovensko.digital/}{ekosystem.slovensko.digital}, some of which provide APIs to public data sources (otherwise only accessible on websites) like Register of legal entities, Central register of contracts, Public procurement journal, Business journal, Registry of financial statements and more.
-	\subsubsection{Finstat}
+	\subsection{Finstat}
 	Finstat was started in 2013 as a web portal, which helps people to freely assess financial health of slovak companies. It connects data from various data sources: ministries, state insurance companies, Business register, Statistical office, Slovak Chamber of executors, Trade Journal, Register of enterpreneurs, Register of financial statements, Register of bankrupts, Czech statistical office and many more and by their processing and analysing provides complex information about slovak companies, individual sectors and groups of enterpreneurs. The portal also helps media and non-profit organizations to analyse companies and investigating corruption cases by development of analyses and making the data of the portal accessible for them. A lot of its features are for free and some features, like APIs access and datasets in CSV are parts of payed packages.
-	\subsubsection{Uvostat}
-	\href{https://www.uvostat.sk/about}{Uvostat} is a project that processes public procurements data, analyses and presents them in form of statistics and interactive graphs. The statistics include most valuable procurements, most procurements by company or by contracts concluded. The website enables searching in the list of suppliers and even fulltext search in names and contents of the procurements. The interesting fact about the project is that it has been developed by only two people.
-	\subsubsection{Otvorené zmluvy (Open contracts)}
+	\subsection{Uvostat}
+	\href{https://www.uvostat.sk/about}{Uvostat} is a project that processes public procurements data, analyses and presents them in form of statistics and interactive graphs. The statistics include most valuable procurements, most procurements by company or by contracts concluded. The website enables searching in the list of suppliers and even fulltext search in names and contents of the procurements. The website provides notificator for tenders for new positions in state offices, which can be used by people looking for jobs to inform them, that a new position which fits their profesion and location is being opened. The interesting fact about the project is that it has been developed by only two people.
+	\subsection{Otvorené zmluvy (Open contracts)}
 	\href{http://www.otvorenezmluvy.sk/o-projekte}{Otvorené zmluvy} is an investigative project of Slovak anti-corruption initiative Aliance Fair-play and Transparency International, which helps citizens to read, search and assess contracts concluded by state and state institutions, which are being published by law since 2011. It offers automated analyses and offers general public to join discussions (crowdsourcing), trying to draw attention to suspicious contracts.	
-	\subsubsection{Datanest}
+	\subsection{Datanest}
 	\href{http://datanest.fair-play.sk/}{Datanest} was also created by Aliance Fair-play as a source of information about management of Slovak public money as part of their anti-corruption initiatives. It serves mainly for journalists, analytics, watchdog organizations, but also for engaged citizens. It contains data generated by state since 1990, which in some cases can't yet be obtained in electronic form elsewhere.
-	\subsubsection{foaf.sk}
+	\subsection{foaf.sk}
 	\href{http://foaf.sk}{Foaf.sk} draws information about Slovak companies from publicly available Business register, Business journal, Registry of financial statements, database of Social insurance agency debtors, Financial Administration, and other databases. THe website uses graph algorithms to look for and display deeper connections between people and companies in Slovakia, which enables users to quickly search for and display relations between companies and enterpreneurs. The name FOAF comes from the English acronym \textit{Friend Of A Friend} and refers to the phenomenon of the \href{https://en.wikipedia.org/wiki/Small-world_experiment}{small world networks}.
+	
+\chapter{Analyses of the Prešov open data}
+	\section{Introduction}
+	The city of Prešov is the only municipality in Slovakia, which is in top 10 organizations by number of published datasets on data.gov.sk (see \ref{toporganizations}). At ITAPA 2017 awards, which is the biggest competition for projects in the field of digitalization of society, the city's webgis geodata(data about geographic locations, that can be displayed in a map) \href{http://webgis.presov.sk/}{project} was awarded 3rd place. Mariana Hurná, Prešov's main IT coordinator was awarded as Best IT specialist of Slovak municipalities in years 2008, 2009 and 2012. Prešov is also the only municipality in Slovakia, that provides open geodata. The city set up \href{http://egov.presov.sk}{egov.presov.sk} information system  portal to enable its citizens access to useful information about city data. Published here are data about street names, members of municipal government, members of municipal police, camera systems locations, demographic structure of citizens of the city, drawing of the municipality budget, register of petitions, tax debtors and more. Prešov is by all means a very good example of municipality that works towards greater  transparency by processing the data it collects from the citizens. Unlike most other Slovak municipalities, its employees don't only do the necessery minimum to comply with the law, but also do the additional work to provide useful data applications and progress to its citizens.
+	
+	\section{Prešov contracts, grants, invoices and orders}
+	Slovak municipalities are obliged to publish data about disclosed orders, contracts and invoices of institutions like City Office, Municipal Police, Registry office and all budgetary organizations of which they are founders. This is mandatory by law 211/2000 in Slovak collection of laws. Additionally, Prešov municipality  publishes all applications for grants to comply with its internal binding regulations. Prešov publishes this data on its website egov.presov.sk in various formats (XML, JSON, XLSX, and PDF), as well as on national open data portal data.gov.sk. Next section looks at the data that are used in practical part of these bachelor thesis - contracts, invoices, grants and orders. It provides basic statistics of each of these datasets and describes their attributes. All the statistics were collected from presov.egov.sk on April 8th 2018.
+	\subsection{Contracts}
+        \begin{tabular}{  p{0.5\linewidth}  l }
+        \\
+        Total published contracts & 6027 \\
+        Oldest contract published on & August 2nd 2018\\
+        Latest contract published on & April 6th 2018 \\
+        \end{tabular}
+        
+    \begin{center}
+        \begin{tabular}{  p{0.7\linewidth} | p{0.3\linewidth} }
+        Attribute & Data type\\ \hline
+        id (central number) & String \\
+        type & String \\
+        contracting parties & String \\
+        subject & String \\
+        total price & Integer \\
+        currency & String \\
+        date of signature & Date \\
+        date of release & Date \\
+        name (detailed type) & String \\
+        national parties identifiers & String \\
+        parties addresses & String \\
+        notes & String \\
+        main/appendix indicator & String \\
+        effective date & Date \\
+        cadaster approval date & Date \\
+        \end{tabular}
+    \end{center}
+	\subsection{Invoices}
+	\begin{tabular}{  p{0.5\linewidth}  l }
+        \\
+        Total published invoices & 28511 \\
+        Oldest invoice published on & May 26nd 2011\\
+        Latest invoice published on & April 6th 2018 \\
+        \end{tabular}
+        
+    \begin{center}
+        \begin{tabular}{  p{0.7\linewidth} | p{0.3\linewidth} }
+        Attribute & Data type\\ \hline
+        id (internal number) & Integer \\
+        name of the organization & String \\
+        supplier & String \\
+        payment purpose description & String \\
+        total price & Integer \\
+        currency & String \\
+        id of contract & Integer \\
+        id of order & Integer \\
+        release date & Date \\
+        supplier national identifier & String \\
+        supplier address & String \\
+        payout status & String \\
+        office structure & String \\
+        invoice number & Integer \\
+        final/deposit indicator & String \\
+        status & String \\
+        \end{tabular}
+    \end{center}
+	\subsection{Orders}
+	\begin{tabular}{  p{0.5\linewidth}  l }
+        \\
+        Total published orders & 28511 \\
+        Oldest orders published on & May 26nd 2011\\
+        Latest orders published on & April 6th 2018 \\
+        \end{tabular}
+        
+    \begin{center}
+        \begin{tabular}{  p{0.7\linewidth} | p{0.3\linewidth} }
+        Attribute & Data type\\ \hline
+        id & Integer \\
+        supplier & String \\
+        order text & String \\
+        total value & Integer \\
+        currency & String \\
+        creation date & Date \\
+        release date & Date \\
+        id of order & String \\
+        supplier national identifier & Integer \\
+        supplier address & String \\
+        office organizational structure & String \\
+        name of approver & String \\
+        function of approver & String \\
+        date of issue & Date \\
+        release notes & String \\
+        status & String \\
+        contract id & Integer \\
+        year of contract & Integer \\
+        \end{tabular}
+    \end{center}	
+	\subsection{Grant applications}
+	\begin{tabular}{  p{0.5\linewidth}  l }
+        \\
+        Total published grant applications & 825 \\
+        Oldest grant app. published in & 2012\\
+        Latest grant app. published in & 2018 \\
+        \end{tabular}
+        
+    \begin{center}
+        \begin{tabular}{  p{0.7\linewidth} | p{0.3\linewidth} }
+        Attribute & Data type\\ \hline
+        year of dotation & Integer \\
+        type & String \\
+        status & String \\
+        action & String \\
+        approved amount & Integer \\
+        currency & String \\
+        applicant & String \\
+        applicant's address & Integer \\
+        applicant's city & String \\
+        applicant's national identifier & Integer \\
+        grant purpose & String \\
+        \end{tabular}
+    \end{center}	
+	
 \begin{conclusion}
 	%sem napište závěr Vaší práce
 \end{conclusion}
@@ -306,6 +434,9 @@ European Data Portal.
 \textit{Otvorené zmluvy [online].}
 [cit. 2018-04-04]. Available from: \url{http://www.otvorenezmluvy.sk/o-projekte}
 
+\bibitem{opengovernmentpartnership}
+\textit{Open Government Partnership [online].}
+[cit. 2018-06-04]. Available from: \url{https://www.opengovpartnership.org/about/about-ogp}
 \end{thebibliography}
 
 \chapter{Acronyms}
