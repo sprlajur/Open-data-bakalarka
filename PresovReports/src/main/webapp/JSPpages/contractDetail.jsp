@@ -37,12 +37,14 @@
             String type = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getType());
             String kind = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getKind());
             String currency = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getCurrency());
-            String signatureDate = (String) TableContractsDataFormatter.dateFormatter(contract.getSignatureDate().toString());
-            String releaseDate = (String) TableContractsDataFormatter.dateFormatter(contract.getReleaseDate().toString());
-            String name = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getName());
+            String signatureDate = TableContractsDataFormatter.dateFormatter(contract.getSignatureDate());
+            String releaseDate = TableContractsDataFormatter.dateFormatter(contract.getReleaseDate());
+            String name = (String) TableContractsDataFormatter.d
+                    
+                    ataOrEmptyString(contract.getName());
             String mainOrAppendix = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getMainOrAppendix());
             String signaturePlace = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getSignaturePlace());
-            String validityDate = (String) TableContractsDataFormatter.dateFormatter(contract.getValidityDate().toString());
+            String validityDate = TableContractsDataFormatter.dateFormatter(contract.getValidityDate());
             String subject = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getSubject());
         %>
         <h1>Detail zmluvy</h1>
@@ -53,7 +55,7 @@
             <li><strong>Strany: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party1)%>"><%=party1%></a>;&nbsp; &nbsp;  
                     <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party2)%>"><%=party2%></a></span></li>
             <li><strong>Predmet: </strong> <span><%= subject%></span></li>
-            <li><strong>Suma: </strong> <span><%= TableContractsDataFormatter.dataOrEmptyString(contract.getPrice()) + " " + currency%></span></li>
+            <li><strong>Suma: </strong> <span><%= TableContractsDataFormatter.priceFormatter(contract.getPrice(), currency)%></span></li>
             <li><strong>Dátum podpisu: </strong> <span><%=signatureDate%></span></li>
             <li><strong>Dátum zverejnenia: </strong> <span><%=releaseDate%></span></li>
             <li><strong>Názov: </strong> <span><%= name%></span></li>

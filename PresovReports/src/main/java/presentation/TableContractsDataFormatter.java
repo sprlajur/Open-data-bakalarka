@@ -5,10 +5,13 @@
  */
 package presentation;
 
-import java.time.ZoneId;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
-import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -17,12 +20,29 @@ import java.time.LocalDate;
 public class TableContractsDataFormatter {
 
     private static final int MAX_SUBJECT_LENGTH = 150;
+    private static final String CURRENCY_EUR = "EUR";
 
     public static Object dataOrEmptyString(Object data) {
         if (data == null) {
             return "";
         }
         return data;
+    }
+
+    public static String priceFormatter(BigDecimal price, String currency) {
+        if (price == null) {
+            return "";
+        }
+        if (currency.equals(CURRENCY_EUR)) {
+            NumberFormat format = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+            return format.format(price);
+        } else {
+            return price + " " + currency;
+        }
+    }
+
+    public static String dateFormatter(Date dbDate) {
+        return dbDate == null ? "" : dateFormatter(dbDate.toString());
     }
 
     public static String dateFormatter(String dbDate) {

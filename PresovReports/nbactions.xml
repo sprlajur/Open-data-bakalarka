@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-heroku deploy</actionName>
+            <displayName>heroku deploy</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <HEROKU_API_KEY>63bb43cd-0dec-4bbf-93cd-2acf00687a27</HEROKU_API_KEY>
+            </properties>
+        </action>
+    </actions>

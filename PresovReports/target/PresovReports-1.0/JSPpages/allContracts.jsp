@@ -49,8 +49,8 @@
                 <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party1)%>"><%=party1%></a> </td>
                 <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party2)%>"><%=party2%></a> </td>
                 <td><%=TableContractsDataFormatter.formatSubject(contract.getSubject())%></td>
-                <td><%=TableContractsDataFormatter.dateFormatter(contract.getSignatureDate().toString())%></td>
-                <td><%=TableContractsDataFormatter.dataOrEmptyString(contract.getPrice()) + " " + TableContractsDataFormatter.dataOrEmptyString(contract.getCurrency())%></td>
+                <td><%=TableContractsDataFormatter.dateFormatter(contract.getSignatureDate())%></td>
+                <td><%=TableContractsDataFormatter.priceFormatter(contract.getPrice(), contract.getCurrency())%></td>
                 <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_CONTRACTS_URL + "/" + Urls.CONTRACT_DETAIL + UrlParameters.CONTRACT_DETAIL_ID_PARAMETER.getURLParameter() + contract.getId()%>">detail</a> </td>
             </tr>
             <% }%>
