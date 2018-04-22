@@ -39,9 +39,7 @@
             String currency = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getCurrency());
             String signatureDate = TableContractsDataFormatter.dateFormatter(contract.getSignatureDate());
             String releaseDate = TableContractsDataFormatter.dateFormatter(contract.getReleaseDate());
-            String name = (String) TableContractsDataFormatter.d
-                    
-                    ataOrEmptyString(contract.getName());
+            String name = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getName());
             String mainOrAppendix = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getMainOrAppendix());
             String signaturePlace = (String) TableContractsDataFormatter.dataOrEmptyString(contract.getSignaturePlace());
             String validityDate = TableContractsDataFormatter.dateFormatter(contract.getValidityDate());
