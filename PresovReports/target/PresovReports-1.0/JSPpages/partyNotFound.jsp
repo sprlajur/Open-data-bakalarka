@@ -22,6 +22,6 @@
                 <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
             </ul>
         </div>
-        <h3>Objednávka číslo <%=request.getParameter(UrlParameters.ORDER_DETAIL_NR_PARAMETER.getParameter())%> nebola najdená.</h3>
+        <h3>Právnická osoba s IČO <%=request.getParameter(UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getParameter())%> nebola najdená v databáze RPO prístupnej cez API slovensko.digital.</h3>
     </body>
 </html>

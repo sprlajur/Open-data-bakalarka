@@ -5,16 +5,15 @@
  */
 package servlets;
 
-import DAO.ContractEntityDAO;
+import DAO.OrderEntityDAO;
 import constants.RequestAttributeNames;
 import constants.UrlParameters;
 import constants.Urls;
-import entity.ContractEntity;
+import entity.OrderEntity;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,18 +21,17 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sprlajur
  */
-@WebServlet(Urls.ALL_CONTRACTS_URL + "/" + Urls.CONTRACT_DETAIL)
-public class contractDetailServlet extends AbstractServlet {
+@WebServlet(Urls.ALL_ORDERS_URL + "/" +Urls.ORDER_DETAIL)
+public class OrderDetailServlet extends AbstractServlet {
 
-    private final String CONTRACT_DETAIL_JSP_FILE_PATH = "/JSPpages/contractDetail.jsp";
-    private final String CONTRACT_NOT_FOUND_JSP_FILE_PATH = "/JSPpages/contractNotFound.jsp";
-    private ContractEntityDAO contractEntityDAO;
+    private final String ORDER_DETAIL_JSP_FILE_PATH = "/JSPpages/orderDetail.jsp";
+    private final String ORDER_NOT_FOUND_JSP_FILE_PATH = "/JSPpages/orderNotFound.jsp";
+    private OrderEntityDAO orderEntityDAO;
 
     @Override
     public void init() {
-        contractEntityDAO = new ContractEntityDAO(entityManager);
+        orderEntityDAO = new OrderEntityDAO(entityManager);
     }
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,22 +44,22 @@ public class contractDetailServlet extends AbstractServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ContractEntity contract = null;
+        OrderEntity order = null;
         try {
-            String contractNr = request.getParameter(UrlParameters.CONTRACT_DETAIL_NR_PARAMETER.getParameter());
-            contract = contractEntityDAO.getContractByContractNr(contractNr);
+            String orderNr = request.getParameter(UrlParameters.ORDER_DETAIL_NR_PARAMETER.getParameter());
+            order = orderEntityDAO.findByInternalNr(orderNr);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        String nextJSP = contract == null ? CONTRACT_NOT_FOUND_JSP_FILE_PATH : CONTRACT_DETAIL_JSP_FILE_PATH;
-        if(contract != null){
-            request.setAttribute(RequestAttributeNames.CONTRACT, contract);
+        String nextJSP = order == null ? ORDER_NOT_FOUND_JSP_FILE_PATH : ORDER_DETAIL_JSP_FILE_PATH;
+        if(order != null){
+            request.setAttribute(RequestAttributeNames.ORDER, order);
         }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
         dispatcher.forward(request, response);
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

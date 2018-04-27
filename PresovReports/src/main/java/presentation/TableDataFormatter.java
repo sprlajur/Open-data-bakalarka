@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -17,10 +16,12 @@ import java.util.Locale;
  *
  * @author sprlajur
  */
-public class TableContractsDataFormatter {
+public class TableDataFormatter {
 
     private static final int MAX_SUBJECT_LENGTH = 150;
     private static final String CURRENCY_EUR = "EUR";
+    private static final String DATE_PATTERN = "dd.MM.yyyy";
+    private static final String DATA_DB_SEPARATOR = ";;";
 
     public static Object dataOrEmptyString(Object data) {
         if (data == null) {
@@ -50,17 +51,18 @@ public class TableContractsDataFormatter {
             return "";
         }
         return LocalDate.parse(dbDate).format(DateTimeFormatter.
-                ofPattern("dd.MM.yyyy"));
+                ofPattern(DATE_PATTERN));
     }
 
-    public static String formatSubject(String data) {
+    public static String formatTextData(String data) {
         if (data == null) {
             return "";
         }
+        data = data.trim().replaceAll(DATA_DB_SEPARATOR, "");
         if (data.length() < 150) {
-            data = data.trim().substring(0, data.length());
+            data = data.substring(0, data.length());
         } else {
-            data = data.trim().substring(0, MAX_SUBJECT_LENGTH) + "...";
+            data = data.substring(0, MAX_SUBJECT_LENGTH) + "...";
         }
         return data.trim();
     }
@@ -70,7 +72,7 @@ public class TableContractsDataFormatter {
             return "";
         }
         try {
-            data = data.split(";;")[partyOrd];
+            data = data.split(DATA_DB_SEPARATOR)[partyOrd];
         } catch (IndexOutOfBoundsException e) {
             return "";
         }

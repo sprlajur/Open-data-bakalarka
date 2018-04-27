@@ -22,6 +22,6 @@
                 <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
             </ul>
         </div>
-        <h3>Objednávka číslo <%=request.getParameter(UrlParameters.ORDER_DETAIL_NR_PARAMETER.getParameter())%> nebola najdená.</h3>
+        <h3>Zmluva s ID <%=request.getParameter(UrlParameters.CONTRACT_DETAIL_ID_PARAMETER.getParameter())%> nebola najdená.</h3>
     </body>
 </html>

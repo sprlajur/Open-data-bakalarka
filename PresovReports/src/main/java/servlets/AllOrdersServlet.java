@@ -5,12 +5,12 @@
  */
 package servlets;
 
-import DAO.ContractEntityDAO;
+import DAO.OrderEntityDAO;
 import constants.RequestAttributeNames;
-import constants.UrlParameters;
 import constants.Urls;
-import entity.ContractEntity;
+import entity.OrderEntity;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,16 +22,15 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sprlajur
  */
-@WebServlet(Urls.ALL_CONTRACTS_URL + "/" + Urls.CONTRACT_DETAIL)
-public class contractDetailServlet extends AbstractServlet {
+@WebServlet(Urls.ALL_ORDERS_URL)
+public class AllOrdersServlet extends AbstractServlet {
 
-    private final String CONTRACT_DETAIL_JSP_FILE_PATH = "/JSPpages/contractDetail.jsp";
-    private final String CONTRACT_NOT_FOUND_JSP_FILE_PATH = "/JSPpages/contractNotFound.jsp";
-    private ContractEntityDAO contractEntityDAO;
+    private OrderEntityDAO orderEntityManager;
+    private final String JSP_FILE_PATH = "/JSPpages/allOrders.jsp";
 
     @Override
     public void init() {
-        contractEntityDAO = new ContractEntityDAO(entityManager);
+        orderEntityManager = new OrderEntityDAO(entityManager);
     }
 
     /**
@@ -45,23 +44,14 @@ public class contractDetailServlet extends AbstractServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        ContractEntity contract = null;
-        try {
-            String contractNr = request.getParameter(UrlParameters.CONTRACT_DETAIL_NR_PARAMETER.getParameter());
-            contract = contractEntityDAO.getContractByContractNr(contractNr);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        String nextJSP = contract == null ? CONTRACT_NOT_FOUND_JSP_FILE_PATH : CONTRACT_DETAIL_JSP_FILE_PATH;
-        if(contract != null){
-            request.setAttribute(RequestAttributeNames.CONTRACT, contract);
-        }
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        List<OrderEntity> orders = orderEntityManager.findAll();
+        request.setAttribute(RequestAttributeNames.ALL_ORDERS, orders);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
         dispatcher.forward(request, response);
+
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

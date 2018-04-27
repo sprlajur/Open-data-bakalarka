@@ -11,4 +11,6 @@
 *.lof
 *.cls
 *.auf
-./PresovReports/target/.*
+*.class
+
+./PresovReports/target

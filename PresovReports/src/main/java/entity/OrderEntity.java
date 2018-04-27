@@ -27,8 +27,16 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "orders")
 @NamedQueries({
-    @NamedQuery(name = "OrderEntity.findAll", query = "SELECT o FROM OrderEntity o")})
+    @NamedQuery(name = OrderEntity.Q_ORDER_ENTITY_FIND_ALL, query = "SELECT o FROM OrderEntity o")
+    ,
+    @NamedQuery(name = OrderEntity.Q_ORDER_ENTITY_FIND_BY_INTERNAL_NR, query = "SELECT o FROM OrderEntity o where order_nr = :" + OrderEntity.SQL_PARAM_INTERNAL_NR)
+})
 public class OrderEntity implements Serializable {
+
+    public static final String Q_ORDER_ENTITY_FIND_ALL = "OrderEntity.findAll";
+    public static final String Q_ORDER_ENTITY_FIND_BY_INTERNAL_NR = "OrderEntity.findByInternalNr";
+
+    public static final String SQL_PARAM_INTERNAL_NR = "internalNr";
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -160,6 +168,9 @@ public class OrderEntity implements Serializable {
     }
 
     public String getIco() {
+        if(ico != null){
+            return ico.trim();
+        }
         return ico;
     }
 
@@ -263,5 +274,5 @@ public class OrderEntity implements Serializable {
     public String toString() {
         return "entity.OrderEntity[ id=" + id + " ]";
     }
-    
+
 }

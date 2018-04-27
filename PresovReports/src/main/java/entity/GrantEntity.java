@@ -24,8 +24,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "grants")
 @NamedQueries({
-    @NamedQuery(name = "GrantEntity.findAll", query = "SELECT g FROM GrantEntity g")})
+    @NamedQuery(name = GrantEntity.Q_GRANT_ENTITY_FIND_ALL, query = "SELECT g FROM GrantEntity g")})
 public class GrantEntity implements Serializable {
+    
+    public static final String Q_GRANT_ENTITY_FIND_ALL = "GrantEntity.findAll";
 
     private static final long serialVersionUID = 1L;
     @Id

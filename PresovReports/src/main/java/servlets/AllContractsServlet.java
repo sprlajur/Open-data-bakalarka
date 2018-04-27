@@ -26,6 +26,7 @@ public class AllContractsServlet extends AbstractServlet {
 
     private  ContractEntityDAO contractEntityManager;
     private final String JSP_FILE_PATH = "/JSPpages/allContracts.jsp";
+    
     @Override
     public void init() {
         contractEntityManager = new ContractEntityDAO(entityManager);
@@ -44,8 +45,7 @@ public class AllContractsServlet extends AbstractServlet {
             throws ServletException, IOException {
         List<ContractEntity> contracts = contractEntityManager.getAllContracts();
         request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, contracts);
-        String nextJSP = JSP_FILE_PATH;
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
         dispatcher.forward(request, response);
     }
 

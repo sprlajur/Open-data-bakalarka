@@ -27,8 +27,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "invoices")
 @NamedQueries({
-    @NamedQuery(name = "InvoiceEntity.findAll", query = "SELECT i FROM InvoiceEntity i")})
+    @NamedQuery(name = InvoiceEntity.Q_INVOICE_ENTITY_FIND_ALL, query = "SELECT i FROM InvoiceEntity i")})
 public class InvoiceEntity implements Serializable {
+    
+    public static final String Q_INVOICE_ENTITY_FIND_ALL = "InvoiceEntity.findAll";
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -184,6 +186,9 @@ public class InvoiceEntity implements Serializable {
     }
 
     public String getSupplierIco() {
+        if(supplierIco != null){
+            return supplierIco.trim();
+        }
         return supplierIco;
     }
 

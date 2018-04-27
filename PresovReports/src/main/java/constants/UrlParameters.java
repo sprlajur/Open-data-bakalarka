@@ -11,7 +11,8 @@ package constants;
  */
 public enum UrlParameters {
     PARTY_DETAIL_ICO_PARAMETER("ico"),
-    CONTRACT_DETAIL_ID_PARAMETER("id");
+    CONTRACT_DETAIL_NR_PARAMETER("number"),
+    ORDER_DETAIL_NR_PARAMETER("number");
 
     private final String parameter;
 
