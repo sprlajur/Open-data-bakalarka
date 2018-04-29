@@ -4,28 +4,27 @@
     Author     : sprlajur
 --%>
 
+<%@page import="rpo.RPOAlternateNameEntry"%>
+<%@page import="rpo.RPODepositEntry"%>
+<%@page import="java.util.List"%>
+<%@page import="rpo.RPOAddressEntry"%>
 <%@page import="constants.UrlParameters"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="rpo.RPOLegalPerson"%>
 <%@page import="constants.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
-        <title>Zmluva</title>
+        <title>Právnická osoba</title>
     </head>
     <body>
-        <div id="top_menu">
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_CONTRACTS_URL%>">Zmluvy</a></li>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_GRANTS_URL%>">Dotácie</a></li>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_INVOICES_URL%>">Faktúry</a></li>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
-            </ul>
-        </div>
+        <jsp:include page="topMenu.jsp" />
         <% RPOLegalPerson person = (RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON);%>
         <h1>Detail právnickej osoby</h1>
         <ul>
@@ -39,7 +38,26 @@
                 <% LocalDate terminated_on = person.getTerminated_on();
                     if (terminated_on != null) {%>
             <li><strong>Dátum ukončenia činnosti: </strong> <span><%= terminated_on.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))%></span></li>
-                <% }%>
+                <% }
+                %>
+                <c:if test = "${person.getDepositEntries() ne null && not person.getDepositEntries().isEmpty()}">
+                    <jsp:include page="depositEntries.jsp" />
+                </c:if>
+                <c:if test = "${person.getAlternateNameEntries() ne null && not person.getAlternateNameEntries().isEmpty()}">
+                    <jsp:include page="alternateNameEntries.jsp" />
+                </c:if>
+                <c:if test = "${person.getAddressEntries() ne null && not person.getAddressEntries().isEmpty()}">
+                    <jsp:include page="addressEntries.jsp" />
+                </c:if>
+                <c:if test = "${person.getAuthorizationEntries() ne null && not person.getAuthorizationEntries().isEmpty()}">
+                    <jsp:include page="authorizationEntries.jsp" />
+                </c:if>
+                <c:if test = "${person.getEconomicActivityEntries() ne null && not person.getEconomicActivityEntries().isEmpty()}">
+                    <jsp:include page="economicActivityEntries.jsp" />
+                </c:if>
+                <c:if test = "${person.getEquityEntries() ne null && not person.getEquityEntries().isEmpty()}">
+                    <jsp:include page="equityEntries.jsp" />
+                </c:if>
             <li><span> <a href="https://finstat.sk/<%=(String) request.getParameter(UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getParameter())%>" target="_blank">finstat.sk</a></span></li>
         </ul>
     </body>

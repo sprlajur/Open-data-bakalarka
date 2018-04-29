@@ -34,18 +34,26 @@ public class TableDataFormatter {
         if (price == null) {
             return "";
         }
-        if (currency.equals(CURRENCY_EUR)) {
-            NumberFormat format = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+        if (currency != null && currency.equals(CURRENCY_EUR)) {
+            NumberFormat format = NumberFormat.getCurrencyInstance(Locale.FRANCE);
             return format.format(price);
         } else {
-            return price + " " + currency;
+            return price + " " + dataOrEmptyString(currency);
         }
+    }
+    
+    public static String priceFormatter(float price, String currency){
+        return priceFormatter(new BigDecimal(price), currency);
     }
 
     public static String dateFormatter(Date dbDate) {
         return dbDate == null ? "" : dateFormatter(dbDate.toString());
     }
 
+    public static String dateFormatter(LocalDate dbDate) {
+        return dbDate == null ? "" : dateFormatter(dbDate.toString());
+    }
+    
     public static String dateFormatter(String dbDate) {
         if (dbDate == null) {
             return "";

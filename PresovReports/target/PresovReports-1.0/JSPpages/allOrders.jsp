@@ -19,14 +19,7 @@
         <title>Objednávky mesta</title>
     </head>
     <body>
-        <div id="top_menu">
-            <ul>
-                <li><a href= "<%= Urls.ALL_CONTRACTS_URL%>">Zmluvy</a></li>
-                <li><a href="<%= Urls.ALL_GRANTS_URL%>">Dotácie</a></li>
-                <li><a href="<%= Urls.ALL_INVOICES_URL%>">Faktúry</a></li>
-                <li><a href="<%= Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
-            </ul>
-        </div>
+        <jsp:include page="topMenu.jsp" />
         <%! List<OrderEntity> orders;%>
         <table style="width:100%">
             <tr style=>      

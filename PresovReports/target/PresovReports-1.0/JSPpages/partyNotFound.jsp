@@ -14,14 +14,7 @@
         <title>Právnická osoba nenájdená</title>
     </head>
     <body>
-        <div id="top_menu">
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_CONTRACTS_URL%>">Zmluvy</a></li>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_GRANTS_URL%>">Dotácie</a></li>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_INVOICES_URL%>">Faktúry</a></li>
-                <li><a href="${pageContext.request.contextPath}/<%=Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
-            </ul>
-        </div>
+        <jsp:include page="topMenu.jsp" />
         <h3>Právnická osoba s IČO <%=request.getParameter(UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getParameter())%> nebola najdená v databáze RPO prístupnej cez API slovensko.digital.</h3>
     </body>
 </html>

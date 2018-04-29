@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import constants.Urls;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("")
 public class HomeServlet extends HttpServlet {
-    
+
     private final String JSP_FILE_PATH = "/JSPpages/home.jsp";
 
     /**
@@ -33,9 +34,10 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nextJSP = JSP_FILE_PATH;
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-        dispatcher.forward(request, response);
+//        String nextJSP = JSP_FILE_PATH;
+//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+//        dispatcher.forward(request, response);
+        response.sendRedirect(Urls.ALL_CONTRACTS_URL);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

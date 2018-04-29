@@ -43,7 +43,7 @@ public class PartyDetailServlet extends HttpServlet {
         String ico = request.getParameter(UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getParameter());
         RPOLegalPerson person = null;
         if (ico != null && !ico.isEmpty()) {
-            person = RPOJsonParser.parseData(RPOApiDataGetter.getLegalPersonData(ico));
+            person = RPOApiDataGetter.getRPOData(ico);
         }
         request.setAttribute(RequestAttributeNames.LEGAL_PERSON, person);
         String nextJSP = person == null ? PARTY_NOT_FOUND_JSP_FILE_PATH : PARTY_DETAIL_JSP_FILE_PATH;

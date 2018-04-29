@@ -19,14 +19,7 @@
         <title>Dodávateľské faktúry mesta</title>
     </head>
     <body>
-        <div id="top_menu">
-            <ul>
-                <li><a href= "<%= Urls.ALL_CONTRACTS_URL%>">Zmluvy</a></li>
-                <li><a href="<%= Urls.ALL_GRANTS_URL%>">Dotácie</a></li>
-                <li><a href="<%= Urls.ALL_INVOICES_URL%>">Faktúry</a></li>
-                <li><a href="<%= Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
-            </ul>
-        </div>
+        <jsp:include page="topMenu.jsp" />
         <%! List<InvoiceEntity> invoices;%>
         <table style="width:100%">
             <tr style=>      
@@ -37,13 +30,22 @@
                 <th>Stav vybavenia</th>
                 <th>Dátum úhrady</th>
                 <th>Dátum zverejnenia</th>
-                <th>Zmluva</th>
+                <th>Zmluva/Objednávka</th>
             </tr>
             <%
                 invoices = (List<InvoiceEntity>) request.getAttribute(RequestAttributeNames.ALL_INVOICES);
 
                 for (int i = 0; i < invoices.size(); i++) {
                     InvoiceEntity invoice = invoices.get(i);
+                    String contractOrOrderUrl = "", contractOrOrderHref = "";
+                    if(invoice.getContractNr() != null){
+                        contractOrOrderUrl = "/" + Urls.ALL_CONTRACTS_URL + "/" + Urls.CONTRACT_DETAIL + UrlParameters.CONTRACT_DETAIL_NR_PARAMETER.getURLParameter() + invoice.getContractNr();
+                        contractOrOrderHref = (String) TableDataFormatter.dataOrEmptyString(invoice.getContractNr());
+                    }
+                    else if (invoice.getOrderNr() != null){
+                        contractOrOrderUrl = "/" + Urls.ALL_ORDERS_URL + "/" + Urls.ORDER_DETAIL + UrlParameters.ORDER_DETAIL_NR_PARAMETER.getURLParameter() + invoice.getOrderNr();
+                        contractOrOrderHref = (String) TableDataFormatter.dataOrEmptyString(invoice.getOrderNr());
+                    }
             %>
             <tr>      
                 <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + invoice.getSupplierIco() %>"><%= invoice.getSupplier() %></a> </td>
@@ -53,9 +55,7 @@
                 <td><%=TableDataFormatter.dataOrEmptyString(invoice.getCompletementStatus())%></td>
                 <td><%=TableDataFormatter.dateFormatter(invoice.getPaymentDate())%></td>
                 <td><%=TableDataFormatter.dateFormatter(invoice.getReleaseDate())%></td>
-                <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_CONTRACTS_URL + "/" + Urls.CONTRACT_DETAIL + UrlParameters.CONTRACT_DETAIL_NR_PARAMETER.getURLParameter() + invoice.getContractNr() %>"><%= TableDataFormatter.dataOrEmptyString(invoice.getContractNr())%></a> </td>
-                <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_ORDERS_URL + "/" + Urls.ORDER_DETAIL + UrlParameters.ORDER_DETAIL_NR_PARAMETER.getURLParameter() + invoice.getOrderNr() %>"><%= TableDataFormatter.dataOrEmptyString(invoice.getOrderNr())%></a> </td>
-
+                <td> <a href="${pageContext.request.contextPath}<%=contractOrOrderUrl %>"><%= contractOrOrderHref%></a> </td>
             </tr>
             <% }%>
         </table>

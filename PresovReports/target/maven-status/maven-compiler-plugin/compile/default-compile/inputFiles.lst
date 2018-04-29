@@ -1,11 +1,15 @@
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/HomeServlet.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/RPOJsonParser.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/RPOAddressEntry.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/entity/InvoiceEntity.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/RPOAlternateNameEntry.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/AllOrdersServlet.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/constants/Urls.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/RPODepositEntry.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/OrderDetailServlet.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/AbstractServlet.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/AllContractsServlet.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/RPOAuthorizationEntry.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/presentation/TableDataFormatter.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/DAO/InvoiceEntityDAO.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/RPOApiDataGetter.java
@@ -20,6 +24,7 @@
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/constants/RequestAttributeNames.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/entity/OrderEntity.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/constants/UrlParameters.java
+/home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/rpo/AbstractRPOEntry.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/DAO/AbstractEntityDAO.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/servlets/contractDetailServlet.java
 /home/sprlajur/NetBeansProjects/PresovReports/PresovReports/src/main/java/DAO/OrderEntityDAO.java

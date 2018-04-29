@@ -20,7 +20,20 @@ public class RPOApiDataGetter {
     private static final String AUTHORIZATION_TOKEN = "Token b0464a12da0721c24a64b37cda01dd125f98abd04108d57e753d8c02f2014cda62ac11044aa32c14";
     private static final int HTTP_OK_CODE = 200;
 
-    public static String getLegalPersonData(String lpID) {
+    
+    public static RPOLegalPerson getRPOData(String ico){
+        if(ico == null || ico.isEmpty()){
+            return null;
+        }
+        RPOLegalPerson legalPerson = new RPOLegalPerson();
+        String jsonData = getLegalPersonBasicData(ico);
+        legalPerson = RPOJsonParser.parseIntermediaryAPIData(jsonData, legalPerson);
+        jsonData = getLegalPersonFullRPOData(legalPerson.getRpo_API_url());
+        RPOJsonParser.parseFullRPOData(jsonData, legalPerson);
+        return legalPerson;
+    }
+    
+    public static String getLegalPersonBasicData(String lpID) {
         if (lpID == null || lpID.isEmpty()) {
             return null;
         }
@@ -41,7 +54,30 @@ public class RPOApiDataGetter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(result.toString());
+        return result.toString();
+    }
+
+    public static String getLegalPersonFullRPOData(String legalPersonRPOUrl) {
+        System.out.println("url: " + legalPersonRPOUrl);
+        if (legalPersonRPOUrl == null || legalPersonRPOUrl.isEmpty()) {
+            return null;
+        }
+        StringBuilder result = new StringBuilder();
+        try {
+            URL url = new URL(legalPersonRPOUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            if (conn.getResponseCode() == HTTP_OK_CODE) {
+                try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                    String line;
+                    while ((line = rd.readLine()) != null) {
+                        result.append(line);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result.toString();
     }
 }
