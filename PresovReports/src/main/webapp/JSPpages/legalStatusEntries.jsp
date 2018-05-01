@@ -1,5 +1,5 @@
 <%-- 
-    Document   : economicActivityEntries
+    Document   : legalStatusEntries
     Created on : Apr 29, 2018, 3:36:52 PM
     Author     : sprlajur
 --%>
@@ -17,14 +17,14 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Predmety činností</h2>
+        <h2>Právne stavy</h2>
         <%
-            List<RPOOneStringEntry> economicActivityEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getEconomicActivityEntries();
-            if (economicActivityEntries != null) {
-                for (int i = 0; i < economicActivityEntries.size(); i++) {
-                    RPOOneStringEntry de = economicActivityEntries.get(i);
+            List<RPOOneStringEntry> legalStatusEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getLegalStatusEntries();
+            if (legalStatusEntries != null) {
+                for (int i = 0; i < legalStatusEntries.size(); i++) {
+                    RPOOneStringEntry de = legalStatusEntries.get(i);
         %>
-    <li><strong>Popis: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
+    <li><strong>Názov: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
     <li><strong>Platný od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
     <li><strong>Platný do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
     <br>            

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : alternateNameEntries
+    Document   : legalFormEntries
     Created on : Apr 29, 2018, 3:36:52 PM
     Author     : sprlajur
 --%>
@@ -17,14 +17,14 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Alternatívne mená</h2>
+        <h2>Právne formy</h2>
         <%
-            List<RPOOneStringEntry> alternateNameEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getAlternateNameEntries();
-            if (alternateNameEntries != null) {
-                for (int i = 0; i < alternateNameEntries.size(); i++) {
-                    RPOOneStringEntry de = alternateNameEntries.get(i);
+            List<RPOOneStringEntry> legalFormEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getLegalForms();
+            if (legalFormEntries != null) {
+                for (int i = 0; i < legalFormEntries.size(); i++) {
+                    RPOOneStringEntry de = legalFormEntries.get(i);
         %>
-    <li><strong>Meno: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
+    <li><strong>Názov: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
     <li><strong>Platné od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
     <li><strong>Platné do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
     <br>            

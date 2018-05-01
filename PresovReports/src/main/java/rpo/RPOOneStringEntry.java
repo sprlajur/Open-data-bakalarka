@@ -9,7 +9,7 @@ package rpo;
  *
  * @author sprlajur
  */
-public class RPOAuthorizationEntry extends AbstractRPOEntry{
+public class RPOOneStringEntry extends AbstractRPOEntry {
 
     private String body;
 
@@ -17,8 +17,8 @@ public class RPOAuthorizationEntry extends AbstractRPOEntry{
         return body;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setBody(String name) {
+        this.body = name;
     }
 
 }

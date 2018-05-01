@@ -49,7 +49,7 @@ public class RPOJsonParser {
     private static final String JSON_ALTERNATE_NAMES_ENTRIES_NAME = "name";
 
     private static final String JSON_DEPOSIT_ENTRIES = "deposit_entries";
-    private static final String JSON_DEPOSIT_ENTRIES_FULL_NAME = "full_name";
+    private static final String JSON_FULL_NAME = "full_name";
     private static final String JSON_DEPOSIT_ENTRIES_PERSON_FORMATTED_NAME = "person_formatted_name";
     private static final String JSON_DEPOSIT_ENTRIES_DEPOSIT_AMOUNT = "deposit_amount";
     private static final String JSON_DEPOSIT_ENTRIES_DEPOSIT_CURRENCY = "deposit_currency";
@@ -70,6 +70,46 @@ public class RPOJsonParser {
     private static final String JSON_EQUITY_ENTRIES_PAID_CURRENCY = "paid_currency";
     private static final String JSON_EQUITY_ENTRIES_APPROVED_AMOUNT = "approved_amount";
     private static final String JSON_EQUITY_ENTRIES_APPROVED_CURRENCY = "approved_currency";
+
+    private static final String JSON_LEGAL_FORM_ENTRIES = "legal_form_entries";
+    private static final String JSON_LEGAL_FORM_ENTRIES_LEGAL_FORM = "legal_form";
+    private static final String JSON_LEGAL_FORM_ENTRIES_LEGAL_FORM_NAME = "name";
+
+    private static final String JSON_LEGAL_STATUS_ENTRIES = "legal_status_entries";
+    private static final String JSON_LEGAL_STATUS_ENTRIES_BODY = "body";
+
+    private static final String JSON_NAME_ENTRIES = "name_entries";
+    private static final String JSON_NAME_ENTRIES_NAME = "name";
+
+    private static final String JSON_PREDECESSOR_ENTRIES = "predecessor_entries";
+    private static final String JSON_SUCCESSOR_ENTRIES = "successor_entries";
+    private static final String JSON_ENTRIES_ICO = "ico";
+    private static final String JSON_ENTRIES_FULL_NAME = "full_name";
+
+    private static final String JSON_SHARE_ENTRIES = "share_entries";
+    private static final String JSON_SHARE_ENTRIES_PRICE = "share_price";
+    private static final String JSON_SHARE_ENTRIES_CURRENCY = "share_currency";
+    private static final String JSON_SHARE_ENTRIES_AMOUNT = "share_amount";
+    private static final String JSON_SHARE_ENTRIES_TRANSFER = "share_transfer";
+    private static final String JSON_SHARE_ENTRIES_TYPE = "share_type";
+    private static final String JSON_SHARE_ENTRIES_FORM = "share_form";
+    private static final String JSON_SHARE_ENTRIES_NAME = "name";
+
+    private static final String JSON_STAKEHOLDER_ENTRIES = "stakeholder_entries";
+    private static final String JSON_STATUTORY_ENTRIES = "statutory_entries";
+    private static final String JSON_STAKEHOLDER_TYPE = "stakeholder_type";
+    private static final String JSON_PERSON_FORMATTED_NAME = "person_formatted_name";
+    private static final String JSON_ADDRESS_FORMATTED = "address_formatted";
+    private static final String JSON_ADDRESS_STREET = "address_street";
+    private static final String JSON_ADDRESS_REG_NR = "address_reg_number";
+    private static final String JSON_ADDRESS_BUILDING_NR = "address_building_number";
+    private static final String JSON_ADDRESS_POSTAL_CODE = "address_postal_code";
+    private static final String JSON_ADDRESS_MUNICIPALITY = "address_municipality";
+    private static final String JSON_ADDRESS_COUNTRY = "address_country";
+    private static final String JSON_ADDRESS_DISTRICT = "address_district";
+
+    private static final String JSON_MAIN_ACTIVITY_CODE = "main_activity_code";
+    private static final String JSON_ESA2010_CODE = "esa2010_code";
 
     public static RPOLegalPerson parseIntermediaryAPIData(String jsonData, RPOLegalPerson person) {
         if (jsonData == null || jsonData.isEmpty()) {
@@ -150,7 +190,36 @@ public class RPOJsonParser {
             if (!obj.isNull(JSON_EQUITY_ENTRIES)) {
                 parseEquityEntries(obj, person);
             }
-
+            if (!obj.isNull(JSON_LEGAL_FORM_ENTRIES)) {
+                parseLegalFormEntries(obj, person);
+            }
+            if (!obj.isNull(JSON_LEGAL_STATUS_ENTRIES)) {
+                parseLegalStatusEntries(obj, person);
+            }
+            if (!obj.isNull(JSON_NAME_ENTRIES)) {
+                parseNameEntries(obj, person);
+            }
+            if (!obj.isNull(JSON_PREDECESSOR_ENTRIES)) {
+                parsePredecessorSuccessorEntries(obj, person, false);
+            }
+            if (!obj.isNull(JSON_SUCCESSOR_ENTRIES)) {
+                parsePredecessorSuccessorEntries(obj, person, true);
+            }
+            if (!obj.isNull(JSON_SHARE_ENTRIES)) {
+                parseShareEntries(obj, person);
+            }
+            if (!obj.isNull(JSON_STAKEHOLDER_ENTRIES)) {
+                parseStakeholderStatutoryEntries(obj, person, false);
+            }
+            if (!obj.isNull(JSON_STATUTORY_ENTRIES)) {
+                parseStakeholderStatutoryEntries(obj, person, true);
+            }
+            if (!obj.isNull(JSON_MAIN_ACTIVITY_CODE)) {
+                parseMainActivityCode(obj, person);
+            }
+            if (!obj.isNull(JSON_ESA2010_CODE)) {
+                parseESA2010Code(obj, person);
+            }
         } catch (JSONException | NumberFormatException e) {
             e.printStackTrace();
         }
@@ -190,17 +259,17 @@ public class RPOJsonParser {
     }
 
     private static void parseAlternateNameEntries(JSONObject jsonObject, RPOLegalPerson person) {
-        List<RPOAlternateNameEntry> alternateNames = new ArrayList<RPOAlternateNameEntry>();
+        List<RPOOneStringEntry> alternateNames = new ArrayList<RPOOneStringEntry>();
         JSONArray alternateNamesJSON = jsonObject.getJSONArray(JSON_ALTERNATE_NAMES_ENTRIES);
         if (alternateNamesJSON != null) {
             alternateNamesJSON.forEach(alterName -> {
                 JSONObject alterNameJSONObject = (JSONObject) alterName;
+                RPOOneStringEntry rpoAlternateName = new RPOOneStringEntry();
                 if (!alterNameJSONObject.isNull(JSON_ALTERNATE_NAMES_ENTRIES_NAME)) {
-                    RPOAlternateNameEntry rpoAlternateName = new RPOAlternateNameEntry();
-                    rpoAlternateName.setName(alterNameJSONObject.getString(JSON_ALTERNATE_NAMES_ENTRIES_NAME));
-                    setEffectiveDates(rpoAlternateName, alterNameJSONObject);
-                    alternateNames.add(rpoAlternateName);
+                    rpoAlternateName.setBody(alterNameJSONObject.getString(JSON_ALTERNATE_NAMES_ENTRIES_NAME));
                 }
+                setEffectiveDates(rpoAlternateName, alterNameJSONObject);
+                alternateNames.add(rpoAlternateName);
             });
         }
         if (!alternateNames.isEmpty()) {
@@ -215,8 +284,8 @@ public class RPOJsonParser {
             depositEntriesJSONArr.forEach(iterator -> {
                 RPODepositEntry rpoDepositEntry = new RPODepositEntry();
                 JSONObject depositJSONObject = (JSONObject) iterator;
-                if (!depositJSONObject.isNull(JSON_DEPOSIT_ENTRIES_FULL_NAME)) {
-                    rpoDepositEntry.setFullName(depositJSONObject.getString(JSON_DEPOSIT_ENTRIES_FULL_NAME));
+                if (!depositJSONObject.isNull(JSON_FULL_NAME)) {
+                    rpoDepositEntry.setFullName(depositJSONObject.getString(JSON_FULL_NAME));
                 }
                 if (!depositJSONObject.isNull(JSON_DEPOSIT_ENTRIES_PERSON_FORMATTED_NAME)) {
                     rpoDepositEntry.setPersonFormattedName(depositJSONObject.getString(JSON_DEPOSIT_ENTRIES_PERSON_FORMATTED_NAME));
@@ -240,17 +309,17 @@ public class RPOJsonParser {
     }
 
     private static void parseAuthorizationEntries(JSONObject jsonObject, RPOLegalPerson person) {
-        List<RPOAuthorizationEntry> authorizationEntries = new ArrayList<>();
+        List<RPOOneStringEntry> authorizationEntries = new ArrayList<>();
         JSONArray authorizationJSON = jsonObject.getJSONArray(JSON_AUTHORIZATION_ENTRIES);
         if (authorizationJSON != null) {
             authorizationJSON.forEach(authorization -> {
                 JSONObject authorizationJSONObject = (JSONObject) authorization;
+                RPOOneStringEntry rpoAuthorizationEntry = new RPOOneStringEntry();
                 if (!authorizationJSONObject.isNull(JSON_AUTHORIZATION_ENTRIES_BODY)) {
-                    RPOAuthorizationEntry rpoAuthorizationEntry = new RPOAuthorizationEntry();
                     rpoAuthorizationEntry.setBody(authorizationJSONObject.getString(JSON_AUTHORIZATION_ENTRIES_BODY));
-                    setEffectiveDates(rpoAuthorizationEntry, authorizationJSONObject);
-                    authorizationEntries.add(rpoAuthorizationEntry);
                 }
+                setEffectiveDates(rpoAuthorizationEntry, authorizationJSONObject);
+                authorizationEntries.add(rpoAuthorizationEntry);
             });
         }
         if (!authorizationEntries.isEmpty()) {
@@ -259,20 +328,14 @@ public class RPOJsonParser {
     }
 
     private static void parseEconomicActivityEntries(JSONObject jsonObject, RPOLegalPerson person) {
-        List<RPOEconomicActivityEntry> economicActivityEntries = new ArrayList<>();
+        List<RPOOneStringEntry> economicActivityEntries = new ArrayList<>();
         JSONArray economicActivityJSON = jsonObject.getJSONArray(JSON_ECONOMIC_ACTIVITY_ENTRIES);
         if (economicActivityJSON != null) {
             economicActivityJSON.forEach(economicActivity -> {
                 JSONObject economicActivityJSONObject = (JSONObject) economicActivity;
-                RPOEconomicActivityEntry rpoEconomicActivityEntry = new RPOEconomicActivityEntry();
+                RPOOneStringEntry rpoEconomicActivityEntry = new RPOOneStringEntry();
                 if (!economicActivityJSONObject.isNull(JSON_ECONOMIC_ACTIVITY_ENTRIES_DESCRIPTION)) {
-                    rpoEconomicActivityEntry.setDescription(economicActivityJSONObject.getString(JSON_ECONOMIC_ACTIVITY_ENTRIES_DESCRIPTION));
-                }
-                if (!economicActivityJSONObject.isNull(JSON_ECONOMIC_ACTIVITY_ENTRIES_SUSPENDED_FROM)) {
-                    rpoEconomicActivityEntry.setSuspendedFrom(LocalDate.parse(economicActivityJSONObject.getString(JSON_ECONOMIC_ACTIVITY_ENTRIES_SUSPENDED_FROM), DateTimeFormatter.ofPattern(DATE_FORMAT)));
-                }
-                if (!economicActivityJSONObject.isNull(JSON_ECONOMIC_ACTIVITY_ENTRIES_SUSPENDED_TO)) {
-                    rpoEconomicActivityEntry.setSuspendedTo(LocalDate.parse(economicActivityJSONObject.getString(JSON_ECONOMIC_ACTIVITY_ENTRIES_SUSPENDED_TO), DateTimeFormatter.ofPattern(DATE_FORMAT)));
+                    rpoEconomicActivityEntry.setBody(economicActivityJSONObject.getString(JSON_ECONOMIC_ACTIVITY_ENTRIES_DESCRIPTION));
                 }
                 economicActivityEntries.add(rpoEconomicActivityEntry);
                 setEffectiveDates(rpoEconomicActivityEntry, economicActivityJSONObject);
@@ -317,7 +380,208 @@ public class RPOJsonParser {
         }
     }
 
-    private static void setEffectiveDates(AbstractRPOEntry identEntry, JSONObject jsonIdentifier) {
+    private static void parseLegalFormEntries(JSONObject jsonObject, RPOLegalPerson person) {
+        List<RPOOneStringEntry> legalForms = new ArrayList<RPOOneStringEntry>();
+        JSONArray legalFormsJSON = jsonObject.getJSONArray(JSON_LEGAL_FORM_ENTRIES);
+        if (legalFormsJSON != null) {
+            legalFormsJSON.forEach(legalFormIt -> {
+                JSONObject legalFormEntryJSONObject = (JSONObject) legalFormIt;
+                RPOOneStringEntry legalForm = new RPOOneStringEntry();
+                if (!legalFormEntryJSONObject.isNull(JSON_LEGAL_FORM_ENTRIES_LEGAL_FORM)) {
+                    JSONObject legalFormJSONObject = (JSONObject) legalFormEntryJSONObject.getJSONObject(JSON_LEGAL_FORM_ENTRIES_LEGAL_FORM);
+                    if (!legalFormJSONObject.isNull(JSON_LEGAL_FORM_ENTRIES_LEGAL_FORM_NAME)) {
+                        legalForm.setBody(legalFormJSONObject.getString(JSON_LEGAL_FORM_ENTRIES_LEGAL_FORM_NAME));
+                        setEffectiveDates(legalForm, legalFormEntryJSONObject);
+                        legalForms.add(legalForm);
+                    }
+                }
+            });
+        }
+        if (!legalForms.isEmpty()) {
+            person.setLegalForms(legalForms);
+        }
+    }
+
+    private static void parseLegalStatusEntries(JSONObject jsonObject, RPOLegalPerson person) {
+        List<RPOOneStringEntry> legalStatusEntries = new ArrayList<>();
+        JSONArray legalStatusJSON = jsonObject.getJSONArray(JSON_LEGAL_STATUS_ENTRIES);
+        if (legalStatusJSON != null) {
+            legalStatusJSON.forEach(legalStatus -> {
+                JSONObject legalStatusJSONObject = (JSONObject) legalStatus;
+                RPOOneStringEntry rpoLegalStatusEntry = new RPOOneStringEntry();
+                if (!legalStatusJSONObject.isNull(JSON_LEGAL_STATUS_ENTRIES_BODY)) {
+                    rpoLegalStatusEntry.setBody(legalStatusJSONObject.getString(JSON_LEGAL_STATUS_ENTRIES_BODY));
+                }
+                setEffectiveDates(rpoLegalStatusEntry, legalStatusJSONObject);
+                legalStatusEntries.add(rpoLegalStatusEntry);
+            });
+        }
+        if (!legalStatusEntries.isEmpty()) {
+            person.setLegalStatusEntries(legalStatusEntries);
+        }
+    }
+
+    private static void parseNameEntries(JSONObject jsonObject, RPOLegalPerson person) {
+        List<RPOOneStringEntry> nameEntries = new ArrayList<>();
+        JSONArray nameJSON = jsonObject.getJSONArray(JSON_NAME_ENTRIES);
+        if (nameJSON != null) {
+            nameJSON.forEach(name -> {
+                JSONObject nameJSONObject = (JSONObject) name;
+                RPOOneStringEntry rpoNameEntry = new RPOOneStringEntry();
+                if (!nameJSONObject.isNull(JSON_NAME_ENTRIES_NAME)) {
+                    rpoNameEntry.setBody(nameJSONObject.getString(JSON_NAME_ENTRIES_NAME));
+                }
+                setEffectiveDates(rpoNameEntry, nameJSONObject);
+                nameEntries.add(rpoNameEntry);
+            });
+        }
+        if (!nameEntries.isEmpty()) {
+            person.setNameEntries(nameEntries);
+        }
+    }
+
+    private static void parsePredecessorSuccessorEntries(JSONObject jsonObject, RPOLegalPerson person, Boolean successor) {
+        List<RPOPredecessorSuccessorEntry> predecessorSucessorEntries = new ArrayList<>();
+        JSONArray predecessorSucessorJSON = jsonObject.getJSONArray(successor == true ? JSON_SUCCESSOR_ENTRIES : JSON_PREDECESSOR_ENTRIES);
+        if (predecessorSucessorJSON != null) {
+            predecessorSucessorJSON.forEach(it -> {
+                JSONObject JSONObject = (JSONObject) it;
+                System.out.println("pse");
+                RPOPredecessorSuccessorEntry rpoPredecessorEntry = new RPOPredecessorSuccessorEntry();
+                if (!JSONObject.isNull(JSON_ENTRIES_ICO)) {
+                    rpoPredecessorEntry.setIco(JSONObject.getBigInteger(JSON_ENTRIES_ICO));
+                }
+                if (!JSONObject.isNull(JSON_ENTRIES_FULL_NAME)) {
+                    rpoPredecessorEntry.setName(JSONObject.getString(JSON_ENTRIES_FULL_NAME));
+                }
+                setEffectiveDates(rpoPredecessorEntry, JSONObject);
+                predecessorSucessorEntries.add(rpoPredecessorEntry);
+            });
+        }
+        if (!predecessorSucessorEntries.isEmpty()) {
+            if (successor == true) {
+                person.setSuccessorEntries(predecessorSucessorEntries);
+            } else {
+                System.out.println("psed");
+                person.setPredecessorEntries(predecessorSucessorEntries);
+            }
+        }
+    }
+
+    private static void parseShareEntries(JSONObject jsonObject, RPOLegalPerson person) {
+        List<RPOShareEntry> shares = new ArrayList<RPOShareEntry>();
+        JSONArray sharesJSON = jsonObject.getJSONArray(JSON_SHARE_ENTRIES);
+        if (sharesJSON != null) {
+            sharesJSON.forEach(shareIt -> {
+                JSONObject shareJSONObject = (JSONObject) shareIt;
+                RPOShareEntry share = new RPOShareEntry();
+                if (!shareJSONObject.isNull(JSON_SHARE_ENTRIES_PRICE)) {
+                    share.setPrice(shareJSONObject.getFloat(JSON_SHARE_ENTRIES_PRICE));
+                }
+                if (!shareJSONObject.isNull(JSON_SHARE_ENTRIES_CURRENCY)) {
+                    share.setCurrency(shareJSONObject.getString(JSON_SHARE_ENTRIES_CURRENCY));
+                }
+                if (!shareJSONObject.isNull(JSON_SHARE_ENTRIES_AMOUNT)) {
+                    share.setAmount(shareJSONObject.getInt(JSON_SHARE_ENTRIES_AMOUNT));
+                }
+                if (!shareJSONObject.isNull(JSON_SHARE_ENTRIES_TRANSFER)) {
+                    share.setTransferDescription(shareJSONObject.getString(JSON_SHARE_ENTRIES_TRANSFER));
+                }
+                if (!shareJSONObject.isNull(JSON_SHARE_ENTRIES_TYPE)) {
+                    JSONObject shareTypeJsonObject = (JSONObject) shareJSONObject.getJSONObject(JSON_SHARE_ENTRIES_TYPE);
+                    if (!shareTypeJsonObject.isNull(JSON_SHARE_ENTRIES_NAME)) {
+                        share.setType(shareTypeJsonObject.getString(JSON_SHARE_ENTRIES_NAME));
+                    }
+                }
+                if (!shareJSONObject.isNull(JSON_SHARE_ENTRIES_FORM)) {
+                    JSONObject shareFormJsonObject = (JSONObject) shareJSONObject.getJSONObject(JSON_SHARE_ENTRIES_FORM);
+                    if (!shareFormJsonObject.isNull(JSON_SHARE_ENTRIES_NAME)) {
+                        share.setForm(shareFormJsonObject.getString(JSON_SHARE_ENTRIES_NAME));
+                    }
+                }
+                setEffectiveDates(share, shareJSONObject);
+                shares.add(share);
+            });
+        }
+        if (!shares.isEmpty()) {
+            person.setShareEntries(shares);
+        }
+    }
+
+    private static void parseStakeholderStatutoryEntries(JSONObject jsonObject, RPOLegalPerson person, boolean isStatutory) {
+        List<RPOStatutoryStakeholderEntry> statutoriesStakeholders = new ArrayList<RPOStatutoryStakeholderEntry>();
+        JSONArray jsonArray = jsonObject.getJSONArray(isStatutory ? JSON_STATUTORY_ENTRIES : JSON_STAKEHOLDER_ENTRIES);
+        System.out.println("a");
+        if (jsonArray != null) {
+            jsonArray.forEach(iter -> {
+                System.out.println("ab");
+                JSONObject mainJSONObject = (JSONObject) iter;
+                RPOStatutoryStakeholderEntry statutoryStakeholder = new RPOStatutoryStakeholderEntry();
+                if (!mainJSONObject.isNull(JSON_FULL_NAME)) {
+                    statutoryStakeholder.setFullName(mainJSONObject.getString(JSON_FULL_NAME));
+                }
+                if (!mainJSONObject.isNull(JSON_PERSON_FORMATTED_NAME)) {
+                    statutoryStakeholder.setFormattedName(mainJSONObject.getString(JSON_PERSON_FORMATTED_NAME));
+                }
+                if (!mainJSONObject.isNull(JSON_ADDRESS_FORMATTED)) {
+                    statutoryStakeholder.setFormattedAddress(mainJSONObject.getString(JSON_ADDRESS_FORMATTED));
+                }
+                if (!mainJSONObject.isNull(JSON_ADDRESS_STREET)) {
+                    statutoryStakeholder.setStreet(mainJSONObject.getString(JSON_ADDRESS_STREET));
+                }
+                if (!mainJSONObject.isNull(JSON_ADDRESS_BUILDING_NR)) {
+                    statutoryStakeholder.setBuildingNr(mainJSONObject.getString(JSON_ADDRESS_BUILDING_NR));
+                }
+                if (!mainJSONObject.isNull(JSON_ADDRESS_COUNTRY)) {
+                    statutoryStakeholder.setCountry(mainJSONObject.getString(JSON_ADDRESS_COUNTRY));
+                }
+                if (!mainJSONObject.isNull(JSON_ADDRESS_DISTRICT)) {
+                    statutoryStakeholder.setDistrict(mainJSONObject.getString(JSON_ADDRESS_DISTRICT));
+                }
+                if (!mainJSONObject.isNull(JSON_ADDRESS_MUNICIPALITY)) {
+                    statutoryStakeholder.setMunicipality(mainJSONObject.getString(JSON_ADDRESS_MUNICIPALITY));
+                }
+                if (!mainJSONObject.isNull(JSON_ADDRESS_POSTAL_CODE)) {
+                    statutoryStakeholder.setPostalCode(mainJSONObject.getString(JSON_ADDRESS_POSTAL_CODE));
+                }
+                if (!mainJSONObject.isNull(JSON_ENTRIES_ICO)) {
+                    statutoryStakeholder.setIco(mainJSONObject.getString(JSON_ENTRIES_ICO));
+                }
+                if (!mainJSONObject.isNull(JSON_STAKEHOLDER_TYPE)) {
+                    JSONObject stakeholderTypeJsonObject = (JSONObject) mainJSONObject.getJSONObject(JSON_STAKEHOLDER_TYPE);
+                    if (!stakeholderTypeJsonObject.isNull(JSON_NAME)) {
+                        statutoryStakeholder.setType(stakeholderTypeJsonObject.getString(JSON_NAME));
+                    }
+                }
+                setEffectiveDates(statutoryStakeholder, mainJSONObject);
+                statutoriesStakeholders.add(statutoryStakeholder);
+            });
+        }
+        if (!statutoriesStakeholders.isEmpty()) {
+            if (isStatutory) {
+                System.out.println("abs");
+                person.setStatutoryEntries(statutoriesStakeholders);
+            } else {
+                person.setStakeholderEntries(statutoriesStakeholders);
+            }
+        }
+    }
+
+    private static void parseMainActivityCode(JSONObject jsonObject, RPOLegalPerson person) {
+        JSONObject maJSONObject = (JSONObject) jsonObject.getJSONObject(JSON_MAIN_ACTIVITY_CODE);
+        if (!maJSONObject.isNull(JSON_NAME_ENTRIES_NAME)) {
+            person.setMainActivityCode(maJSONObject.getString(JSON_NAME_ENTRIES_NAME));
+        }
+    }
+    
+    private static void parseESA2010Code(JSONObject jsonObject, RPOLegalPerson person) {
+        JSONObject esaJSONObject = (JSONObject) jsonObject.getJSONObject(JSON_MAIN_ACTIVITY_CODE);
+        if (!esaJSONObject.isNull(JSON_NAME_ENTRIES_NAME)) {
+            person.setEsa2010Code(esaJSONObject.getString(JSON_NAME_ENTRIES_NAME));
+        }
+    }
+
+private static void setEffectiveDates(AbstractRPOEntry identEntry, JSONObject jsonIdentifier) {
         if (!jsonIdentifier.isNull(JSON_EFFECTIVE_FROM)) {
             identEntry.setEffectiveFrom(LocalDate.parse(jsonIdentifier.getString(JSON_EFFECTIVE_FROM), DateTimeFormatter.ofPattern(DATE_FORMAT)));
         }

@@ -5,13 +5,25 @@
  */
 package rpo;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author sprlajur
  */
-public class RPOAlternateNameEntry extends AbstractRPOEntry {
+public class RPOPredecessorSuccessorEntry extends AbstractRPOEntry {
+
+    private BigInteger ico;
 
     private String name;
+
+    public BigInteger getIco() {
+        return ico;
+    }
+
+    public void setIco(BigInteger ico) {
+        this.ico = ico;
+    }
 
     public String getName() {
         return name;

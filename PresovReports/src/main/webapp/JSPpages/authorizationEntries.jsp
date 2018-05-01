@@ -8,7 +8,7 @@
 <%@page import="rpo.RPOLegalPerson"%>
 <%@page import="presentation.TableDataFormatter"%>
 <%@page import="java.util.List"%>
-<%@page import="rpo.RPOAuthorizationEntry"%>
+<%@page import="rpo.RPOOneStringEntry"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,10 +19,10 @@
     <body>
         <h2>Oprávnenia konať v mene právnickej osoby</h2>
         <%
-            List<RPOAuthorizationEntry> authorizationEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getAuthorizationEntries();
+            List<RPOOneStringEntry> authorizationEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getAuthorizationEntries();
             if (authorizationEntries != null) {
                 for (int i = 0; i < authorizationEntries.size(); i++) {
-                    RPOAuthorizationEntry de = authorizationEntries.get(i);
+                    RPOOneStringEntry de = authorizationEntries.get(i);
         %>
     <li><strong>Text: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
     <li><strong>Platné od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>

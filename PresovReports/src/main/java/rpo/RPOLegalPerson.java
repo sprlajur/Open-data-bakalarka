@@ -39,21 +39,37 @@ public class RPOLegalPerson {
 
     private String accounting_entities_API_url;
 
-    private String main_activity_code;
-
-    private String esa2010_code;
-
     private List<RPOAddressEntry> addressEntries;
 
-    private List<RPOAlternateNameEntry> alternateNameEntries;
+    private List<RPOOneStringEntry> alternateNameEntries;
 
-    private List<RPOAuthorizationEntry> authorizationEntries;
+    private List<RPOOneStringEntry> nameEntries;
+
+    private List<RPOOneStringEntry> authorizationEntries;
 
     private List<RPODepositEntry> depositEntries;
 
-    private List<RPOEconomicActivityEntry> economicActivityEntries;
+    private List<RPOOneStringEntry> economicActivityEntries;
 
     private List<RPOEquityEntry> equityEntries;
+
+    private List<RPOOneStringEntry> legalFormEntries;
+
+    private List<RPOOneStringEntry> legalStatusEntries;
+
+    private List<RPOShareEntry> shareEntries;
+
+    private List<RPOPredecessorSuccessorEntry> predecessorEntries;
+
+    private List<RPOPredecessorSuccessorEntry> successorEntries;
+
+    private List<RPOStatutoryStakeholderEntry> stakeholderEntries;
+
+    private List<RPOStatutoryStakeholderEntry> statutoryEntries;
+
+    private String mainActivityCode;
+
+    private String esa2010Code;
 
     public void setRegistration_nr(String registration_nr) {
         this.registration_nr = registration_nr;
@@ -151,36 +167,28 @@ public class RPOLegalPerson {
         this.addressEntries = addressEntries;
     }
 
-    public List<RPOAlternateNameEntry> getAlternateNameEntries() {
+    public List<RPOOneStringEntry> getAlternateNameEntries() {
         return alternateNameEntries;
     }
 
-    public void setAlternateNameEntries(List<RPOAlternateNameEntry> alternateNames) {
+    public void setAlternateNameEntries(List<RPOOneStringEntry> alternateNames) {
         this.alternateNameEntries = alternateNames;
     }
 
-    public String getMain_activity_code() {
-        return main_activity_code;
+    public String getMainActivityCode() {
+        return mainActivityCode;
     }
 
-    public void setMain_activity_code(String main_activity_code) {
-        this.main_activity_code = main_activity_code;
+    public void setMainActivityCode(String mainActivityCode) {
+        this.mainActivityCode = mainActivityCode;
     }
 
-    public String getEsa2010_code() {
-        return esa2010_code;
+    public String getEsa2010Code() {
+        return esa2010Code;
     }
 
-    public void setEsa2010_code(String esa2010_code) {
-        this.esa2010_code = esa2010_code;
-    }
-
-    public List<RPOAuthorizationEntry> getAuthorizationEntries() {
-        return authorizationEntries;
-    }
-
-    public void setAuthorizationEntries(List<RPOAuthorizationEntry> authorizationEntries) {
-        this.authorizationEntries = authorizationEntries;
+    public void setEsa2010Code(String esa2010Code) {
+        this.esa2010Code = esa2010Code;
     }
 
     public List<RPODepositEntry> getDepositEntries() {
@@ -204,11 +212,91 @@ public class RPOLegalPerson {
         return "RPOLegalPerson{" + "rpo_id=" + rpo_id + ", name=" + name + ", formatted_address=" + formatted_address + ", createdAt=" + createdAt + ", established_on=" + established_on + ", terminated_on=" + terminated_on + ", registration_office=" + registration_office + ", registration_nr=" + registration_nr + '}';
     }
 
-    public List<RPOEconomicActivityEntry> getEconomicActivityEntries() {
+    public List<RPOOneStringEntry> getLegalForms() {
+        return legalFormEntries;
+    }
+
+    public void setLegalForms(List<RPOOneStringEntry> legalForms) {
+        this.legalFormEntries = legalForms;
+    }
+
+    public List<RPOShareEntry> getShareEntries() {
+        return shareEntries;
+    }
+
+    public void setShareEntries(List<RPOShareEntry> shareEntries) {
+        this.shareEntries = shareEntries;
+    }
+
+    public List<RPOPredecessorSuccessorEntry> getPredecessorEntries() {
+        return predecessorEntries;
+    }
+
+    public void setPredecessorEntries(List<RPOPredecessorSuccessorEntry> predecessorEntries) {
+        this.predecessorEntries = predecessorEntries;
+    }
+
+    public List<RPOPredecessorSuccessorEntry> getSuccessorEntries() {
+        return successorEntries;
+    }
+
+    public void setSuccessorEntries(List<RPOPredecessorSuccessorEntry> successorEntries) {
+        this.successorEntries = successorEntries;
+    }
+
+    public List<RPOStatutoryStakeholderEntry> getStakeholderEntries() {
+        return stakeholderEntries;
+    }
+
+    public void setStakeholderEntries(List<RPOStatutoryStakeholderEntry> stakeholderEntries) {
+        this.stakeholderEntries = stakeholderEntries;
+    }
+
+    public List<RPOStatutoryStakeholderEntry> getStatutoryEntries() {
+        return statutoryEntries;
+    }
+
+    public void setStatutoryEntries(List<RPOStatutoryStakeholderEntry> statutoryEntries) {
+        this.statutoryEntries = statutoryEntries;
+    }
+
+    public List<RPOOneStringEntry> getAuthorizationEntries() {
+        return authorizationEntries;
+    }
+
+    public void setAuthorizationEntries(List<RPOOneStringEntry> authorizationEntries) {
+        this.authorizationEntries = authorizationEntries;
+    }
+
+    public List<RPOOneStringEntry> getLegalFormEntries() {
+        return legalFormEntries;
+    }
+
+    public void setLegalFormEntries(List<RPOOneStringEntry> legalFormEntries) {
+        this.legalFormEntries = legalFormEntries;
+    }
+
+    public List<RPOOneStringEntry> getLegalStatusEntries() {
+        return legalStatusEntries;
+    }
+
+    public void setLegalStatusEntries(List<RPOOneStringEntry> legalStatusEntries) {
+        this.legalStatusEntries = legalStatusEntries;
+    }
+
+    public List<RPOOneStringEntry> getNameEntries() {
+        return nameEntries;
+    }
+
+    public void setNameEntries(List<RPOOneStringEntry> nameEntries) {
+        this.nameEntries = nameEntries;
+    }
+
+    public List<RPOOneStringEntry> getEconomicActivityEntries() {
         return economicActivityEntries;
     }
 
-    public void setEconomicActivityEntries(List<RPOEconomicActivityEntry> economicActivityEntries) {
+    public void setEconomicActivityEntries(List<RPOOneStringEntry> economicActivityEntries) {
         this.economicActivityEntries = economicActivityEntries;
     }
 
