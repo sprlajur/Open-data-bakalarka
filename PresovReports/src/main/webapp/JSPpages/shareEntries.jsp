@@ -17,24 +17,42 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Akcie</h2>
         <%
             List<RPOShareEntry> shareEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getShareEntries();
+            boolean isAnyEntryFinished = shareEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
+        %>
+
+    <body>
+        <table class="companytable">
+            <caption>Akcie</caption>
+            <tr>
+                <th>Cena akcie</th>
+                <th>Počet akcií</th>
+                <th>Popis prevoditeľnosti akcií</th>
+                <th>Podoba akcie</th>
+                <th>Forma akcie</th>
+                <th>Platný od</th>
+            <c:if test="${isAnyEntryFinished}">
+                <th>Platný do</th>
+            </c:if>
+        </tr>
+        <%
             if (shareEntries != null) {
                 for (int i = 0; i < shareEntries.size(); i++) {
                     RPOShareEntry de = shareEntries.get(i);
         %>
-    <li><strong>Cena akcie: </strong> <span><%= TableDataFormatter.priceFormatter(de.getPrice(), de.getCurrency())%></span></li>
-    <li><strong>Počet akcií: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getAmount())%></span></li>
-    <li><strong>Popis prevoditeľnosti akcií: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getTransferDescription())%></span></li>
-    <li><strong>Popis prevoditeľnosti akcií: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getTransferDescription())%></span></li>
-    <li><strong>Podoba akcie: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getType())%></span></li>
-    <li><strong>Forma akcie: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getForm())%></span></li>
-    <li><strong>Platné od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
-    <li><strong>Platné do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
-    <% }
-        }
-    %>
+        <tr>
+            <td class="price_cell"><%= TableDataFormatter.priceFormatter(de.getPrice(), de.getCurrency())%></td>
+            <td><%= TableDataFormatter.dataOrEmptyString(de.getAmount())%></td>
+            <td><%= TableDataFormatter.dataOrEmptyString(de.getTransferDescription())%></td>
+            <td><%= TableDataFormatter.dataOrEmptyString(de.getType())%></td>
+            <td><%= TableDataFormatter.dataOrEmptyString(de.getForm())%></td>
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+        </tr>            
+        <% }
+            }
+        %>
+    </table>
 </body>
 </html>

@@ -17,21 +17,34 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Základné imania</h2>
         <%
             List<RPOEquityEntry> equityEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getEquityEntries();
+            boolean isAnyEntryFinished = equityEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
+        %>
+        <table class="companytable">
+            <caption>Základné imanie</caption>
+            <tr>
+                <th>Schválená výška podielu</th>
+                <th>Platné od</th>
+            <c:if test="${isAnyEntryFinished}">
+                <th>Platné do</th>
+            </c:if>
+        </tr>
+        <%
             if (equityEntries != null) {
                 for (int i = 0; i < equityEntries.size(); i++) {
                     RPOEquityEntry de = equityEntries.get(i);
         %>
-<!--    <li><strong>Výška podielu: </strong> <span><%= TableDataFormatter.priceFormatter(de.getInvestmentAmount(), de.getInvestmentCurrency())%></span></li>
-    <li><strong>Splatená výška podielu: </strong> <span><%= TableDataFormatter.priceFormatter(de.getPaidAmount(), de.getPaidCurrency())%></span></li>-->
-    <li><strong>Schválená výška podielu: </strong> <span><%= TableDataFormatter.priceFormatter(de.getApprovedAmount(), de.getApprovedCurrency())%></span></li>
-    <li><strong>Platné od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
-    <li><strong>Platné do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
+        <tr>
+            <td><%= TableDataFormatter.priceFormatter(de.getApprovedAmount(), de.getApprovedCurrency())%></td>
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+        <c:if test="${isAnyEntryFinished}">
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+        </c:if>
+    </tr>   
     <% }
         }
     %>
+</table>
 </body>
 </html>

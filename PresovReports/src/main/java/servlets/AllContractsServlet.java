@@ -24,32 +24,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(Urls.ALL_CONTRACTS_URL)
 public class AllContractsServlet extends AbstractServlet {
 
-    private  ContractEntityDAO contractEntityManager;
+    private ContractEntityDAO contractEntityManager;
     private final String JSP_FILE_PATH = "/JSPpages/allContracts.jsp";
-    
+
     @Override
     public void init() {
         contractEntityManager = new ContractEntityDAO(entityManager);
     }
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<ContractEntity> contracts = contractEntityManager.getAllContracts();
-        request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, contracts);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
-        dispatcher.forward(request, response);
-    }
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -61,7 +43,11 @@ public class AllContractsServlet extends AbstractServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        List<ContractEntity> contracts = contractEntityManager.getAllContracts();
+        setPaginationParameters(request, contracts == null ? 0 : contracts.size());
+        request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, contracts);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -75,16 +61,17 @@ public class AllContractsServlet extends AbstractServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        setFilterParameters(request);
+        List<ContractEntity> contracts = null;
+        if (!searchedParty.isEmpty() || !searchedText.isEmpty() || from != null || to != null) {
+            contracts = contractEntityManager.getContractsByFilter(searchedParty, searchedText, from, to);
+            setPaginationParameters(request, contracts == null ? 0 : contracts.size());
+            request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, contracts);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
+            dispatcher.forward(request, response);
+        } else {
+            doGet(request, response);
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

@@ -66,4 +66,38 @@ public class RPOAddressEntry extends AbstractRPOEntry {
         this.building_nr = building_nr;
     }
 
+    public String getFormattedAddress() {
+        String result = "";
+        boolean addSpace = false;
+        if (street != null) {
+            result = result + street;
+            addSpace = true;
+        }
+        if (building_nr != null) {
+            if (addSpace) {
+                result += " " + building_nr;
+            } else {
+                result += building_nr;
+            }
+        }
+        if (postalCode != null) {
+            result += ", " + postalCode;
+        }
+        if (municipality != null) {
+            if (addSpace) {
+                result += ", " + municipality;
+            } else {
+                result += municipality;
+            }
+        }
+        if (country != null) {
+            if (addSpace) {
+                result += ", " + country;
+            } else {
+                result += country;
+            }
+        }
+        return result;
+    }
+
 }

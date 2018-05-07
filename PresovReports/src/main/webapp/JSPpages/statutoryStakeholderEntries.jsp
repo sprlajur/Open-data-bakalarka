@@ -23,38 +23,46 @@
     <body>
         <%  Boolean isStatutory = "statutory".equals(request.getParameter("object"));
             String header = isStatutory ? "Štatutárne orgány" : "Zainteresované osoby";
-        %>
-        <h2><%=header%></h2>
-        <%
             List<RPOStatutoryStakeholderEntry> entries = isStatutory ? ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getStatutoryEntries() : ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getStakeholderEntries();
-            if (entries != null) {
-                for (int i = 0; i < entries.size(); i++) {
-                    RPOStatutoryStakeholderEntry de = entries.get(i);
+            boolean isAnyEntryFinished = entries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
         %>
-        
-    <c:choose>
-        <c:when test="${de.getIco() ne null}">
-            <li><strong>Právnická osoba: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + de.getIco()%>"><%= de.getIco()%></a></span></li>
-        </c:when>    
-        <c:otherwise>
-            <li><strong>Meno: </strong> <span> <%= de.getFormattedName()%></span></li>
-            <c:choose>
-                <c:when test="${de.getFormattedAddress() ne null}">
-                    <li><strong>Adresa: </strong> <span> <%= de.getFormattedAddress()%></span></li>
-                </c:when>    
-                <c:otherwise>
-                    <li><strong>Ulica: </strong> <span> <%= de.getStreet()%></span></li>
-                    <li><strong>Číslo domu: </strong> <span> <%= de.getBuildingNr()%></span></li>
-                    <li><strong>Obec: </strong> <span> <%= de.getMunicipality()%></span></li>
-                    <li><strong>Krajina: </strong> <span> <%= de.getCountry()%></span></li>
-                </c:otherwise>
-            </c:choose>         
-        </c:otherwise>
-    </c:choose>
-                    <li><strong>Typ: </strong> <span> <%= de.getType()%></span></li>
-                    <br>
-        <% }
-            }
-        %>
-</body>
+        <table class="companytable">
+            <caption><%=header%></caption>
+            <tr>
+                <th>Meno</th>
+                <th>Adresa</th>
+                <th>Typ</th>
+                <th>Od</th>
+                    <c:if test="${isAnyEntryFinished}">
+                    <th>Do</th>
+                    </c:if>
+            </tr>
+            <%
+                if (entries != null) {
+                    for (int i = 0; i < entries.size(); i++) {
+                        RPOStatutoryStakeholderEntry de = entries.get(i);
+            %>
+            <tr>
+                <td>
+                    <c:choose>
+                        <c:when test="${de.getIco() ne null}">
+                            <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + TableDataFormatter.dataOrEmptyString(de.getIco())%>"><%= TableDataFormatter.dataOrEmptyString(de.getIco())%></a>
+                        </c:when>    
+                        <c:otherwise>
+                            <%= TableDataFormatter.dataOrEmptyString(de.getFormattedName())%>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td><%= de.getFormattedAddress()%> </td>
+                <td><%=TableDataFormatter.dataOrEmptyString(de.getType())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <c:if test="${isAnyEntryFinished}">
+                    <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                </c:if>
+            </tr> 
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

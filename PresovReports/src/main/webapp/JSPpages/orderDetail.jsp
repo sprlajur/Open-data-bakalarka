@@ -18,37 +18,37 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
-        <title>Zmluva</title>
+        <title>Objednávka</title>
     </head>
     <body>
         <jsp:include page="topMenu.jsp" />
         <% OrderEntity order = (OrderEntity) request.getAttribute(RequestAttributeNames.ORDER);
-            String orderNr = (String) TableDataFormatter.dataOrEmptyString(order.getOrderNr());
-            String supplier = (String) TableDataFormatter.dataOrEmptyString(order.getSupplier());
-            String price = TableDataFormatter.priceFormatter(order.getValue(), order.getCurrency());
+            String orderNr = (String) TableDataFormatter.dataOrDash(order.getOrderNr());
+            String supplier = (String) TableDataFormatter.dataOrDash(order.getSupplier());
+            String price = (String) TableDataFormatter.dataOrDash(TableDataFormatter.priceFormatter(order.getValue(), order.getCurrency()));
             String issueDate = TableDataFormatter.dateFormatter(order.getIssueDate());
             String releaseDate = TableDataFormatter.dateFormatter(order.getReleaseDate());
-            String orgStructure = (String) TableDataFormatter.dataOrEmptyString(order.getOfficeOrganizationStructure());
-            String approverName = (String) TableDataFormatter.dataOrEmptyString(order.getApproverName());       
-            String approverFunction = (String) TableDataFormatter.dataOrEmptyString(order.getApproverFunction());       
+            String orgStructure = (String) TableDataFormatter.dataOrDash(order.getOfficeOrganizationStructure());
+            String approverName = (String) TableDataFormatter.dataOrDash(order.getApproverName());
+            String approverFunction = (String) TableDataFormatter.dataOrDash(order.getApproverFunction());
             String productionDate = TableDataFormatter.dateFormatter(order.getProductionDate());
-            String notes = (String) TableDataFormatter.dataOrEmptyString(order.getReleaseNotes());       
-            String status = (String) TableDataFormatter.dataOrEmptyString(order.getCompletenessStatus());       
+            String notes = (String) TableDataFormatter.dataOrDash(order.getReleaseNotes());
+            String status = (String) TableDataFormatter.dataOrDash(order.getCompletenessStatus());
         %>
-        <h1>Detail objednávky</h1>
-        <ul>
-            <li><strong>ID v registre zmlúv mesta Prešov: </strong> <span><%= orderNr%></span></li>
-            <li><strong>Dodávateľ: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + order.getIco() %>"><%=order.getSupplier() %></a></span></li>
-            <li><strong>Hodnota: </strong> <span><%= price%></span></li>
-            <li><strong>Dátum vyhotovenia: </strong> <span><%=productionDate%></span></li>
-            <li><strong>Dátum zverejnenia: </strong> <span><%=releaseDate%></span></li>
-            <li><strong>Dátum vystavenia: </strong> <span><%=issueDate%></span></li>
-            <li><strong>Organizačná štruktúra úradu: </strong> <span><%= orgStructure%></span></li>
-            <li><strong>Schvaľujúci: </strong> <span><%= approverName%></span></li>
-            <li><strong>Funkcia schvaľujúceho: </strong> <span><%=approverFunction%></span></li>
-            <li><strong>Poznámky k zverejneniu: </strong> <span><%=notes%></span></li>
-            <li><strong>Stav vybavenia: </strong> <span><%=status%></span></li>
-        </ul>
+        <h1>Objednávka číslo <%=order.getOrderNr()%></h1>
+        <div class="basicinfo">
+            <strong>Dodávateľ: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + order.getIco()%>"><%=order.getSupplier()%></a></span>
+            <strong>Hodnota: </strong> <span><%= price%></span>
+            <strong>Dátum vyhotovenia: </strong> <span><%=productionDate%></span>
+            <strong>Dátum zverejnenia: </strong> <span><%=releaseDate%></span>
+            <strong>Dátum vystavenia: </strong> <span><%=issueDate%></span>
+            <strong>Organizačná štruktúra úradu: </strong> <span><%= orgStructure%></span>
+            <strong>Schvaľujúci: </strong> <span><%= approverName%></span>
+            <strong>Funkcia schvaľujúceho: </strong> <span><%=approverFunction%></span>
+            <strong>Poznámky k zverejneniu: </strong> <span><%=notes%></span>
+            <strong>Stav vybavenia: </strong> <span><%=status%></span>
+        </div>
     </body>
 </html>

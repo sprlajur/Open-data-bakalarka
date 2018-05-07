@@ -10,6 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page import="rpo.RPOOneStringEntry"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,19 +18,34 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Oprávnenia konať v mene právnickej osoby</h2>
         <%
             List<RPOOneStringEntry> authorizationEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getAuthorizationEntries();
+            boolean isAnyEntryFinished = authorizationEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
+        %>
+        <table class="companytable">
+            <caption>Oprávnenia konať v mene právnickej osoby</caption>
+            <tr>
+                <th>Text:</th>
+                <th>Platné od</th>
+            <c:if test="${isAnyEntryFinished}">
+                <th>Platné do</th>
+            </c:if>
+        </tr>
+        <%
             if (authorizationEntries != null) {
                 for (int i = 0; i < authorizationEntries.size(); i++) {
                     RPOOneStringEntry de = authorizationEntries.get(i);
         %>
-    <li><strong>Text: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
-    <li><strong>Platné od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
-    <li><strong>Platné do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
+        <tr>
+            <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+        <c:if test="${isAnyEntryFinished}">
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+        </c:if>
+    </tr>       
     <% }
         }
     %>
+</table>
 </body>
 </html>

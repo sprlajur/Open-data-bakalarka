@@ -17,8 +17,9 @@
             <ul>
                 <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_CONTRACTS_URL%>">Zmluvy</a></li>
                 <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_GRANTS_URL%>">Dotácie</a></li>
-                <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_INVOICES_URL%>">Faktúry</a></li>
                 <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
+                <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_INVOICES_URL%>">Faktúry</a></li>
+                <li><a href="${pageContext.request.contextPath}<%="/" + Urls.STATISTICS%>">Štatistiky</a><li>
             </ul>
         </div>
     </body>

@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import presentation.TopCompany;
 
 /**
  *
@@ -33,24 +34,6 @@ public class AllInvoicesServlet extends AbstractServlet {
     }
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        List<InvoiceEntity> invoices = invoiceEntityManager.findAll();
-        request.setAttribute(RequestAttributeNames.ALL_INVOICES, invoices);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
-        dispatcher.forward(request, response);
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -61,7 +44,11 @@ public class AllInvoicesServlet extends AbstractServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        List<InvoiceEntity> invoices = invoiceEntityManager.findAll();
+        setPaginationParameters(request, invoices == null ? 0 : invoices.size());
+        request.setAttribute(RequestAttributeNames.ALL_INVOICES, invoices);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -75,17 +62,17 @@ public class AllInvoicesServlet extends AbstractServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        setFilterParameters(request);
+        List<InvoiceEntity> invoices = null;
+        if (!searchedParty.isEmpty() || !searchedText.isEmpty() || from != null || to != null) {
+            invoices = invoiceEntityManager.getInvoicesByFilter(searchedParty, searchedText, from, to);
+            setPaginationParameters(request, invoices == null ? 0 : invoices.size());
+            request.setAttribute(RequestAttributeNames.ALL_INVOICES, invoices);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
+            dispatcher.forward(request, response);
+        } else {
+            doGet(request, response);
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

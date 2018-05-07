@@ -17,6 +17,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
         <title>Zmluva</title>
     </head>
@@ -26,33 +27,32 @@
             String parties = contract.getParties();
             String party1 = TableDataFormatter.formatParties(parties, 0);
             String party2 = TableDataFormatter.formatParties(parties, 1);
-            String contractID = (String) TableDataFormatter.dataOrEmptyString(contract.getContractNr());
-            String type = (String) TableDataFormatter.dataOrEmptyString(contract.getType());
-            String kind = (String) TableDataFormatter.dataOrEmptyString(contract.getKind());
-            String currency = (String) TableDataFormatter.dataOrEmptyString(contract.getCurrency());
+            String contractID = (String) TableDataFormatter.dataOrDash(contract.getContractNr());
+            String type = (String) TableDataFormatter.dataOrDash(contract.getType());
+            String kind = (String) TableDataFormatter.dataOrDash(contract.getKind());
+            String currency = (String) TableDataFormatter.dataOrDash(contract.getCurrency());
             String signatureDate = TableDataFormatter.dateFormatter(contract.getSignatureDate());
             String releaseDate = TableDataFormatter.dateFormatter(contract.getReleaseDate());
-            String name = (String) TableDataFormatter.dataOrEmptyString(contract.getName());
-            String mainOrAppendix = (String) TableDataFormatter.dataOrEmptyString(contract.getMainOrAppendix());
-            String signaturePlace = (String) TableDataFormatter.dataOrEmptyString(contract.getSignaturePlace());
+            String name = (String) TableDataFormatter.dataOrDash(contract.getName());
+            String mainOrAppendix = (String) TableDataFormatter.dataOrDash(contract.getMainOrAppendix());
+            String signaturePlace = (String) TableDataFormatter.dataOrDash(contract.getSignaturePlace());
             String validityDate = TableDataFormatter.dateFormatter(contract.getValidityDate());
-            String subject = (String) TableDataFormatter.dataOrEmptyString(contract.getSubject());
+            String subject = (String) TableDataFormatter.dataOrDash(contract.getSubject());
         %>
-        <h1>Detail zmluvy</h1>
-        <ul>
-            <li><strong>ID v registre zmlúv mesta Prešov: </strong> <span><%= contractID%></span></li>
-            <li><strong>Typ: </strong> <span><%= type%></span></li>
-            <li><strong>Druh: </strong> <span><%= contract.getKind()%></span></li>
-            <li><strong>Strany: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party1)%>"><%=party1%></a>;&nbsp; &nbsp;  
-                    <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party2)%>"><%=party2%></a></span></li>
-            <li><strong>Predmet: </strong> <span><%= subject%></span></li>
-            <li><strong>Suma: </strong> <span><%= TableDataFormatter.priceFormatter(contract.getPrice(), currency)%></span></li>
-            <li><strong>Dátum podpisu: </strong> <span><%=signatureDate%></span></li>
-            <li><strong>Dátum zverejnenia: </strong> <span><%=releaseDate%></span></li>
-            <li><strong>Názov: </strong> <span><%= name%></span></li>
-            <li><strong>Hlavná/Dodatok: </strong> <span><%= mainOrAppendix%></span></li>
-            <li><strong>Miesto (miesta) podpisu: </strong> <span><%=signaturePlace%></span></li>
-            <li><strong>Dátum platnosti: </strong> <span><%=validityDate%></span></li>
-        </ul>
+        <h1>Zmluva číslo <%=contract.getContractNr()%></h1>
+        <div class="basicinfo">
+            <strong>Typ: </strong> <span><%= type%></span>
+            <strong>Druh: </strong> <span><%= contract.getKind()%></span>
+            <strong>Strany: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party1)%>"><%=party1%></a>;&nbsp; &nbsp;  
+                <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + ContractEntityDAO.getIcoFromContract(contract, party2)%>"><%=party2%></a></span>
+            <strong>Predmet: </strong> <span><%= subject%></span>
+            <strong>Suma: </strong> <span><%= (String) TableDataFormatter.dataOrDash(TableDataFormatter.priceFormatter(contract.getPrice(), currency))%></span>
+            <strong>Dátum podpisu: </strong> <span><%=signatureDate%></span>
+            <strong>Dátum zverejnenia: </strong> <span><%=releaseDate%></span>
+            <strong>Názov: </strong> <span><%= name%></span>
+            <strong>Hlavná/Dodatok: </strong> <span><%= mainOrAppendix%></span>
+            <strong>Miesto (miesta) podpisu: </strong> <span><%=signaturePlace%></span>
+            <strong>Dátum platnosti: </strong> <span><%=validityDate%></span>
+        </div>
     </body>
 </html>

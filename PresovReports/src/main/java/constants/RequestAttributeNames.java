@@ -17,4 +17,10 @@ public class RequestAttributeNames {
     public static final String ALL_ORDERS = "allOrders";
     public static final String ALL_INVOICES = "allInvoices";
     public static final String ORDER = "objednavka";
+    public static final String SEARCHED_PARTY = "searchedParty";
+    public static final String SEARCHED_TEXT = "searchedText";
+    public static final String DATE_FROM = "from";
+    public static final String DATE_TO = "to";
+    public static final String TOP_COMPANIES_BY_TOTAL_AMOUNT = "topCompaniesByTotalAmount";
+    public static final String TOP_COMPANIES_BY_NR_OF_INVOICES = "topCompaniesByNrOfInvoices";
 }

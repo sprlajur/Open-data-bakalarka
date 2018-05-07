@@ -20,53 +20,34 @@ public class RPOApiDataGetter {
     private static final String AUTHORIZATION_TOKEN = "Token b0464a12da0721c24a64b37cda01dd125f98abd04108d57e753d8c02f2014cda62ac11044aa32c14";
     private static final int HTTP_OK_CODE = 200;
 
-    
-    public static RPOLegalPerson getRPOData(String ico){
-        if(ico == null || ico.isEmpty()){
+    public static RPOLegalPerson getRPOData(String ico) {
+        if (ico == null || ico.isEmpty()) {
             return null;
         }
         RPOLegalPerson legalPerson = new RPOLegalPerson();
-        String jsonData = getLegalPersonBasicData(ico);
+        String jsonData = getLegalPersonAPIJsonData(RPO_API_BASE_URL + ico, true);
         legalPerson = RPOJsonParser.parseIntermediaryAPIData(jsonData, legalPerson);
-        jsonData = getLegalPersonFullRPOData(legalPerson.getRpo_API_url());
-        RPOJsonParser.parseFullRPOData(jsonData, legalPerson);
+        if (legalPerson != null) {
+            jsonData = getLegalPersonAPIJsonData(legalPerson.getRpo_API_url(), false);
+            RPOJsonParser.parseFullRPOData(jsonData, legalPerson);
+            jsonData = getLegalPersonAPIJsonData(legalPerson.getAccounting_entities_API_url(), false);
+            RPOJsonParser.parseAccountingEntitiesData(jsonData, legalPerson);
+        }
         return legalPerson;
     }
-    
-    public static String getLegalPersonBasicData(String lpID) {
-        if (lpID == null || lpID.isEmpty()) {
-            return null;
-        }
-        StringBuilder result = new StringBuilder();
-        try {
-            URL url = new URL(RPO_API_BASE_URL + lpID);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Authorization", AUTHORIZATION_TOKEN);
-            if (conn.getResponseCode() == HTTP_OK_CODE) {
-                try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-                    String line;
-                    while ((line = rd.readLine()) != null) {
-                        result.append(line);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result.toString();
-    }
 
-    public static String getLegalPersonFullRPOData(String legalPersonRPOUrl) {
-        System.out.println("url: " + legalPersonRPOUrl);
-        if (legalPersonRPOUrl == null || legalPersonRPOUrl.isEmpty()) {
+    public static String getLegalPersonAPIJsonData(String apiUrl, boolean authorizationRequired) {
+        if (apiUrl == null || apiUrl.isEmpty()) {
             return null;
         }
         StringBuilder result = new StringBuilder();
         try {
-            URL url = new URL(legalPersonRPOUrl);
+            URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            if (authorizationRequired) {
+                conn.setRequestProperty("Authorization", AUTHORIZATION_TOKEN);
+            }
             if (conn.getResponseCode() == HTTP_OK_CODE) {
                 try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
                     String line;

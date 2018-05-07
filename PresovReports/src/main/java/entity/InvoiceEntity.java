@@ -27,11 +27,21 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "invoices")
 @NamedQueries({
-    @NamedQuery(name = InvoiceEntity.Q_INVOICE_ENTITY_FIND_ALL, query = "SELECT i FROM InvoiceEntity i")})
+    @NamedQuery(name = InvoiceEntity.Q_INVOICE_ENTITY_FIND_ALL, query = "SELECT i FROM InvoiceEntity i")
+    ,
+    @NamedQuery(name = InvoiceEntity.Q_INVOICE_ENTITY_FIND_TOP_SUPPLIERS_BY_TOTAL_AMOUNT, query = "SELECT NEW presentation.TopCompany(i.supplier, i.supplierIco, SUM(i.price)) FROM InvoiceEntity i WHERE i.paymentStatus = 'zaplatené' GROUP BY i.supplier, i.supplierIco ORDER BY SUM(i.price) DESC")
+        ,
+    @NamedQuery(name = InvoiceEntity.Q_INVOICE_ENTITY_FIND_TOP_SUPPLIERS_BY_NR_OF_INVOICES, query = "SELECT NEW presentation.TopCompany(i.supplier, i.supplierIco, COUNT(i.supplier)) FROM InvoiceEntity i WHERE i.paymentStatus = 'zaplatené' GROUP BY i.supplier, i.supplierIco ORDER BY COUNT(i.supplierIco) DESC")
+        ,
+    @NamedQuery(name = InvoiceEntity.Q_INVOICE_ENTITY_FIND_TOP_INVOICES_BY_PRICE, query = "SELECT i FROM InvoiceEntity i WHERE i.paymentStatus = 'zaplatené' ORDER BY I.price DESC")
+})
 public class InvoiceEntity implements Serializable {
-    
-    public static final String Q_INVOICE_ENTITY_FIND_ALL = "InvoiceEntity.findAll";
 
+    public static final String Q_INVOICE_ENTITY_FIND_ALL = "InvoiceEntity.findAll";
+    public static final String Q_INVOICE_ENTITY_FIND_TOP_SUPPLIERS_BY_TOTAL_AMOUNT = "InvoiceEntity.findTopSuppliersByTotalAmount";
+    public static final String Q_INVOICE_ENTITY_FIND_TOP_SUPPLIERS_BY_NR_OF_INVOICES = "InvoiceEntity.findTopSuppliersByNrOfInvoices";
+    public static final String Q_INVOICE_ENTITY_FIND_TOP_INVOICES_BY_PRICE = "InvoiceEntity.findTopInvociesByPrice";
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -186,7 +196,7 @@ public class InvoiceEntity implements Serializable {
     }
 
     public String getSupplierIco() {
-        if(supplierIco != null){
+        if (supplierIco != null) {
             return supplierIco.trim();
         }
         return supplierIco;
@@ -268,5 +278,5 @@ public class InvoiceEntity implements Serializable {
     public String toString() {
         return "entity.InvoiceEntity[ id=" + id + " ]";
     }
-    
+
 }

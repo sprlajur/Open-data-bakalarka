@@ -29,14 +29,33 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = ContractEntity.Q_CONTRACT_ENTITY_FIND_ALL, query = "SELECT c FROM ContractEntity c")
     ,
+    @NamedQuery(name = ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_ICO, query = "SELECT c FROM ContractEntity c where partiesIco like :" + ContractEntity.SQL_PARAM_ICO)
+    ,
+    @NamedQuery(name = ContractEntity.Q_CONTRACT_ENTITY_FIND_TOP_BY_PRICE, query = "SELECT c FROM ContractEntity c ORDER BY COALESCE(c.price, -1) DESC")
+    ,
     @NamedQuery(name = ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_CONTRACT_NR, query = "SELECT c FROM ContractEntity c where contractNr = :" + ContractEntity.SQL_PARAM_CONTRACT_NR)
+    ,
+    @NamedQuery(name = ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_PARTIES, query = "SELECT c FROM ContractEntity c where parties like :" + ContractEntity.SQL_PARAM_PARTIES_SEARCHED_STRING)
+    ,
+    @NamedQuery(name = ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_SUBJECT, query = "SELECT c FROM ContractEntity c where subject like :" + ContractEntity.SQL_PARAM_SUBJECT_SEARCHED_STRING)
+    ,
+    @NamedQuery(name = ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_PARTIES_AND_SUBJECT, query = "SELECT c FROM ContractEntity c where parties like :" + ContractEntity.SQL_PARAM_PARTIES_SEARCHED_STRING
+            + " and subject like :" + ContractEntity.SQL_PARAM_SUBJECT_SEARCHED_STRING)
 })
 public class ContractEntity implements Serializable {
 
     public static final String Q_CONTRACT_ENTITY_FIND_ALL = "ContractEntity.findAll";
+    public static final String Q_CONTRACT_ENTITY_FIND_TOP_BY_PRICE = "ContractEntity.findTopByPrice";
     public static final String Q_CONTRACT_ENTITY_FIND_BY_CONTRACT_NR = "ContractEntity.findByContractNr";
+    public static final String Q_CONTRACT_ENTITY_FIND_BY_PARTIES = "ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_PARTIES";
+    public static final String Q_CONTRACT_ENTITY_FIND_BY_SUBJECT = "ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_TEXT";
+    public static final String Q_CONTRACT_ENTITY_FIND_BY_PARTIES_AND_SUBJECT = "ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_PARTIES_AND_TEXT";
+    public static final String Q_CONTRACT_ENTITY_FIND_BY_ICO = "ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_ICO";
 
     public static final String SQL_PARAM_CONTRACT_NR = "contractNr";
+    public static final String SQL_PARAM_PARTIES_SEARCHED_STRING = "partiesSearchedString";
+    public static final String SQL_PARAM_SUBJECT_SEARCHED_STRING = "subjectSearchedString";
+    public static final String SQL_PARAM_ICO = "ico";
 
     private static final long serialVersionUID = 1L;
     @Id

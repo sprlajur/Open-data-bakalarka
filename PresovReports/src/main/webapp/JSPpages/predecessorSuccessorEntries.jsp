@@ -20,20 +20,27 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <%  Boolean isPredecessor = "predecessor".equals(request.getParameter("object"));
+        <%
+            Boolean isPredecessor = "predecessor".equals(request.getParameter("object"));
+            List<RPOPredecessorSuccessorEntry> nameEntries = isPredecessor ? ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getPredecessorEntries() : ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getSuccessorEntries();
             String header = isPredecessor ? "Predchodcovia" : "Následníci";
         %>
-        <h2><%=header%></h2>
+        <table class="companytable">
+            <caption><%=header%></caption>
+            <tr>
+                <th>Názov:</th>
+        </tr>
         <%
-            List<RPOPredecessorSuccessorEntry> nameEntries = isPredecessor ? ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getPredecessorEntries() : ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getSuccessorEntries();
             if (nameEntries != null) {
                 for (int i = 0; i < nameEntries.size(); i++) {
                     RPOPredecessorSuccessorEntry de = nameEntries.get(i);
         %>
-    <li><strong>Názov: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + de.getIco()%>"><%= de.getName()%></a></span></li>
-    <br>            
+        <tr>
+            <td><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + de.getIco()%>"><%= de.getName()%></a></td>
+    </tr>          
     <% }
         }
     %>
+</table>
 </body>
 </html>

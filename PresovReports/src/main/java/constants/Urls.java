@@ -17,4 +17,6 @@ public class Urls {
     public static final String CONTRACT_DETAIL = "zmluva";
     public static final String PARTY_DETAIL = "firma";
     public static final String ORDER_DETAIL = "objednavka";
+    public static final String STATISTICS = "statistiky";
+    public static final int RECORDS_PER_PAGE = 100;
 }

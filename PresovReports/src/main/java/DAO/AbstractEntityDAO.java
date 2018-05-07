@@ -12,6 +12,14 @@ import javax.persistence.EntityManager;
  * @author sprlajur
  */
 public abstract class AbstractEntityDAO {
+
     EntityManager entityManager;
     
+    public String wrapInPercentageSigns(String string) {
+        return "%" + string + "%";
+    }
+    
+    public String wrapInPercentageSignsLowerCase(String string) {
+        return "%" + string.toLowerCase() + "%";
+    }
 }

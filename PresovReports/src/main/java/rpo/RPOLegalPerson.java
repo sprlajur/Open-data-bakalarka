@@ -71,6 +71,12 @@ public class RPOLegalPerson {
 
     private String esa2010Code;
 
+    private String skNACECategory;
+
+    private String organizationSize;
+
+    private String ownershipType;
+
     public void setRegistration_nr(String registration_nr) {
         this.registration_nr = registration_nr;
     }
@@ -298,6 +304,41 @@ public class RPOLegalPerson {
 
     public void setEconomicActivityEntries(List<RPOOneStringEntry> economicActivityEntries) {
         this.economicActivityEntries = economicActivityEntries;
+    }
+
+    public String getSkNACECategory() {
+        return skNACECategory;
+    }
+
+    public void setSkNACECategory(String skNACECategory) {
+        this.skNACECategory = skNACECategory;
+    }
+
+    public String getOrganizationSize() {
+        return organizationSize;
+    }
+
+    public void setOrganizationSize(String organizationSize) {
+        this.organizationSize = organizationSize;
+    }
+
+    public String getOwnershipType() {
+        return ownershipType;
+    }
+
+    public void setOwnershipType(String ownershipType) {
+        this.ownershipType = ownershipType;
+    }
+    
+    public String getCurrentLegalForm(){
+        if(legalFormEntries == null || legalFormEntries.isEmpty()){
+            return null;
+        }
+        RPOOneStringEntry lfe =  legalFormEntries.stream().filter(ea -> ea.getEffectiveTo() == null).findFirst().orElse(null);
+        if(lfe != null){
+            return lfe.getBody();
+        }
+        return null;
     }
 
 }

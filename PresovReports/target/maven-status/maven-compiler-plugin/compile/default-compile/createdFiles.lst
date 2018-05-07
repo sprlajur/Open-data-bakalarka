@@ -10,12 +10,12 @@ rpo/AbstractRPOEntry.class
 servlets/OrderDetailServlet.class
 constants/RequestAttributeNames.class
 DAO/GrantEntityDAO.class
+presentation/TopCompany.class
 servlets/AllInvoicesServlet.class
 DAO/OrderEntityDAO.class
 entity/OrderEntity.class
 entity/GrantEntity.class
 servlets/AllGrantsServlet.class
-rpo/RPOEconomicActivityEntry.class
 servlets/AbstractServlet.class
 constants/Urls.class
 DAO/ContractEntityDAO.class
@@ -30,5 +30,6 @@ servlets/AllOrdersServlet.class
 rpo/RPOOneStringEntry.class
 servlets/AllContractsServlet.class
 rpo/RPODepositEntry.class
+servlets/StatisticsServlet.class
 constants/UrlParameters.class
 rpo/RPOShareEntry.class

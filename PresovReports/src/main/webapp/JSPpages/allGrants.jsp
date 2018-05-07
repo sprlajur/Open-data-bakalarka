@@ -16,12 +16,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <title>Dotácie mesta</title>
     </head>
     <body>
         <jsp:include page="topMenu.jsp" />
+        <jsp:include page="mainSearch.jsp">
+            <jsp:param name="dateCellType" value="hidden"/>
+        </jsp:include>
         <%! List<GrantEntity> grants;%>
-        <table style="width:100%">
+        <table id="datatable" style="width:100%">
             <tr style=>      
                 <th>Žiadateľ</th>
                 <th>Akcia</th>
@@ -31,8 +35,9 @@
             </tr>
             <%
                 grants = (List<GrantEntity>) request.getAttribute(RequestAttributeNames.ALL_GRANTS);
-
-                for (int i = 0; i < grants.size(); i++) {
+                int currentPage = (int) request.getAttribute("currentPage");
+                int endIndex = (int) request.getAttribute("endIndex");
+                for (int i = (int) request.getAttribute("startIndex"); i < endIndex; i++) {
                     GrantEntity grant = grants.get(i);
             %>
             <tr>      
@@ -44,5 +49,6 @@
             </tr>
             <% }%>
         </table>
+        <jsp:include page="pagination.jsp" />
     </body>
 </html>

@@ -10,6 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page import="rpo.RPOOneStringEntry"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,19 +18,33 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Názvy</h2>
         <%
             List<RPOOneStringEntry> nameEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getNameEntries();
-            if (nameEntries != null) {
-                for (int i = 0; i < nameEntries.size(); i++) {
-                    RPOOneStringEntry de = nameEntries.get(i);
-        %>
-    <li><strong>Názov: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
-    <li><strong>Platný od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
-    <li><strong>Platný do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
-    <% }
-        }
-    %>
-</body>
+            boolean isAnyEntryFinished = nameEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
+        %><table class="companytable">
+            <caption>Názvy</caption>
+            <tr>
+                <th>Názov:</th>
+                <th>Platný od</th>
+                    <c:if test="${isAnyEntryFinished}">
+                    <th>Platný do</th>
+                    </c:if>
+            </tr>
+            <%
+                if (nameEntries != null) {
+                    for (int i = 0; i < nameEntries.size(); i++) {
+                        RPOOneStringEntry de = nameEntries.get(i);
+            %>
+            <tr>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <c:if test="${isAnyEntryFinished}">
+                    <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                </c:if>
+            </tr>         
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

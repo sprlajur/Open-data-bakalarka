@@ -61,7 +61,40 @@ public class RPOStatutoryStakeholderEntry extends AbstractRPOEntry {
     }
 
     public String getFormattedAddress() {
-        return formattedAddress;
+        if (formattedAddress != null) {
+            return formattedAddress;
+        }
+        String result = "";
+        boolean addSpace = false;
+        if (street != null) {
+            result = result + street;
+            addSpace = true;
+        }
+        if (buildingNr != null) {
+            if (addSpace) {
+                result += " " + buildingNr;
+            } else {
+                result += buildingNr;
+            }
+        }
+        if (postalCode != null) {
+            result += ", " + postalCode;
+        }
+        if (municipality != null) {
+            if (addSpace) {
+                result += ", " + municipality;
+            } else {
+                result += municipality;
+            }
+        }
+        if (country != null) {
+            if (addSpace) {
+                result += ", " + country;
+            } else {
+                result += country;
+            }
+        }
+        return result;
     }
 
     public void setFormattedAddress(String formattedAddress) {

@@ -24,12 +24,22 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "grants")
 @NamedQueries({
-    @NamedQuery(name = GrantEntity.Q_GRANT_ENTITY_FIND_ALL, query = "SELECT g FROM GrantEntity g")})
+    @NamedQuery(name = GrantEntity.Q_GRANT_ENTITY_FIND_ALL, query = "SELECT g FROM GrantEntity g")
+    ,
+    @NamedQuery(name = GrantEntity.Q_GRANT_ENTITY_FIND_BY_ICO, query = "SELECT g FROM GrantEntity g where applicantIco = :" + GrantEntity.SQL_PARAM_ICO)
+    ,
+    @NamedQuery(name = GrantEntity.Q_GRANT_ENTITY_FIND_TOP_BY_PRICE, query = "SELECT g FROM GrantEntity g ORDER BY COALESCE(g.approvedGrant,'-1') DESC")
+})
 public class GrantEntity implements Serializable {
-    
+
     public static final String Q_GRANT_ENTITY_FIND_ALL = "GrantEntity.findAll";
+    public static final String Q_GRANT_ENTITY_FIND_BY_ICO = "GrantEntity.findByICO";
+    public static final String Q_GRANT_ENTITY_FIND_TOP_BY_PRICE = "GrantEntity.findTopByPrice";
+
+    public static final String SQL_PARAM_ICO = "ico";
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @Basic(optional = false)
     @NotNull
@@ -206,5 +216,5 @@ public class GrantEntity implements Serializable {
     public String toString() {
         return "entity.GrantEntity[ id=" + id + " ]";
     }
-    
+
 }

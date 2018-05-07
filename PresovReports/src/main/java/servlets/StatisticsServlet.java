@@ -7,12 +7,13 @@ package servlets;
 
 import DAO.ContractEntityDAO;
 import DAO.GrantEntityDAO;
+import DAO.InvoiceEntityDAO;
 import DAO.OrderEntityDAO;
 import constants.RequestAttributeNames;
-import constants.UrlParameters;
 import constants.Urls;
 import entity.ContractEntity;
 import entity.GrantEntity;
+import entity.InvoiceEntity;
 import entity.OrderEntity;
 import java.io.IOException;
 import java.util.List;
@@ -21,29 +22,29 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import rpo.RPOApiDataGetter;
-import rpo.*;
+import presentation.TopCompany;
 
 /**
  *
  * @author sprlajur
  */
-@WebServlet(Urls.PARTY_DETAIL)
-public class PartyDetailServlet extends AbstractServlet {
+@WebServlet(Urls.STATISTICS)
+public class StatisticsServlet extends AbstractServlet {
 
-    private final String PARTY_DETAIL_JSP_FILE_PATH = "/JSPpages/partyDetail.jsp";
-    private final String PARTY_NOT_FOUND_JSP_FILE_PATH = "/JSPpages/partyNotFound.jsp";
-
-    private ContractEntityDAO contractEntityManager;
+    private InvoiceEntityDAO invoiceEntityManager;
     private GrantEntityDAO grantEntityManager;
+    private ContractEntityDAO contractEntityManager;
     private OrderEntityDAO orderEntityManager;
+    private final String JSP_FILE_PATH = "/JSPpages/statistics.jsp";
 
     @Override
     public void init() {
-        contractEntityManager = new ContractEntityDAO(entityManager);
+        invoiceEntityManager = new InvoiceEntityDAO(entityManager);
         grantEntityManager = new GrantEntityDAO(entityManager);
+        contractEntityManager = new ContractEntityDAO(entityManager);
         orderEntityManager = new OrderEntityDAO(entityManager);
     }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,28 +56,23 @@ public class PartyDetailServlet extends AbstractServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String ico = request.getParameter(UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getParameter());
-        RPOLegalPerson person = null;
-        List<ContractEntity> contracts = null;
-        List<GrantEntity> grants = null;
-        List<OrderEntity> orders = null;
-        if (ico != null && !ico.isEmpty()) {
-            person = RPOApiDataGetter.getRPOData(ico);
-            contracts = contractEntityManager.getContractsByICO(ico);
-            grants = grantEntityManager.findByIco(ico);
-            orders = orderEntityManager.findByIco(ico);
-            System.out.println("servlet:" + orders.size());
-        }
-        request.setAttribute(RequestAttributeNames.LEGAL_PERSON, person);
-        request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, contracts);
-        request.setAttribute(RequestAttributeNames.ALL_GRANTS, grants);
-        request.setAttribute(RequestAttributeNames.ALL_ORDERS, orders);
-        String nextJSP = person == null ? PARTY_NOT_FOUND_JSP_FILE_PATH : PARTY_DETAIL_JSP_FILE_PATH;
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+        List<TopCompany> topCompaniesByTotalAmount = invoiceEntityManager.getTopCompaniesByTotalAmount();
+        List<TopCompany> topCompaniesByNrOfInvoices = invoiceEntityManager.getTopCompaniesByNumberOfInvoices();
+        List<InvoiceEntity> topInvoices = invoiceEntityManager.getTopInvoicesByPrice();
+        List<GrantEntity> topGrants = grantEntityManager.getTopGrantsByPrice();
+        List<ContractEntity> topContracts = contractEntityManager.getTopContractsByPrice();
+        List<OrderEntity> topOrders = orderEntityManager.getTopOrdersByPrice();
+        request.setAttribute(RequestAttributeNames.TOP_COMPANIES_BY_TOTAL_AMOUNT, topCompaniesByTotalAmount);
+        request.setAttribute(RequestAttributeNames.TOP_COMPANIES_BY_NR_OF_INVOICES, topCompaniesByNrOfInvoices);
+        request.setAttribute(RequestAttributeNames.ALL_INVOICES, topInvoices);
+        request.setAttribute(RequestAttributeNames.ALL_GRANTS, topGrants);
+        request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, topContracts);
+        request.setAttribute(RequestAttributeNames.ALL_ORDERS, topOrders);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
         dispatcher.forward(request, response);
     }
 
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

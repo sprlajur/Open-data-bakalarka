@@ -17,22 +17,39 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Vklady</h2>
+        <% List<RPODepositEntry> depositEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getDepositEntries();
+            boolean isAnyEntryFinished = depositEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
+        %>
+        <table class="companytable">
+            <caption>Vklady</caption>
+            <tr>
+                <th>Darca</th>
+                <th>Suma</th>
+                <th>Typ</th>
+                <th>Platný od</th>
+            <c:if test="${isAnyEntryFinished}">
+                <th>Platný do</th>
+            </c:if>
+        </tr>
         <%
-            List<RPODepositEntry> depositEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getDepositEntries();
             if (depositEntries != null) {
                 for (int i = 0; i < depositEntries.size(); i++) {
                     RPODepositEntry de = depositEntries.get(i);
                     String depositorName = de.getFullName();
                     depositorName = depositorName == null ? de.getPersonFormattedName() : depositorName;
         %>
-    <li><strong>Darca: </strong> <span><%= TableDataFormatter.dataOrEmptyString(depositorName)%></span></li>
-    <li><strong>Suma: </strong> <span><%= TableDataFormatter.priceFormatter(de.getAmount(), de.getCurrency())%></span></li>
-    <li><strong>Typ: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getType())%></span></li>
-    <li><strong>Platný od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
+        <tr>
+            <td><%= TableDataFormatter.dataOrEmptyString(depositorName)%></td>
+            <td><%= TableDataFormatter.priceFormatter(de.getAmount(), de.getCurrency())%></td>
+            <td><%= TableDataFormatter.dataOrEmptyString(de.getType())%></td>
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+        <c:if test="${isAnyEntryFinished}">
+            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+        </c:if>
+    </tr>          
     <% }
         }
     %>
+</table>
 </body>
 </html>

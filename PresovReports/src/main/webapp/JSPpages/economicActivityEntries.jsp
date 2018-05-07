@@ -10,6 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page import="rpo.RPOOneStringEntry"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,19 +18,34 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Predmety činností</h2>
-        <%
-            List<RPOOneStringEntry> economicActivityEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getEconomicActivityEntries();
-            if (economicActivityEntries != null) {
-                for (int i = 0; i < economicActivityEntries.size(); i++) {
-                    RPOOneStringEntry de = economicActivityEntries.get(i);
+        <% List<RPOOneStringEntry> economicActivityEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getEconomicActivityEntries();
+            boolean isAnyEntryFinished = economicActivityEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
         %>
-    <li><strong>Popis: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
-    <li><strong>Platný od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
-    <li><strong>Platný do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
-    <% }
-        }
-    %>
-</body>
+
+        <table class="companytable">
+            <caption>Predmety podnikania</caption>
+            <tr>
+                <th>Názov</th>
+                <th>Platný od</th>
+                    <c:if test="${isAnyEntryFinished}">
+                    <th>Platný do</th>
+                    </c:if>
+            </tr>
+            <%
+                if (economicActivityEntries != null) {
+                    for (int i = 0; i < economicActivityEntries.size(); i++) {
+                        RPOOneStringEntry de = economicActivityEntries.get(i);
+            %>
+            <tr>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <c:if test="${isAnyEntryFinished}">
+                    <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                </c:if>
+            </tr>             
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

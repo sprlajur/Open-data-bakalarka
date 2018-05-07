@@ -29,14 +29,21 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = OrderEntity.Q_ORDER_ENTITY_FIND_ALL, query = "SELECT o FROM OrderEntity o")
     ,
+    @NamedQuery(name = OrderEntity.Q_ORDER_ENTITY_FIND_TOP_BY_PRICE, query = "SELECT o FROM OrderEntity o ORDER BY COALESCE(o.value, -1) DESC")
+        ,
     @NamedQuery(name = OrderEntity.Q_ORDER_ENTITY_FIND_BY_INTERNAL_NR, query = "SELECT o FROM OrderEntity o where order_nr = :" + OrderEntity.SQL_PARAM_INTERNAL_NR)
+    ,
+    @NamedQuery(name = OrderEntity.Q_ORDER_ENTITY_FIND_BY_ICO, query = "SELECT o FROM OrderEntity o where ico = :" + OrderEntity.SQL_PARAM_ICO)
 })
 public class OrderEntity implements Serializable {
 
     public static final String Q_ORDER_ENTITY_FIND_ALL = "OrderEntity.findAll";
     public static final String Q_ORDER_ENTITY_FIND_BY_INTERNAL_NR = "OrderEntity.findByInternalNr";
+    public static final String Q_ORDER_ENTITY_FIND_BY_ICO = "OrderEntity.findByICO";
+    public static final String Q_ORDER_ENTITY_FIND_TOP_BY_PRICE = "OrderEntity.findTopByPrice";
 
     public static final String SQL_PARAM_INTERNAL_NR = "internalNr";
+    public static final String SQL_PARAM_ICO = "ico";
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -168,7 +175,7 @@ public class OrderEntity implements Serializable {
     }
 
     public String getIco() {
-        if(ico != null){
+        if (ico != null) {
             return ico.trim();
         }
         return ico;

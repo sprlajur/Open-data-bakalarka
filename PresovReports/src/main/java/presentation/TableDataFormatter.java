@@ -20,12 +20,19 @@ public class TableDataFormatter {
 
     private static final int MAX_SUBJECT_LENGTH = 150;
     private static final String CURRENCY_EUR = "EUR";
-    private static final String DATE_PATTERN = "dd.MM.yyyy";
+    public static final String DATE_PATTERN = "dd.MM.yyyy";
     private static final String DATA_DB_SEPARATOR = ";;";
 
     public static Object dataOrEmptyString(Object data) {
         if (data == null) {
             return "";
+        }
+        return data;
+    }
+    
+    public static Object dataOrDash(Object data) {
+        if (data == null) {
+            return "-";
         }
         return data;
     }
@@ -47,16 +54,16 @@ public class TableDataFormatter {
     }
 
     public static String dateFormatter(Date dbDate) {
-        return dbDate == null ? "" : dateFormatter(dbDate.toString());
+        return dbDate == null ? "-" : dateFormatter(dbDate.toString());
     }
 
     public static String dateFormatter(LocalDate dbDate) {
-        return dbDate == null ? "" : dateFormatter(dbDate.toString());
+        return dbDate == null ? "-" : dateFormatter(dbDate.toString());
     }
     
     public static String dateFormatter(String dbDate) {
         if (dbDate == null) {
-            return "";
+            return "-";
         }
         return LocalDate.parse(dbDate).format(DateTimeFormatter.
                 ofPattern(DATE_PATTERN));
@@ -64,7 +71,7 @@ public class TableDataFormatter {
 
     public static String formatTextData(String data) {
         if (data == null) {
-            return "";
+            return "-";
         }
         data = data.trim().replaceAll(DATA_DB_SEPARATOR, "");
         if (data.length() < 150) {
@@ -77,12 +84,12 @@ public class TableDataFormatter {
 
     public static String formatParties(String data, int partyOrd) {
         if (data == null) {
-            return "";
+            return "-";
         }
         try {
             data = data.split(DATA_DB_SEPARATOR)[partyOrd];
         } catch (IndexOutOfBoundsException e) {
-            return "";
+            return "-";
         }
         data = data.trim();
         return data.charAt(data.length() - 1) == ',' ? data.substring(0, data.length() - 1) : data;
