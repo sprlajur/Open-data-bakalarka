@@ -3,87 +3,111 @@ import sys
 import datetime
 import os
 
-from variables import *
+from constants import *
 CONTRACTS = "c"
 INVOICES = "i"
 ORDERS = "o"
 GRANTS = "g"
 
+DB_DATE_FORMAT = '%Y-%m-%d'
+
 def getJsonIdentifiersBySelection(selection):
 	if selection == CONTRACTS:
-		return json_contract_parameters
+		return JSON_CONTRACT_PARAMETERS
 	if selection == GRANTS:
-		return json_grants_parameters
+		return JSON_GRANTS_PARAMETERS
 	if selection == ORDERS:
-		return json_orders_parameters
+		return JSON_ORDERS_PARAMETERS
 	if selection == INVOICES:
-		return json_invoices_parameters
+		return JSON_INVOICES_PARAMETERS
 
 def getColumnNamesBySelection(selection):
 	if selection == CONTRACTS:
-		return contract_columns
+		return CONTRACT_COLUMNS
 	if selection == GRANTS:
-		return grant_columns
+		return GRANT_COLUMNS
 	if selection == ORDERS:
-		return order_columns
+		return ORDER_COLUMNS
 	if selection == INVOICES:
-		return invoice_columns
+		return INVOICE_COLUMNS
 	return []
 
 def getTableNameBySelection(selection):
 	if selection == CONTRACTS:
-		return contracts_table_name
+		return CONTRACTS_TABLE_NAME
 	if selection == GRANTS:
-		return grants_table_name
+		return GRANTS_TABLE_NAME
 	if selection == ORDERS:
-		return orders_table_name
+		return ORDERS_TABLE_NAME
 	if selection == INVOICES:
-		return invoices_table_name
+		return INVOICES_TABLE_NAME
 
+def getIndexedColumnsBySelection(selection):
+	if selection == CONTRACTS:
+		return CONTRACT_INDEXED_COLUMNS
+	if selection == GRANTS:
+		return GRANT_INDEXED_COLUMNS
+	if selection == ORDERS:
+		return ORDER_INDEXED_COLUMNS
+	if selection == INVOICES:
+		return INVOICE_INDEXED_COLUMNS
 
+# corrects input json file
 def transformJson(iFile, oFile):
 	with open(iFile) as json_data, open(oFile, "w") as outputFile:
+		# carriage return caused problems while parsing the json, replace
+		# it with unusual char sequence so we can parse it when presented
 		temp = json_data.read().replace("\\r", ";;")
 		outputFile = outputFile.write(temp)
 
-def isFloat(s):
-    try: 
-        float(s.replace(",","."))
-        return True
-    except ValueError:
-        return False
-
+# indicates, whether given string is a date (using date format from variables.py)
 def isDate(date_text):
     try:
-        datetime.datetime.strptime(date_text, json_resource_dateFormat)
+        datetime.datetime.strptime(date_text, JSON_RESOURCE_DATEFORMAT)
         return True
     except ValueError:
         return False
 
-def printCreateStatement(selection):
-	print("CREATE TABLE IF NOT EXISTS", getTableNameBySelection(sys.argv[2]), 
+# prints create table statement based on user's input and values stored in constants.py
+def printDropAndCreateStatement(selection):
+	tableName = getTableNameBySelection(sys.argv[2]);
+	print("DROP TABLE IF EXISTS", tableName + ";") 
+	print("CREATE TABLE", tableName, 
 		"(id INT PRIMARY KEY, " + ", ".join(getColumnNamesBySelection(sys.argv[2])) + ");")
 
+# prints create index statements based on user's input and values stored in constants.py
+def printIndexStatements(selection):
+	column_names = [ s.split(" ")[0] for s in getIndexedColumnsBySelection(selection)]
+	tableName = getTableNameBySelection(selection)
+	for i in column_names:
+		print("CREATE INDEX", tableName + "_" + i + "_index", "ON", tableName, "(" + i + ");")
+
 def printInserts(iFile, selection):
+	# retrieve correct variables from variables.py based on user's input
 	columns = getColumnNamesBySelection(selection)
 	tableName = getTableNameBySelection(selection)
 	jsonIdentifiers = getJsonIdentifiersBySelection(selection)
 	column_names = [s.split(" ")[0] for s in columns]
 	id = 1;
 	with open(iFile) as json_data:
+		# parser from json library
 		d = json.load(json_data)
 
 		for i in d:
 			print("INSERT INTO", tableName, "(id, " + ", ".join(column_names) + ") VALUES " + "(" + str(id) + ",", end='')
 			id+=1
 			for j in jsonIdentifiers:
-				i[j] = i[j].strip().replace("\'", "")
+				# we need to replace all the apostrophes
+				i[j] = i[j].strip().replace("\'", "\'\'")
+				# if not fist, print comma
 				if(j != jsonIdentifiers[0]):
 					print("", end=', ')
-				if(j in number_identifiers and i[j] != ""):
+				if(j in NUMBER_IDENTIFIERS and i[j] != ""):
+					# replace commas used in the text for decimals with dot to be able to insert it
 					print(i[j].replace(",",".").replace(" ", ""), end='')
 				elif(isDate(i[j])):
-					print("\'" + datetime.datetime.strptime(i[j], '%d.%m.%Y').strftime('%Y-%m-%d') +"\'", end='')
+					# transform the date from format used in json resources to the one accepted by the postgres db
+					print("\'" + datetime.datetime.strptime(i[j], JSON_RESOURCE_DATEFORMAT).strftime(DB_DATE_FORMAT) +"\'", end='')
 				elif(i[j] != ''):
 					print("\'" + i[j] +"\'", end='')
 				else:
@@ -96,9 +120,10 @@ def main():
 	if(sys.argv[2] not in ["c", "g", "o", "i"]):
 		sys.exit('Wrong choice selection (2nd argument). Possibilities:(CONTRACTS = c, INVOICES = i, ORDERS = o, GRANTS = g)')
 	transformJson(sys.argv[1], "temp.json");
-	printCreateStatement(sys.argv[2])
+	printDropAndCreateStatement(sys.argv[2])
 	print();
 	printInserts("temp.json", sys.argv[2])
+	printIndexStatements(sys.argv[2])
 	os.remove("temp.json")
 
 main()
