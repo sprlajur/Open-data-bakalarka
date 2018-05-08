@@ -10,7 +10,9 @@ import constants.RequestAttributeNames;
 import constants.Urls;
 import entity.OrderEntity;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,6 +49,10 @@ public class AllOrdersServlet extends AbstractServlet {
         List<OrderEntity> orders = orderEntityManager.findAll();
         setPaginationParameters(request, orders == null ? 0 : orders.size());
         request.setAttribute(RequestAttributeNames.ALL_ORDERS, orders);
+        if (orders != null) {
+            List<BigDecimal> values = orders.stream().map(order -> order.getValue()).collect(Collectors.toList());
+            setTotalValueAttribute(values, request);
+        }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
         dispatcher.forward(request, response);
     }
@@ -69,6 +75,10 @@ public class AllOrdersServlet extends AbstractServlet {
             orders = orderEntityManager.getOrdersByFilter(searchedParty, searchedText, from, to);
             setPaginationParameters(request, orders == null ? 0 : orders.size());
             request.setAttribute(RequestAttributeNames.ALL_ORDERS, orders);
+            if (orders != null) {
+                List<BigDecimal> values = orders.stream().map(order -> order.getValue()).collect(Collectors.toList());
+                setTotalValueAttribute(values, request);
+            }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
             dispatcher.forward(request, response);
         } else {

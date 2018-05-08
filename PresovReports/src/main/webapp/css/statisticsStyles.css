@@ -8,10 +8,6 @@ and open the template in the editor.
     Author     : sprlajur
 */
 
-table.statisticstable {
-    margin-bottom: 25px;
-}
-
 table.statisticstable, table.statisticstable td, table.statisticstable th {
     background-color: #eee;
     border-collapse: collapse;
@@ -24,31 +20,63 @@ table.statisticstable caption {
     text-align: left;
 }
 
-table.statisticstable th {
-    background-color: #47474c;
-    color: white;
+.table-container {
+    display: inline-block;
+    padding-top: 1.875em;
+    position: relative;
+    color: black;
+    width: 100%;
 }
+
+.table-container > div {
+    height: 1.7em;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #47474c;
+}
+
+.table-top-container{
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
 
 table.statisticstable {
-/*    width: 440px;  140px * 3 column + 16px scrollbar width */
-    border-spacing: 0;
-}
-
-table.statisticstable tbody,table.statisticstable thead tr { display: block; }
-
-table.statisticstable tbody {
-    height: 400px;
+    height: 100%;
+    width: 100%;
+    display: block;
     overflow-y: auto;
-    overflow-x: hidden;
 }
 
-/*table.statisticstable tbody td, table.statisticstable thead th {
-    width: 140px;
+table.statisticstable th {
+    /*background-color: #47474c;*/
+    padding: 0 5px;
+    text-align: center;
 }
 
-table.statisticstable thead th:last-child {
-    width: 156px;  140px + 16px scrollbar width 
-}*/
+table.statisticstable th:first-child > div {
+    padding-left: 7px;
+}
+
+table.statisticstable th > div {
+    color: white;
+    line-height: 1.875em;
+    margin-left: -6px;
+    padding-left: 5px;
+    position: absolute;
+    top: 0;
+}
+
+table.statisticstable caption > div {
+    top: 0;
+    position: absolute;
+}
+
+table.statisticstable td {
+    padding: 5px;
+}
 
 /* Style the tab */
 .tab {

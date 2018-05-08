@@ -26,9 +26,9 @@
             <tr>
                 <th>Názov:</th>
                 <th>Platný od</th>
-                    <c:if test="${isAnyEntryFinished}">
-                    <th>Platný do</th>
-                    </c:if>
+                    <% if (isAnyEntryFinished) { %>
+                <th>Platný do</th>
+                    <%} %>
             </tr>
             <%
                 if (nameEntries != null) {
@@ -38,9 +38,9 @@
             <tr>
                 <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-                <c:if test="${isAnyEntryFinished}">
-                    <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-                </c:if>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%} %>
             </tr>         
             <% }
                 }

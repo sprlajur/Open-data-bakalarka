@@ -27,25 +27,25 @@
             <tr>
                 <th>Názov</th>
                 <th>Platný od</th>
-                <c:if test="${isAnyEntryFinished}">
+                    <% if (isAnyEntryFinished) {%>
                 <th>Platný do</th>
-                </c:if>
+                    <%}%>
             </tr>
-        <%
-            if (legalStatusEntries != null) {
-                for (int i = 0; i < legalStatusEntries.size(); i++) {
-                    RPOOneStringEntry de = legalStatusEntries.get(i);
-        %>
-        <tr>
+            <%
+                if (legalStatusEntries != null) {
+                    for (int i = 0; i < legalStatusEntries.size(); i++) {
+                        RPOOneStringEntry de = legalStatusEntries.get(i);
+            %>
+            <tr>
                 <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-                <c:if test="${isAnyEntryFinished}">
+                <% if (isAnyEntryFinished) {%>                    
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-                </c:if>
+                <%} %>
             </tr>
-    <% }
-        }
-    %>
-    </table>
-</body>
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

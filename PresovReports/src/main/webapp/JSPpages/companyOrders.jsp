@@ -20,31 +20,40 @@
     <body>
         <%
             List<OrderEntity> orders = (List<OrderEntity>) request.getAttribute(RequestAttributeNames.ALL_ORDERS);
+            int height = orders.size() > 2 ? 300 : 120;
         %>
-        <table class="companytable" id="sortable">
-            <caption>Objednávky od mesta Prešov</caption>
-            <tr>
-                <th class="sorttable_nosort">Text objednávky</th>
-                <th>Hodnota</th>
-                <th>Stav vybavenia</th>
-                <th>Dátum vystavenia</th>
-                <th class="sorttable_nosort"></th>
-            </tr>
-            <%
-                if (orders != null) {
-                    for (int i = 0; i < orders.size(); i++) {
-                        OrderEntity order = orders.get(i);
-            %>
-            <tr>      
-                <td class="text_cell"><%=TableDataFormatter.formatTextData(order.getOrderText())%></td>
-                <td><%=TableDataFormatter.priceFormatter(order.getValue(), order.getCurrency())%></td>
-                <td><%=TableDataFormatter.dataOrEmptyString(order.getCompletenessStatus())%></td> 
-                <td><%=TableDataFormatter.dateFormatter(order.getIssueDate())%></td>
-                <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_ORDERS_URL + "/" + Urls.ORDER_DETAIL + UrlParameters.ORDER_DETAIL_NR_PARAMETER.getURLParameter() + order.getOrderNr()%>"> <i class="glyphicon glyphicon-zoom-in"></i> </a> </td>
-            </tr>
-            <%}
-                }
-            %>
-        </table>
+        <div class = "table-top-container" style="height: <%=(height + 50)%>px; width: 100%">
+            <h4>Objednávky od mesta Prešov</h4>
+            <div class="table-container">
+                <div></div>
+                <table cellspacing="0" class="statisticstable" id="sortable" style="height: <%=(height)%>px;  width: 100%;">
+                    <thead>
+                        <tr>
+                            <th class="sorttable_nosort" style="width: 600px; max-width: 600px"><div style="width:600px;">Text objednávky</div></th>
+                            <th><div style="width:150px">Dátum vystavenia</div></th>
+                            <th><div style="width:150px">Stav vybavenia</div></th>
+                            <th><div style="width:150px">Hodnota</div></th>
+                            <th class="sorttable_nosort"><div style="width:150px"></div></th>
+                        </tr>
+                    </thead>
+                    <%
+                        if (orders != null) {
+                            for (int i = 0; i < orders.size(); i++) {
+                                OrderEntity order = orders.get(i);
+                    %>
+                    <tr>      
+                        <td class="text_cell" style="width: 500px; max-width: 500px"><%=TableDataFormatter.formatTextData(order.getOrderText())%></td>
+                        <td style="width: 150px; text-align: center"><%=TableDataFormatter.dateFormatter(order.getIssueDate())%></td>
+                        <td style="width: 150px; text-align: center"><%=TableDataFormatter.dataOrEmptyString(order.getCompletenessStatus())%></td> 
+                        <td style="width: 150px; text-align: center"><%=TableDataFormatter.priceFormatter(order.getValue(), order.getCurrency())%></td>
+                        <td style="width: 150px; text-align: center"> <a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_ORDERS_URL + "/" + Urls.ORDER_DETAIL + UrlParameters.ORDER_DETAIL_NR_PARAMETER.getURLParameter() + order.getOrderNr()%>"> <i class="glyphicon glyphicon-zoom-in"></i> </a> </td>
+                    </tr>
+                    <%}
+                        }
+                    %>
+                </table>
+            </div>
+        </div>
+
     </body>
 </html>

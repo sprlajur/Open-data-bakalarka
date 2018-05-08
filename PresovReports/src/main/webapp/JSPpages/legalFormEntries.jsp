@@ -17,19 +17,34 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Právne formy</h2>
         <%
             List<RPOOneStringEntry> legalFormEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getLegalForms();
-            if (legalFormEntries != null) {
-                for (int i = 0; i < legalFormEntries.size(); i++) {
-                    RPOOneStringEntry de = legalFormEntries.get(i);
+            boolean isAnyEntryFinished = legalFormEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
         %>
-    <li><strong>Názov: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
-    <li><strong>Platné od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
-    <li><strong>Platné do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
-    <% }
-        }
-    %>
-</body>
+        <table class="companytable">
+            <caption>Právne formy</caption>
+            <tr>
+                <th>Názov</th>
+                    <% if (isAnyEntryFinished) { %>
+                <th>Platný do</th>
+                    <%} %>
+            </tr>
+            <%
+
+                if (legalFormEntries != null) {
+                    for (int i = 0; i < legalFormEntries.size(); i++) {
+                        RPOOneStringEntry de = legalFormEntries.get(i);
+            %>
+            <tr>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+                <td>Platné od:<%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%}%>
+            </tr>            
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

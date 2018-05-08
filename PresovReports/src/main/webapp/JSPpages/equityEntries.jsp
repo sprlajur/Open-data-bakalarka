@@ -26,25 +26,25 @@
             <tr>
                 <th>Schválená výška podielu</th>
                 <th>Platné od</th>
-            <c:if test="${isAnyEntryFinished}">
+                    <% if (isAnyEntryFinished) { %>
                 <th>Platné do</th>
-            </c:if>
-        </tr>
-        <%
-            if (equityEntries != null) {
-                for (int i = 0; i < equityEntries.size(); i++) {
-                    RPOEquityEntry de = equityEntries.get(i);
-        %>
-        <tr>
-            <td><%= TableDataFormatter.priceFormatter(de.getApprovedAmount(), de.getApprovedCurrency())%></td>
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-        <c:if test="${isAnyEntryFinished}">
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-        </c:if>
-    </tr>   
-    <% }
-        }
-    %>
-</table>
-</body>
+                    <%} %>
+            </tr>
+            <%
+                if (equityEntries != null) {
+                    for (int i = 0; i < equityEntries.size(); i++) {
+                        RPOEquityEntry de = equityEntries.get(i);
+            %>
+            <tr>
+                <td><%= TableDataFormatter.priceFormatter(de.getApprovedAmount(), de.getApprovedCurrency())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%}%>
+            </tr>   
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

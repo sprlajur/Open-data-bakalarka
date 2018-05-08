@@ -17,19 +17,34 @@
         <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <h2>Alternatívne mená</h2>
         <%
             List<RPOOneStringEntry> alternateNameEntries = ((RPOLegalPerson) request.getAttribute(RequestAttributeNames.LEGAL_PERSON)).getAlternateNameEntries();
-            if (alternateNameEntries != null) {
-                for (int i = 0; i < alternateNameEntries.size(); i++) {
-                    RPOOneStringEntry de = alternateNameEntries.get(i);
+            boolean isAnyEntryFinished = alternateNameEntries.stream().filter(ea -> ea.getEffectiveTo() != null).findAny().isPresent();
         %>
-    <li><strong>Meno: </strong> <span><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></span></li>
-    <li><strong>Platné od: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></span></li>
-    <li><strong>Platné do: </strong> <span><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></span></li>
-    <br>            
-    <% }
-        }
-    %>
-</body>
+        <table class="companytable">
+            <caption>Alternatívne mená</caption>
+            <tr>
+                <th>Meno</th>
+                <th>Platné od</th>
+                    <% if (isAnyEntryFinished) { %>
+                <th>Platné do</th>
+                    <%} %>
+            </tr>
+            <%
+                if (alternateNameEntries != null) {
+                    for (int i = 0; i < alternateNameEntries.size(); i++) {
+                        RPOOneStringEntry de = alternateNameEntries.get(i);
+            %>
+            <tr>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%}%>
+            </tr>            
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

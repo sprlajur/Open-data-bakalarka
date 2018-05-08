@@ -22,6 +22,7 @@
     <body>
         <jsp:include page="topMenu.jsp" />
         <jsp:include page="mainSearch.jsp" />
+        <jsp:include page="basicStatistics.jsp"/>
         <%! List<InvoiceEntity> invoices;%>
         <table id="datatable" style="width:100%">
             <tr>      

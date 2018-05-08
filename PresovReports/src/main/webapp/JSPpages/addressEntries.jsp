@@ -27,24 +27,24 @@
             <tr>
                 <th>Adresa</th>
                 <th>Platná od</th>
-            <c:if test="${isAnyEntryFinished}">
+                    <% if (isAnyEntryFinished) { %>
                 <th>Platná do</th>
-            </c:if>
-        </tr>
-        <%            if (addressEntries != null) {
-                for (int i = 0; i < addressEntries.size(); i++) {
-                    RPOAddressEntry de = addressEntries.get(i);
-        %>
-        <tr>
-            <td><%= TableDataFormatter.dataOrEmptyString(de.getFormattedAddress())%></td>
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-        <c:if test="${isAnyEntryFinished}">
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-        </c:if>
-    </tr>            
-    <% }
-        }
-    %>
-</table>
-</body>
+                    <%} %>
+            </tr>
+            <%            if (addressEntries != null) {
+                    for (int i = 0; i < addressEntries.size(); i++) {
+                        RPOAddressEntry de = addressEntries.get(i);
+            %>
+            <tr>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getFormattedAddress())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%}%>
+            </tr>            
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author sprlajur
  */
 @WebServlet(Urls.ALL_CONTRACTS_URL + "/" + Urls.CONTRACT_DETAIL)
-public class contractDetailServlet extends AbstractServlet {
+public class ContractDetailServlet extends AbstractServlet {
 
     private final String CONTRACT_DETAIL_JSP_FILE_PATH = "/JSPpages/contractDetail.jsp";
     private final String CONTRACT_NOT_FOUND_JSP_FILE_PATH = "/JSPpages/contractNotFound.jsp";

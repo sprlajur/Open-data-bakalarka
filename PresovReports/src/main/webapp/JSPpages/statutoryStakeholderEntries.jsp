@@ -33,9 +33,9 @@
                 <th>Adresa</th>
                 <th>Typ</th>
                 <th>Od</th>
-                    <c:if test="${isAnyEntryFinished}">
-                    <th>Do</th>
-                    </c:if>
+                    <% if (isAnyEntryFinished) { %>
+                <th>Do</th>                
+                    <% } %>
             </tr>
             <%
                 if (entries != null) {
@@ -44,21 +44,18 @@
             %>
             <tr>
                 <td>
-                    <c:choose>
-                        <c:when test="${de.getIco() ne null}">
-                            <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + TableDataFormatter.dataOrEmptyString(de.getIco())%>"><%= TableDataFormatter.dataOrEmptyString(de.getIco())%></a>
-                        </c:when>    
-                        <c:otherwise>
-                            <%= TableDataFormatter.dataOrEmptyString(de.getFormattedName())%>
-                        </c:otherwise>
-                    </c:choose>
+                    <% if (de.getIco() != null || de.getFullName() != null) {%>
+                    <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + TableDataFormatter.dataOrEmptyString(de.getIco())%>"><%=TableDataFormatter.dataOrEmptyString(de.getFullName())%></a>
+                    <%} else {%>
+                    <%= TableDataFormatter.dataOrEmptyString(de.getFormattedName())%>
+                    <% }%>
                 </td>
                 <td><%= de.getFormattedAddress()%> </td>
                 <td><%=TableDataFormatter.dataOrEmptyString(de.getType())%></td>
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-                <c:if test="${isAnyEntryFinished}">
-                    <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-                </c:if>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <% } %>
             </tr> 
             <% }
                 }

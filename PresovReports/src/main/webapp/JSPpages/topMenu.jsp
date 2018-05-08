@@ -20,6 +20,7 @@
                 <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_ORDERS_URL%>">Objednávky</a></li>
                 <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_INVOICES_URL%>">Faktúry</a></li>
                 <li><a href="${pageContext.request.contextPath}<%="/" + Urls.STATISTICS%>">Štatistiky</a><li>
+                <li><a href="${pageContext.request.contextPath}<%="/" + Urls.ABOUT%>">O projekte</a><li>
             </ul>
         </div>
     </body>

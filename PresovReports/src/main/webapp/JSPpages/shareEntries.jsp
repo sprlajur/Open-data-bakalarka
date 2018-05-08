@@ -32,27 +32,29 @@
                 <th>Podoba akcie</th>
                 <th>Forma akcie</th>
                 <th>Platný od</th>
-            <c:if test="${isAnyEntryFinished}">
+                    <% if (isAnyEntryFinished) { %>
                 <th>Platný do</th>
-            </c:if>
-        </tr>
-        <%
-            if (shareEntries != null) {
-                for (int i = 0; i < shareEntries.size(); i++) {
-                    RPOShareEntry de = shareEntries.get(i);
-        %>
-        <tr>
-            <td class="price_cell"><%= TableDataFormatter.priceFormatter(de.getPrice(), de.getCurrency())%></td>
-            <td><%= TableDataFormatter.dataOrEmptyString(de.getAmount())%></td>
-            <td><%= TableDataFormatter.dataOrEmptyString(de.getTransferDescription())%></td>
-            <td><%= TableDataFormatter.dataOrEmptyString(de.getType())%></td>
-            <td><%= TableDataFormatter.dataOrEmptyString(de.getForm())%></td>
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-        </tr>            
-        <% }
-            }
-        %>
-    </table>
-</body>
+                    <%} %>
+            </tr>
+            <%
+                if (shareEntries != null) {
+                    for (int i = 0; i < shareEntries.size(); i++) {
+                        RPOShareEntry de = shareEntries.get(i);
+            %>
+            <tr>
+                <td class="price_cell"><%= TableDataFormatter.priceFormatter(de.getPrice(), de.getCurrency())%></td>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getAmount())%></td>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getTransferDescription())%></td>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getType())%></td>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getForm())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <% if (isAnyEntryFinished) {%>                    
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%} %>
+            </tr>            
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

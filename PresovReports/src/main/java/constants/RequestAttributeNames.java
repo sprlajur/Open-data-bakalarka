@@ -23,4 +23,6 @@ public class RequestAttributeNames {
     public static final String DATE_TO = "to";
     public static final String TOP_COMPANIES_BY_TOTAL_AMOUNT = "topCompaniesByTotalAmount";
     public static final String TOP_COMPANIES_BY_NR_OF_INVOICES = "topCompaniesByNrOfInvoices";
+    public static final String ENTITY_SIZE = "entitySize";
+    public static final String ENTITY_SUM = "entitySum";
 }

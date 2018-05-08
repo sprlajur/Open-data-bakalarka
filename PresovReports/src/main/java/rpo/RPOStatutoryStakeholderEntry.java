@@ -5,6 +5,8 @@
  */
 package rpo;
 
+import presentation.TableDataFormatter;
+
 /**
  *
  * @author sprlajur
@@ -17,6 +19,10 @@ public class RPOStatutoryStakeholderEntry extends AbstractRPOEntry {
     private String fullName;
 
     private String formattedName;
+
+    private String firstName;
+
+    private String lastName;
 
     private String formattedAddress;
 
@@ -53,6 +59,9 @@ public class RPOStatutoryStakeholderEntry extends AbstractRPOEntry {
     }
 
     public String getFormattedName() {
+        if (formattedName == null) {
+            return TableDataFormatter.dataOrEmptyString(firstName) + " " + TableDataFormatter.dataOrEmptyString(lastName);
+        }
         return formattedName;
     }
 
@@ -163,6 +172,14 @@ public class RPOStatutoryStakeholderEntry extends AbstractRPOEntry {
 
     public void setIco(String ico) {
         this.ico = ico;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 }

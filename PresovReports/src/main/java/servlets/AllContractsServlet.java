@@ -10,7 +10,10 @@ import constants.RequestAttributeNames;
 import constants.Urls;
 import entity.ContractEntity;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,6 +49,10 @@ public class AllContractsServlet extends AbstractServlet {
         List<ContractEntity> contracts = contractEntityManager.getAllContracts();
         setPaginationParameters(request, contracts == null ? 0 : contracts.size());
         request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, contracts);
+        if (contracts != null) {
+            List<BigDecimal> values = contracts.stream().map(contract -> contract.getPrice()).collect(Collectors.toList());
+            setTotalValueAttribute(values, request);
+        }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
         dispatcher.forward(request, response);
     }
@@ -67,6 +74,10 @@ public class AllContractsServlet extends AbstractServlet {
         if (!searchedParty.isEmpty() || !searchedText.isEmpty() || from != null || to != null) {
             contracts = contractEntityManager.getContractsByFilter(searchedParty, searchedText, from, to);
             setPaginationParameters(request, contracts == null ? 0 : contracts.size());
+            if (contracts != null) {
+                List<BigDecimal> values = contracts.stream().map(contract -> contract.getPrice()).collect(Collectors.toList());
+                setTotalValueAttribute(values, request);
+            }
             request.setAttribute(RequestAttributeNames.ALL_CONTRACTS, contracts);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
             dispatcher.forward(request, response);

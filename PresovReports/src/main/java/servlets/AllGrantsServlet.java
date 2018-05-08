@@ -10,7 +10,9 @@ import constants.RequestAttributeNames;
 import constants.Urls;
 import entity.GrantEntity;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,6 +47,10 @@ public class AllGrantsServlet extends AbstractServlet {
             throws ServletException, IOException {
         List<GrantEntity> grants = grantEntityManager.findAll();
         setPaginationParameters(request, grants == null ? 0 : grants.size());
+        if (grants != null) {
+            List<BigDecimal> values = grants.stream().map(grant -> grant.getApprovedGrant()).collect(Collectors.toList());
+            setTotalValueAttribute(values, request);
+        }
         request.setAttribute(RequestAttributeNames.ALL_GRANTS, grants);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
         dispatcher.forward(request, response);
@@ -64,10 +70,14 @@ public class AllGrantsServlet extends AbstractServlet {
         request.setCharacterEncoding("UTF-8");
         setFilterParameters(request);
         List<GrantEntity> grants = null;
-        if (!searchedParty.isEmpty() || !searchedText.isEmpty() || from != null || to != null) {
+        if (!searchedParty.isEmpty() || !searchedText.isEmpty()) {
             grants = grantEntityManager.getGrantsByFilter(searchedParty, searchedText);
             setPaginationParameters(request, grants == null ? 0 : grants.size());
             request.setAttribute(RequestAttributeNames.ALL_GRANTS, grants);
+            if (grants != null) {
+                List<BigDecimal> values = grants.stream().map(grant -> grant.getApprovedGrant()).collect(Collectors.toList());
+                setTotalValueAttribute(values, request);
+            }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
             dispatcher.forward(request, response);
         } else {

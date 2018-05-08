@@ -10,7 +10,9 @@ import constants.RequestAttributeNames;
 import constants.Urls;
 import entity.InvoiceEntity;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,6 +49,10 @@ public class AllInvoicesServlet extends AbstractServlet {
         List<InvoiceEntity> invoices = invoiceEntityManager.findAll();
         setPaginationParameters(request, invoices == null ? 0 : invoices.size());
         request.setAttribute(RequestAttributeNames.ALL_INVOICES, invoices);
+        if (invoices != null) {
+            List<BigDecimal> values = invoices.stream().map(invoice -> invoice.getPrice()).collect(Collectors.toList());
+            setTotalValueAttribute(values, request);
+        }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
         dispatcher.forward(request, response);
     }
@@ -69,6 +75,10 @@ public class AllInvoicesServlet extends AbstractServlet {
             invoices = invoiceEntityManager.getInvoicesByFilter(searchedParty, searchedText, from, to);
             setPaginationParameters(request, invoices == null ? 0 : invoices.size());
             request.setAttribute(RequestAttributeNames.ALL_INVOICES, invoices);
+            if (invoices != null) {
+                List<BigDecimal> values = invoices.stream().map(invoice -> invoice.getPrice()).collect(Collectors.toList());
+                setTotalValueAttribute(values, request);
+            }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(JSP_FILE_PATH);
             dispatcher.forward(request, response);
         } else {

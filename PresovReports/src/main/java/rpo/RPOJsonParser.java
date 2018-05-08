@@ -107,6 +107,8 @@ public class RPOJsonParser {
     private static final String ADDRESS_MUNICIPALITY = "address_municipality";
     private static final String ADDRESS_COUNTRY = "address_country";
     private static final String ADDRESS_DISTRICT = "address_district";
+    private static final String PERSON_FAMILY_NAME = "person_family_name";
+    private static final String PERSON_GIVEN_NAME = "person_given_name";
 
     private static final String MAIN_ACTIVITY_CODE = "main_activity_code";
     private static final String ESA2010_CODE = "esa2010_code";
@@ -548,6 +550,12 @@ public class RPOJsonParser {
             jsonArray.forEach(iter -> {
                 JSONObject mainJSONObject = (JSONObject) iter;
                 RPOStatutoryStakeholderEntry statutoryStakeholder = new RPOStatutoryStakeholderEntry();
+                if(!mainJSONObject.isNull(PERSON_FAMILY_NAME)){
+                    statutoryStakeholder.setLastName(mainJSONObject.getString(PERSON_FAMILY_NAME));
+                }
+                if(!mainJSONObject.isNull(PERSON_GIVEN_NAME)){
+                    statutoryStakeholder.setFirstName(mainJSONObject.getString(PERSON_GIVEN_NAME));
+                }
                 if (!mainJSONObject.isNull(FULL_NAME)) {
                     statutoryStakeholder.setFullName(mainJSONObject.getString(FULL_NAME));
                 }

@@ -27,25 +27,25 @@
             <tr>
                 <th>Text:</th>
                 <th>Platné od</th>
-            <c:if test="${isAnyEntryFinished}">
-                <th>Platné do</th>
-            </c:if>
-        </tr>
-        <%
-            if (authorizationEntries != null) {
-                for (int i = 0; i < authorizationEntries.size(); i++) {
-                    RPOOneStringEntry de = authorizationEntries.get(i);
-        %>
-        <tr>
-            <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-        <c:if test="${isAnyEntryFinished}">
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-        </c:if>
-    </tr>       
-    <% }
-        }
-    %>
-</table>
-</body>
+                    <% if (isAnyEntryFinished) { %>
+                <th>Platný do</th>
+                    <%} %>
+            </tr>
+            <%
+                if (authorizationEntries != null) {
+                    for (int i = 0; i < authorizationEntries.size(); i++) {
+                        RPOOneStringEntry de = authorizationEntries.get(i);
+            %>
+            <tr>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%}%>
+            </tr>       
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

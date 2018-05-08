@@ -7,10 +7,15 @@ package servlets;
 
 import constants.RequestAttributeNames;
 import constants.Urls;
+import entity.ContractEntity;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServlet;
@@ -47,6 +52,8 @@ public abstract class AbstractServlet extends HttpServlet {
         request.setAttribute("lastPage", lastPage);
         request.setAttribute("startIndex", startIndex);
         request.setAttribute("endIndex", endIndex);
+        System.out.println("ei:" + endIndex);
+        request.setAttribute(RequestAttributeNames.ENTITY_SIZE, entityCount);
     }
 
     public void setFilterParameters(HttpServletRequest request) {
@@ -66,5 +73,10 @@ public abstract class AbstractServlet extends HttpServlet {
             }
         } catch (ParseException ex) {
         }
+    }
+
+    public void setTotalValueAttribute(List<BigDecimal> values, HttpServletRequest request) {
+        BigDecimal sum = values.stream().filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add);
+        request.setAttribute(RequestAttributeNames.ENTITY_SUM, sum);
     }
 }

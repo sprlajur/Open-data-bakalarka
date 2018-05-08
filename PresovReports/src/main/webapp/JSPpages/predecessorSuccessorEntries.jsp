@@ -29,18 +29,18 @@
             <caption><%=header%></caption>
             <tr>
                 <th>Názov:</th>
-        </tr>
-        <%
-            if (nameEntries != null) {
-                for (int i = 0; i < nameEntries.size(); i++) {
-                    RPOPredecessorSuccessorEntry de = nameEntries.get(i);
-        %>
-        <tr>
-            <td><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + de.getIco()%>"><%= de.getName()%></a></td>
-    </tr>          
-    <% }
-        }
-    %>
-</table>
-</body>
+            </tr>
+            <%
+                if (nameEntries != null) {
+                    for (int i = 0; i < nameEntries.size(); i++) {
+                        RPOPredecessorSuccessorEntry de = nameEntries.get(i);
+            %>
+            <tr>
+                <td><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + de.getIco()%>"><%= de.getName()%></a></td>
+            </tr>          
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>

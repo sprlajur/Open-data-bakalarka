@@ -49,6 +49,9 @@
             <strong>IČO: </strong> <span><%=ico%></span>
             <strong>Adresa: </strong> <span><%= TableDataFormatter.dataOrDash(person.getFormatted_address())%></span>
             <strong>Dátum založenia: </strong> <span><%= TableDataFormatter.dateFormatter(person.getEstablished_on())%></span>
+            <% if (person.getTerminated_on() != null) {%>
+            <strong>Dátum ukončenia činnosti: </strong> <span><%= TableDataFormatter.dateFormatter(person.getTerminated_on())%></span>
+            <% }%>
             <c:if test = "${person.getCurrentLegalForm() ne null}">
                 <strong>Právna forma: </strong> <span><%= person.getCurrentLegalForm()%></span>
             </c:if>
@@ -59,9 +62,6 @@
             <strong>Činnost podľa ESA2010: </strong> <span><%= TableDataFormatter.dataOrDash(person.getEsa2010Code())%></span>
             <strong>Miesto registrácie: </strong> <span><%= TableDataFormatter.dataOrDash(person.getRegistration_office())%></span>
             <strong>Registračné čislo: </strong> <span><%= TableDataFormatter.dataOrDash(person.getRegistration_nr())%></span>    
-            <c:if test = "${person.getTerminated_on() ne null}">
-                <strong>Dátum ukončenia činnosti: </strong> <span><%= TableDataFormatter.dateFormatter(person.getTerminated_on())%></span>
-            </c:if> 
             <strong>Viac informácií na:</strong><span> <a href="https://finstat.sk/<%=ico%>" target="_blank">finstat.sk/<%=ico%></a></span> 
 
         </div>

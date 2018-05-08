@@ -27,29 +27,29 @@
                 <th>Suma</th>
                 <th>Typ</th>
                 <th>Platný od</th>
-            <c:if test="${isAnyEntryFinished}">
+                    <% if (isAnyEntryFinished) { %>
                 <th>Platný do</th>
-            </c:if>
-        </tr>
-        <%
-            if (depositEntries != null) {
-                for (int i = 0; i < depositEntries.size(); i++) {
-                    RPODepositEntry de = depositEntries.get(i);
-                    String depositorName = de.getFullName();
-                    depositorName = depositorName == null ? de.getPersonFormattedName() : depositorName;
-        %>
-        <tr>
-            <td><%= TableDataFormatter.dataOrEmptyString(depositorName)%></td>
-            <td><%= TableDataFormatter.priceFormatter(de.getAmount(), de.getCurrency())%></td>
-            <td><%= TableDataFormatter.dataOrEmptyString(de.getType())%></td>
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
-        <c:if test="${isAnyEntryFinished}">
-            <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
-        </c:if>
-    </tr>          
-    <% }
-        }
-    %>
-</table>
-</body>
+                <%} %>
+            </tr>
+            <%
+                if (depositEntries != null) {
+                    for (int i = 0; i < depositEntries.size(); i++) {
+                        RPODepositEntry de = depositEntries.get(i);
+                        String depositorName = de.getFullName();
+                        depositorName = depositorName == null ? de.getPersonFormattedName() : depositorName;
+            %>
+            <tr>
+                <td><%= TableDataFormatter.dataOrEmptyString(depositorName)%></td>
+                <td><%= TableDataFormatter.priceFormatter(de.getAmount(), de.getCurrency())%></td>
+                <td><%= TableDataFormatter.dataOrEmptyString(de.getType())%></td>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <% if (isAnyEntryFinished) {%>
+                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <%}%>
+            </tr>          
+            <% }
+                }
+            %>
+        </table>
+    </body>
 </html>
