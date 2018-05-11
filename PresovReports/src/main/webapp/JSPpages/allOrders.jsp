@@ -43,7 +43,7 @@
             <tr>      
                 <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + order.getIco()%>"><%= order.getSupplier()%></a> </td>
                 <td class="text_cell"><%=TableDataFormatter.formatTextData(order.getOrderText())%></td>
-                <td><%=TableDataFormatter.priceFormatter(order.getValue(), order.getCurrency())%></td>
+                <td class="price_cell"><%=TableDataFormatter.priceFormatter(order.getValue(), order.getCurrency())%></td>
                 <td><%=TableDataFormatter.dataOrEmptyString(order.getCompletenessStatus())%></td> 
                 <td><%=TableDataFormatter.dateFormatter(order.getIssueDate())%></td>
                 <td> <a href="${pageContext.request.contextPath}<%="/" + Urls.ALL_ORDERS_URL + "/" + Urls.ORDER_DETAIL + UrlParameters.ORDER_DETAIL_NR_PARAMETER.getURLParameter() + order.getOrderNr()%>"> <i class="glyphicon glyphicon-zoom-in"></i> </a> </td>

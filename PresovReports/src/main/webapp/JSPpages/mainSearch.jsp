@@ -7,6 +7,7 @@
 <%@page import="presentation.TableDataFormatter"%>
 <%@page import="constants.RequestAttributeNames"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,20 +36,22 @@
     </head>
     <%
         String dateCellType = request.getParameter("dateCellType");
-        if(dateCellType == null || dateCellType.isEmpty()){
+        if (dateCellType == null || dateCellType.isEmpty()) {
             dateCellType = "text";
         }
-        %>
-    <form id="searchForm" action="${requestScope['javax.servlet.forward.request_uri']}"  method="post">
-        <div style="color: white; font-size: 20px"> Filter </div>
-        <table class="filter-table" align="center">
-            <tr>
-                <td><input class="s" type="text" name="<%=RequestAttributeNames.SEARCHED_PARTY%>" placeholder="Názov firmy" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter(RequestAttributeNames.SEARCHED_PARTY))%>"></td> 
-                <td><input class="s" type="text" name="<%=RequestAttributeNames.SEARCHED_TEXT%>" placeholder="Text predmetu" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter(RequestAttributeNames.SEARCHED_TEXT))%>"></td>
-                <td id="dateCell"><input type="<%=dateCellType %>" name="from" class="datepicker" placeholder="Dátum od" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter("from"))%>"></td> 
-                <td id="dateCell"><input type="<%=dateCellType %>" name="to" class="datepicker" placeholder="Dátum do" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter("to"))%>"></td>
-                <td id= "buttonsCell"><button class="button" id="submitButton" type="submit"><i class="glyphicon glyphicon-search"></i></button><button class="button" id="clearValuesButton" onclick="clearForms()"><i class="glyphicon glyphicon-filter"></i></button> </td>
-            </tr>
-        </table>
-    </form>
+    %>
+    <body>
+        <form id="searchForm" action="${requestScope['javax.servlet.forward.request_uri']}"  method="post">
+            <div style="color: white; font-size: 20px"> Filter </div>
+            <table class="filter-table" align="center">
+                <tr>
+                    <td><input class="s" type="text" name="<%=RequestAttributeNames.SEARCHED_PARTY%>" placeholder="Názov firmy" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter(RequestAttributeNames.SEARCHED_PARTY))%>"></td> 
+                    <td><input class="s" type="text" name="<%=RequestAttributeNames.SEARCHED_TEXT%>" placeholder="Text predmetu" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter(RequestAttributeNames.SEARCHED_TEXT))%>"></td>
+                    <td id="dateCell"><input type="<%=dateCellType%>" name="from" class="datepicker" placeholder="Dátum od" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter("from"))%>"></td> 
+                    <td id="dateCell"><input type="<%=dateCellType%>" name="to" class="datepicker" placeholder="Dátum do" value="<%=TableDataFormatter.dataOrEmptyString(request.getParameter("to"))%>"></td>
+                    <td id= "buttonsCell"><button class="button" id="submitButton" type="submit"><i class="glyphicon glyphicon-search"></i></button><button class="button" id="clearValuesButton" onclick="clearForms()"><i class="glyphicon glyphicon-filter"></i></button> </td>
+                </tr>
+            </table>
+        </form>
+    </body>
 </html>

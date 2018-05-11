@@ -30,13 +30,13 @@ public class ContractEntityDAO extends AbstractEntityDAO {
         return entityManager.createNamedQuery(ContractEntity.Q_CONTRACT_ENTITY_FIND_ALL)
                 .getResultList();
     }
-    
+
     public List<ContractEntity> getContractsByICO(String ico) {
         return entityManager.createNamedQuery(ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_ICO)
                 .setParameter(ContractEntity.SQL_PARAM_ICO, wrapInPercentageSigns(ico))
                 .getResultList();
     }
-    
+
     public List<ContractEntity> getTopContractsByPrice() {
         return entityManager.createNamedQuery(ContractEntity.Q_CONTRACT_ENTITY_FIND_TOP_BY_PRICE)
                 .setFirstResult(0)
@@ -59,9 +59,13 @@ public class ContractEntityDAO extends AbstractEntityDAO {
     }
 
     public ContractEntity getContractByContractNr(String contractNr) {
-        return entityManager.createNamedQuery(ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_CONTRACT_NR, ContractEntity.class)
-                .setParameter(ContractEntity.SQL_PARAM_CONTRACT_NR, contractNr)
-                .getSingleResult();
+        try {
+            return entityManager.createNamedQuery(ContractEntity.Q_CONTRACT_ENTITY_FIND_BY_CONTRACT_NR, ContractEntity.class)
+                    .setParameter(ContractEntity.SQL_PARAM_CONTRACT_NR, contractNr)
+                    .getSingleResult();
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
     }
 
     public List<ContractEntity> getContractsByFilter(String party, String text, Date from, Date to) {

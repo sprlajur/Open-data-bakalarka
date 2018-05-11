@@ -29,7 +29,7 @@ public class OrderEntityDAO extends AbstractEntityDAO {
         return entityManager.createNamedQuery(OrderEntity.Q_ORDER_ENTITY_FIND_ALL, OrderEntity.class)
                 .getResultList();
     }
-    
+
     public List<OrderEntity> getTopOrdersByPrice() {
         return entityManager.createNamedQuery(OrderEntity.Q_ORDER_ENTITY_FIND_TOP_BY_PRICE, OrderEntity.class)
                 .setFirstResult(0)
@@ -38,17 +38,21 @@ public class OrderEntityDAO extends AbstractEntityDAO {
     }
 
     public OrderEntity findByInternalNr(String orderNr) {
-        return entityManager.createNamedQuery(OrderEntity.Q_ORDER_ENTITY_FIND_BY_INTERNAL_NR, OrderEntity.class)
-                .setParameter(OrderEntity.SQL_PARAM_INTERNAL_NR, orderNr)
-                .getSingleResult();
+        try {
+            return entityManager.createNamedQuery(OrderEntity.Q_ORDER_ENTITY_FIND_BY_INTERNAL_NR, OrderEntity.class)
+                    .setParameter(OrderEntity.SQL_PARAM_INTERNAL_NR, orderNr)
+                    .getSingleResult();
+        } catch (javax.persistence.NoResultException e) {
+            return null;
+        }
     }
-    
+
     public List<OrderEntity> findByIco(String ico) {
         return entityManager.createNamedQuery(OrderEntity.Q_ORDER_ENTITY_FIND_BY_ICO, OrderEntity.class)
                 .setParameter(OrderEntity.SQL_PARAM_ICO, ico)
                 .getResultList();
     }
-    
+
     public List<OrderEntity> getOrdersByFilter(String party, String text, Date from, Date to) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<OrderEntity> query = cb.createQuery(OrderEntity.class);

@@ -20,9 +20,9 @@
                 sum = (BigDecimal) request.getAttribute(RequestAttributeNames.ENTITY_SUM);
             }
         %>
-        <div class="basicinfo" style="height:30px;">
-            <strong style="width:170px">Počet záznamov: </strong> <span><%=TableDataFormatter.dataOrEmptyString(request.getAttribute(RequestAttributeNames.ENTITY_SIZE))%></span>
-            <strong style="width:170px">Celková hodnota: </strong> <span><%=TableDataFormatter.priceFormatter(sum, "EUR")%></span>
+        <div class="basicinfo" style="height:20px;">
+            <strong style="width:20%">Počet záznamov: </strong> <span style="width: 80%"><%=TableDataFormatter.dataOrEmptyString(request.getAttribute(RequestAttributeNames.ENTITY_SIZE))%></span>
+            <strong style="width:20%">Celková hodnota: </strong> <span style="width: 80%"><%=TableDataFormatter.priceFormatter(sum, "EUR")%></span>
         </div>
     </body>
 </html>

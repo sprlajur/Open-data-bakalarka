@@ -31,7 +31,7 @@ public class TableDataFormatter {
     }
     
     public static Object dataOrDash(Object data) {
-        if (data == null) {
+        if (data == null || (data instanceof String && ((String)data).isEmpty())) {
             return "-";
         }
         return data;

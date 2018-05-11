@@ -51,12 +51,12 @@
 \begin{introduction}
 	Impact of information is great nowadays. Internet helps people in everyday's life to get the information about almost everything almost immediately and to make decisions.
 	Neither the public affairs did not escape this phenomenon. The society is getting more and more interested in transparency of state government. The idea of Open data was created to satisfy this demand. They can provide the evidence that public money is being well spent and proclaimed policies are being implemented. Publishing state economy data, public procurements, tax declarations, even fortune of politicians or private companies and other data on public web servers is a common practice in many developed countries.
-	\par Thanks mainly to the European Union and other international institutions, but also enthusiasts and engaged citizens, more and more projects targetting electronisation, systematization and publishing the data are being started also in Slovakia. The idea to publish in machine-readable form all that is not secret or personal data it still young, though, and often meets unwillingness or incompetence of public institutions. As a result, quite often the data published by Slovak state and municipality governments, proclaimed to be open, are useless due to their non-machine-readable formats, incompleteness or lack of interconnectivity.
+	\par Thanks mainly to the European Union and other international institutions, but also enthusiasts and engaged citizens, more and more projects targetting electronisation, systematization and publishing the data are being started also in Slovakia. The idea to publish in machine-readable form all that is not secret or personal data it still young, though, and often meets unwillingness or incompetence of the public institutions. As a result, quite often the data published by Slovak state and municipality governments, proclaimed to be open, are useless due to their non-machine-readable formats, incompleteness or lack of interconnectivity.
 		Despite these problems, some progress has been made in this area in recent years and the number of datasets published by state institutions grows every day. Thanks to that there is a growing potential for software developers to create applications for manipulating, inteconnecting, analysing and presenting these data and thus turning them into useful information. This is one of the goals of this thesis.
 	\section*{Open data of Prešov}
-	Looking at datasets published on the official website of Slovak government - \href{https://data.gov.sk}{data.gov.sk} one easily disovers, that the most active of all the cities and towns in Slovakia in publishing the data is Prešov. Not only by number of published datasets, but also by quality of the data this city in eastern Slovakia shares the most from its governing with its citizens. These data include all past contracts, invoices, orders and grants of the municipality. That is why these data were chosen for the purpose of this bachelor thesis.
+	Looking at the datasets published on the official website of Slovak government - \href{https://data.gov.sk}{data.gov.sk} one easily disovers, that the most active of all the cities and towns in Slovakia in publishing the data is Prešov. Not only by number of published datasets, but also by quality of the data this city in eastern Slovakia shares the most from its governing with its citizens. These data include all past contracts, invoices, orders and grants of the municipality. That is why these data were chosen for the purpose of this bachelor thesis.
 	\section*{Thesis Goals}
-	The main goal of this thesis is to analyse, interconnect and present the open data of Prešov municipality to demonstrate their value and usefulness for the citizens. Focus is on interconnecting them by logical ties not only to each other, but also to other published open data in Slovakia, e.g., Slovak Business Register. This requires analyses of all published open data in Slovakia. The final product of the thesis is a web application to present the analysed and interconnected data. The final goal is to present the application to Prešov city officials and try to convince them to publish and run it on their web servers, so it can serve the public. Other goals of this work are to explain the general concept of open data, the attributes, that such data need to have, describe international institutions focusing on the open data with influence on Slovakia, discuss the best practises and world leaders in opening the government data and introduce the most influential Slovak state and non-state open data projects and initiatives.
+	The main goal of this thesis is to analyse, interconnect and present the economic open data of Prešov municipality to demonstrate their value and usefulness for the citizens. Focus is on interconnecting them by logical ties not only to each other, but also to other published open data in Slovakia, e.g., Slovak Business Register. This requires analyses of all published open data in Slovakia. The final product of the thesis is a web application to present the analysed and interconnected data. The final goal is to present the application to the Prešov city officials and try to convince them to publish and run it on their web servers, so it can serve the public. Other goals of this work are to explain the general concept of open data, the attributes, that such data need to have, describe international institutions focusing on the open data with influence on Slovakia, discuss the best practises and world leaders in opening the government data and introduce the most influential Slovak state and non-state open data projects and initiatives.
 
 \end{introduction}
 
@@ -127,11 +127,7 @@ Plain text documents (.txt) are very easy for computers to read. They generally 
 
 	\subsection{Data openness levels}
 	Tim Berners-Lee, the inventor of the Web and Linked Data initiator, suggested a 5-star deployment scheme for Open Data. This scheme is widely used (e.g., by British government open data) to rate given data based on their attributes like file format, structure, inteconnectivity, etc.
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{pictures/5starRating.png}
-  \caption{5-star data opennes rating scheme. \cite{5stardata}}
-  \label{fig:5-star}
-\end{figure}
+
 
 	\section{Open data in the world}
 	\textbf{Open data barometer} is a World Wide Web Foundation's global measure of how governments are publishing and using open data for accountability, innovation and social impact.\cite{opendatabarometer} \paragraph{} Barometer ranks governments on:
@@ -165,12 +161,7 @@ Following in the UK’s footsteps in open data guidelines would be a good place 
 
 One of the interesting applications of UK's open data is the \textbf{LMI For All} project. It is an online data portal, developed by the UK Commission for Employment and Skills, which brings together existing national sources of high quality labour market information (LMI) that can inform and help people make right choices about their careers. The online portal includes LMI that can help answering the questions people ask when thinking about their careers, like how much people earn or what type of persons do what kind of jobs, etc. It includes information from the Annual Survey of Hours and Earnings, the Labour Force Survey, the Employer Skills Survey and Working Futures. All of its data are made freely available  via an Application Programming Interface (API) for use in websites and applications. \linebreak
 Other interesting applications built using UK's open data can be seen at \href{https://data.gov.uk/apps}{data.gov.uk/apps}. These include Car Insurance Comparison Application, All GB Railway Stations, Inheritance Tax Calculator UK and more.
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[scale=0.5]{pictures/LMIForAll.png}
-  		\caption{LMI for all data providing scheme. \cite{lmiforall}}
-  		\label{fig:LMI for all}
-	\end{figure}
+
 
 	\subsection{Open Government Partnership}
 	Open Government Parthership (OGP) is the international governments initiative, which was launched in 2011 by 8 founding governments (Brasil, Indonesia, Mexico, Norway, Philippines, South Africa, United Kingdom and United States). The focus of the initiative is the improvement of government by promoting transparency, efectiveness and responsibility, harnessing new technologies and setting up institutions, which help citizens to participate in governing. To become a member of OGP, participating countries must commit to uphold the principles of open and transparent government by endorsing the \href{https://www.opengovpartnership.org/open-government-declaration}{Open Government Declaration}. In total there are over 70 OGP participating countries and 15 subnational governments and together they have made over 2,500 commitments to make their governments more open and accountable. \cite{opengovernmentpartnership}
@@ -265,6 +256,7 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
 	\end{displayquote}
 	In accordance with these goals, slovensko.digital set up the \href{https://platforma.slovensko.digital}{platform} for all IT specialists, who want to join the discussion about state IT projects. This civic association's members also developed a methodology that focuses on more than 50 criteria of project success and use it to systematically rate state IT projects and alert the public to the risky ones in one of their project called \href{https://redflags.slovensko.digital/}{Red Flags}. Thanks to this, slovensko.digital was able to stop a couple of senseless state projects, saving Slovak citizens hundreds of millions of euros. They've also started several projects as part of \href{https://ekosystem.slovensko.digital/}{ekosystem.slovensko.digital}, some of which provide APIs to public data sources (otherwise only accessible on websites) like Register of legal entities, Central register of contracts, Public procurement journal, Business journal, Registry of financial statements and more. 
 	\subsection{Finstat}
+	\label{finstat}
 	\href{https://finstat.sk/}{Finstat} was started in 2013 as a web portal, which helps people to freely assess financial health of Slovak companies. It connects data from various data sources: ministries, state insurance companies, Business register, Statistical office, Slovak Chamber of executors, Trade Journal, Register of enterpreneurs, Register of financial statements, Register of bankrupts, Czech statistical office and many more and by their processing and analysing provides complex information about Slovak companies, individual sectors and groups of enterpreneurs. The portal also helps media and non-profit organizations to analyse companies and investigating corruption cases by development of analyses and making the data of the portal accessible for them. A lot of its features are for free and some features, like APIs access and datasets in CSV are parts of payed packages.
 	\subsection{Uvostat}
 	\href{https://www.uvostat.sk/about}{Uvostat} is a project that processes public procurements data, analyses and presents them in the form of statistics and interactive graphs. The statistics include most valuable procurements, most procurements by company or by contracts concluded. The website enables searching in the list of suppliers and even fulltext search in names and contents of the procurements. It also provides notificator for tenders for new positions in state offices, which can be used by people looking for jobs to inform them, that a new position which fits their profesion and location is being opened. The interesting fact about the project is that it has been developed by only two people.
@@ -274,11 +266,7 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
 	\href{http://datanest.fair-play.sk/}{Datanest} was also created by Aliance Fair-play as a source of information about management of Slovak public money as part of their anti-corruption initiatives. It serves mainly journalists, analytics, watchdog organizations, but also engaged citizens. It contains data generated by state since 1990, which in some cases can't yet be obtained in electronic form elsewhere.
 	\subsection{foaf.sk}
 	\href{http://foaf.sk}{Foaf.sk} draws information about Slovak companies from publicly available Business register, Business journal, Registry of financial statements, database of Social insurance agency debtors, Financial Administration, and other databases. The website uses graph algorithms to look for and display deeper connections between people and companies in Slovakia, which enables users to quickly search for and display relations between companies and enterpreneurs. The name FOAF comes from the English acronym \textit{Friend Of A Friend} and refers to the phenomenon of the \href{http://www.scholarpedia.org/article/Small-world_network}{small world networks}.
-\begin{figure}[h!]
-  \includegraphics[width=\linewidth]{pictures/foafskgraph.png}
-  \caption{Graph created using visualization tool at foaf.sk.}
-  \label{fig:foafGraph}
-\end{figure}
+
 	
 \chapter{Analyses of the Prešov open data}
 \label{presovopendata}
@@ -286,7 +274,7 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
 	
 	\section{Prešov contracts, grants, invoices and orders}
 	\label{presovdataattributes}
-	Slovak municipalities are obliged to publish data about disclosed orders, contracts and invoices of institutions like City Office, Municipal Police, Registry office and all budgetary organizations of which they are founders. This is mandatory by law 211/2000\footnote{Available at \url{http://www.zakonypreludi.sk/zz/2000-211}} in Slovak collection of laws. Additionally, Prešov municipality  publishes all applications for grants to comply with its internal binding regulations. Prešov publishes this data on its website \url{egov.presov.sk}, as well as on national open data portal data.gov.sk, in various formats (XML, JSON, XLSX, and PDF). Next sections look at the data that are used in practical part of these bachelor thesis - contracts, invoices, grants and orders. They provide basic statistics of each of these datasets and describes their attributes. All the statistics were collected from egov.sk on April 8th 2018.
+	Slovak municipalities are obliged to publish data about disclosed orders, contracts and invoices of institutions like City Office, Municipal Police, Registry office and all budgetary organizations of which they are founders. This is mandatory by law 211/2000\footnote{Available at \url{http://www.zakonypreludi.sk/zz/2000-211}} in Slovak collection of laws. Additionally, Prešov municipality  publishes all applications for grants to comply with its internal binding regulations. Prešov publishes this data on its website \url{egov.presov.sk}, as well as on the national open data portal data.gov.sk, in various formats (XML, JSON, XLSX, and PDF) under Creative Commons Attribution license (see \ref{licenses}). Next sections look at the data that are used in practical part of these bachelor thesis - contracts, invoices, grants and orders. They provide basic statistics of each of these datasets and describes their attributes. All the statistics were collected from egov.sk on April 8th 2018.
 	\subsection{Contracts}
         \begin{tabular}{  p{0.5\linewidth}  l }
         \\
@@ -398,22 +386,17 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
     \end{center}	
 	
 	\chapter{Implementation}
-	As mentioned in previous chapters, the main output of this bachelor thesis is a website built on top of economic open data of Prešov. This website not only presents these data and enables searching them, but also provides added value by connecting them to other national open data sources. Next sections look at how this web application works, how it manages and presents the data and what technologies it uses.
+	As mentioned in the previous chapters, the main output of this bachelor thesis is a website built on top of the economic open data of Prešov. This website not only presents these data and enables searching them, but also provides added value by connecting them to the Slovak Business Register data. Next sections look at how this web application works, how it manages and presents the data and what technologies it uses.   It is divided into three main sections: data retrieval and processing into database; implementation of the web application and the section with screenshots from running application.
 	\section{Data management}
 	\subsection{Data from Prešov web server}
-	As described in chapter \ref{presovopendata}, the main concern of this web application are data about Prešov's contracts, invoices, orders and applications for grants. These data are being updated daily on the internet and can be downloaded in various formats, including XML and JSON (\ref{fileformats}). JSON format is more modern alternative to XML and is easier and faster to parse, less memory-consuming and more intuitive to read and that's why the data from Prešov's web servers were downloaded in this format for the purpose of this application. To enable fast searching and accessing these data, they need to be stored in the database. \textit{PostgreSQL} was chosen as the database management system. To fill the database with the JSON data, the conversion from JSON to SQL statements is needed. In this case, this is done by script written in \textit{Python} programming language. This script takes JSON file as an input, along with the parameter indicating what kind of data are being inserted ("i" for invoices, "c" for contracts, etc.), parses the JSON file, transforms each JSON object into SQL INSERT statement and outputs the statement. The result is a series of SQL statements which can be stored as a SQL script and used to fill 4 database tables - Contracts, Invoices, Grants and Orders. The process of getting the data from the web server and transforming it to fill the database is described in the diagram \ref{fig:jsonToDb}.
-\begin{figure}[h!]
-  \begin{center}
-  \includegraphics[scale=0.6]{pictures/jsonToDb.png}
-  \caption{Diagram describing retrieving the data from egov.presov.sk and transforming it to initialize database.}
-  \label{fig:jsonToDb}
-  \end{center}
-\end{figure}
+	As described in the chapter \ref{presovopendata}, the main concern of this web application are data about Prešov's contracts, invoices, orders and applications for grants. These data are being updated daily and can be downloaded in various formats, including XML and JSON, which are structured and thus most suitable for parsing and further use (\ref{fileformats}). JSON format is a more modern alternative to XML and is easier and faster to parse, less memory-consuming and more intuitive to read. That's why the data from Prešov's web servers were downloaded in this format for the purpose of this application. To enable fast searching and accessing these data, they need to be stored in the database. \textit{PostgreSQL}\footnote{PostgreSQL is an open source relational database management system developed by a worldwide team of volunteers. It supports transactions, subselects, triggers, views, foreign key referential integrity, and sophisticated locking and runs on multiple platforms.} was chosen as a database management system. To fill the database with the given JSON data, a conversion from JSON to SQL is needed. In this case, this conversion is done by the script written in \textit{Python} programming language. This script takes JSON file as an input along with the parameter indicating what kind of data are being inserted ("i" for invoices, "c" for contracts, etc.), parses the JSON file, constructs SQL CREATE statements to create the database table and indexes for chosen columns, transforms each JSON object into SQL INSERT statement and outputs these statements. The result is a series of SQL statements which can be stored as a SQL script and used to fill 4 database tables - Contracts, Invoices, Grants and Orders. The process of getting the data from the web server and transforming it to fill the database is described in the diagram \ref{fig:jsonToDb}.
+
 	\subsection{Data provided by slovensko.digital}
-	The data retrieved from Prešov's website contain national identifiers (IČO - organization identification number) of contract parties, grant applicants and supliers (see \ref{presovdataattributes}). Through these identifiers, a given legal entity can be searched in Slovak Business Register (see \ref{businessregister}). The problem of getting the data from this register, which does not provide any API was targetted and solved by slovensko.digital by providing free API to this register as part of their ekosystem.slovensko.digital project (see \ref{slovensko.digital}). Through this API it is possible to retrieve information about legal entity with given IČO in JSON format. 
+	\label{data-slovensko-digital}
+	The data retrieved from Prešov's website contain national identifiers (IČO - organization identification number) of contract parties, grant applicants and supliers (see \ref{presovdataattributes}). With these identifiers, a given legal entity can be searched in Slovak Business Register (see \ref{businessregister}). The problem of getting the data from this register, which does not provide any API was targetted and solved by slovensko.digital by providing a free API to this register as part of their ekosystem.slovensko.digital project (see \ref{slovensko.digital}). Through this API it is possible to retrieve information about legal entity with given IČO in JSON format. 
 	
 	\subsubsection{Data retrievable by IČO}
-	To be able to use the above-mentioned API to retrieve the full data about legal entity by its IČO, the user needs to use an intermediary API, which provide consolidated basic data about the legal entity and also serves as a gateway to other services which provide more detailed information. To use this premium intermediary API, an \textit{Authorization token} is required, which needs to be included in the API's URL request header. This token is provided by slovensko.digital upon email request, in which one should describe the purpose of the data usage.\footnote{ The complete guideline to using the API and retrieving the authorization token is available here: https://ekosystem.slovensko.digital/premiove-api\#access-token} The result of successful request contains national and tax (vatin) identifiers, name of the subject, address attributes, dates of establishment and termination, registration office attributes, two system columns describing dates of creation and modification of the entry and finally the URLs to APIs providing more detailed information - full data from Business Register and Register of Accounting Entities. Following is the example of JSON data returned by this API for legal entity with IČO 36421928, which is slovensko.digital:
+	To be able to use the above-mentioned API to retrieve the full data about legal entity by its IČO, the user needs to use an intermediary API, which provides consolidated basic data about the legal entity and also serves as a gateway to other services providing more detailed information. To use this premium intermediary API, an \textit{Authorization token} is required, which needs to be included in the API's URL request header. This token is provided by slovensko.digital upon email request, in which one should describe the purpose of the data usage.\footnote{ The complete guideline describing how to use the API and retrieve the authorization token is available here: https://ekosystem.slovensko.digital/premiove-api\#access-token} The result of a successful request contains the national and tax identifiers, name of the subject, address attributes, dates of establishment and termination, registration office attributes, two system columns describing dates of creation and modification of the entry and finally the URLs to APIs providing more detailed information - full data from Business Register and Register of Accounting Entities. Following is the example of JSON data returned by this API for legal entity with IČO 36421928, which is slovensko.digital:
 	\lstset{
     string=[s]{"}{"},
     stringstyle=\color{blue},
@@ -528,12 +511,90 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
 	\subsubsection{Hibernate}
 	Hibernate ORM (Object-relational mapping) is a free Java tool, which provides a framework for mapping an object-oriented domain model to a relational database. Its primary feature is mapping from Java classes to database tables and Java data types to SQL data types. Hibernate also supports data querying by generating SQL calls, relieving the developer from manual object conversion.
 	\subsubsection{WildFly}
-	WildFly, formerly known as JBoss, is an free open-source application server implementing Java EE specification. Being implemented in Java, it can run on multiple platforms.
+	WildFly, formerly known as JBoss, is a free open-source application server implementing Java EE specification. Being implemented in Java, it can run on multiple platforms.
 	\subsubsection{Maven}
 	Maven is a build automation tool used mostly in Java projects. It addresses two important parts of software development - describing, how software is build and its dependencies. Is is configured by XML file called POM (Project Object Model). Maven comes with pre-defined targets for performing tasks as code compilation and packaging. It dynamicly downloads libraries and plugins from either its own central repository or ones defined in POM file.
+	
 	\subsection{Architecture}
 	The architecture of the web application is a classic Java Servlet/JSP architecture. The HTTP request is handled by the application server, which finds the correct Java servlet. The servlet then uses application Java classes to do the business logic like retrieving and processing the data from the database or through slovensko.digital's API (this includes parsing the JSON data). After doing the necessery operations the servlet forwards the request to appropriate JSP document, which handles the UI part. This architecture is described in the diagram \ref{fig:webapp}.
-	\begin{figure}[H]
+
+
+	\section{The website}
+	This section describes the application from user's point of view by describing the contents of pages displayed after successfull call of all the main possible requests (show all contracts, grants, invoices, orders, company, order, contract details, statistics and more) and providing screenshots of these pages.
+	
+	\subsection{Navigation menu}
+	Present at the top of every page, this component provides simple navigation between all the main pages of the application. It contains links to the following pages: all contracts, all grants, all orders, all invoices, statistics of these data and finally the "About" page containing basic information about the application and references to the data sources.
+	\subsection{All records pages}
+The core of the application are four main pages presenting: all contracts, all grants, all orders and all invoices of the Prešov city. Each of them uses the same layout: top menu toolbar for navigation, data filter, basic statistics (count of records and their total value) and a table containing the data of a given record. The table is paginated - each table page contains 100 records and links to the first, last, previous and next page. If a table contains a name of a company or an enterpreneur (whether it is contract party, grant applicant, or supplier), this name is a link navigating to the detail page of the given company or enterpreneur (presenting the data from the Business register).
+	\subsubsection{All Contracts}
+	This page providing data of all Prešov's contracts serves as the home page for this application. It presents all contracts from the database. The contracts table contains columns showing the name of the contractor (company or enterpreneur), with which the city of Prešov concluded the contract, subject of the contract (max. first 100 letters), date of signature, contract price and link to the contract detail page. The page filter enables users to filter contracts by the name of the party, subject of the contract and signature date (fields from and to) (see picture \ref{fig:webapp-contracts}).
+
+
+\subsubsection{Contract detail}
+	This page provides complete information of the given contract from the database, including those fields that are not displayed on the all contracts page (see picture \ref{fig:webapp-contract-detail}).
+
+
+\subsubsection{All Grants}
+	This page provides data of all Prešov's orders. The data table contains columns showing the name of the company or enterpreneur, which applied for given grant, related event description (maximum first 100 letters), year of grant and approved money amount. This page's filter enables users to filter grants by the name of the grant applicant and grant event (see picture \ref{fig:webapp-grants}).
+
+
+\subsubsection{All Orders}
+	This page provides data of all Prešov's orders. The data table contains columns showing the name of the  supplier (company or enterpreneur), text of the order (maximum first 100 letters), its value, status, issue date and a link to the order detail page. The data filter enables filtering by the name of the supplier, grant text and issue date (see picture \ref{fig:webapp-orders}).
+
+
+\subsubsection{Order detail}
+	This page provides complete information of the given order from the database, including those fields that are not displayed on the all contracts page (see picture \ref{fig:webapp-order-detail}).
+
+
+\subsubsection{All Invoices}
+	This page provides data of all Prešov's invoices. The data table contains columns showing the name of the  supplier (company or enterpreneur), payment description (maximum first 100 letters), its value, payment status, invoice completeness status, release date and a link to the detail page of related contract or order. The data filter enables filtering by the name of the supplier, payment description and release date (see picture \ref{fig:webapp-invoices}).
+
+
+\subsection{Legal entity detail}
+	The detail page for a legal entity displays the data provided by slovensko.digital from Slovak Business Register (see section \ref{data-slovensko-digital}). A user can navigate to this page by clicking on the name of the company from any webpage containing such link (like all contracts, grants, contract detail, etc.). On the top of this page a basic information about given entity is displayed, with data like IČO, current address, founding date, legal form, ownership type, number of employees, SK NACE classification \footnote{NACE (Nomenclature of Economic Activities) is the European statistical classification of economic activities. NACE groups organizations according to their business activities. \cite{nace}}, place and number of registration and an URL to finstat.sk (see {\ref{finstat} section) page, which provides even more detailed information about it. Right under this basic info section, this page provides the tables with all the Prešov's contracts, grants and orders, that the given entity is involved with. Under these tables, the rest of the available data from the business register follows: tables of economic activities, legal statuses (former and current), statutory bodies, stakeholders,  predecessors and sucessors (if any), equity capital, deposits, former names and addresses, alternate names, authorizations to act on behalf of the entity and past legal forms (if any) (see pictures \ref{fig:webapp-partydetail1}, \ref{fig:webapp-partydetail2}).
+
+
+\subsubsection{Statistics page}
+	The statistics page presents some calculated statistics based on the data presented on the other pages. It is divided into several tabs containing tables, each with top 100 records by specific criteria. It provides: top companies by the total value of paid invoices, top companies by number of paid invoices, top invoices by paid amount, top grants by approved grant amount, top contracts by price, top orders by value. For a better idea, see the \ref{fig:webapp-topcompanies} and \ref{fig:webapp-topinvoices} pictures.
+
+\subsection{Record not found}
+	Page like this is displayed, when the contract, order or person with given identifier (contained in the url of the request) was not found in the database. (see picture \ref{fig:webapp-contract-notfound}).
+	
+	\section{Comparison of the Thesis solution with other Open data projects}
+	This section compares the
+\begin{conclusion}
+	%sem napište závěr Vaší práce
+\end{conclusion}
+
+\chapter{Figures}
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{pictures/5starRating.png}
+  \caption{5-star data opennes rating scheme. \cite{5stardata}}
+  \label{fig:5-star}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{pictures/LMIForAll.png}
+  	\caption{LMI for all data providing scheme. \cite{lmiforall}}
+  	\label{fig:LMI for all}
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{pictures/foafskgraph.png}
+  \caption{Graph created using visualization tool at foaf.sk.}
+  \label{fig:foafGraph}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.6]{pictures/jsonToDb.png}
+  \caption{Diagram describing retrieving the data from egov.presov.sk and transforming it to initialize database.}
+  \label{fig:jsonToDb}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
   \begin{center}
   \includegraphics[scale=0.65]{pictures/webappDiagram.png}
   \caption{Diagram describing web application structure.}
@@ -541,12 +602,92 @@ The \textbf{European Data Portal} is an initiative of the European Commission, a
   \end{center}
 \end{figure}
 
-	\section{Deployment}
-	
-\begin{conclusion}
-	%sem napište závěr Vaší práce
-\end{conclusion}
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/contracts.png}
+  \caption{Picture showing the way the web application presents contracts.}
+    \label{fig:webapp-contracts}
+  \end{center}
+\end{figure}
 
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/contractDetail.png}
+  \caption{Picture showing the way the web application presents particular contract.}
+    \label{fig:webapp-contract-detail}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/grants.png}
+  \caption{Picture showing the way the web application presents grants.}
+    \label{fig:webapp-grants}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/orders.png}
+  \caption{Picture showing the way the web application presents orders.}
+    \label{fig:webapp-orders}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/orderDetail.png}
+  \caption{Picture showing the way the web application presents particular order.}
+    \label{fig:webapp-order-detail}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/invoices.png}
+  \caption{Picture showing the way the web application presents invoices.}
+    \label{fig:webapp-invoices}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/partyDetail1.png}
+  \caption{Basic information of the legal entity and Prešov's contracts it's involved with.}
+    \label{fig:webapp-partydetail1}
+  \end{center}
+\end{figure}
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/partyDetail2.png}
+  \caption{Economic activities, statutory bodies and stakeholders example.}
+    \label{fig:webapp-partydetail2}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/statistics.png}
+  \caption{Tab with the top companies by paid Prešov's invoices.}
+    \label{fig:webapp-topcompanies}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.30]{pictures/topInvoices.png}
+  \caption{Tab with the top invoices by paid amount.}
+    \label{fig:webapp-topinvoices}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[scale=0.35]{pictures/orderNotFound.png}
+  \caption{Picture showing the way the web application handles record, that was not found.}
+    \label{fig:webapp-contract-notfound}
+  \end{center}
+\end{figure}
 \bibliographystyle{csn690}
 \begin{thebibliography}{9}
 \bibitem{opendatahandbook} 
@@ -622,6 +763,10 @@ European Data Portal.
 \bibitem{itapa}
 \textit{ITAPA events [online].}
 [cit. 2018-19-04]. Available from: \url{http://www.itapa.sk/o-itapa-podujatiach/}
+
+\bibitem{nace}
+\textit{What is a NACE Code? [online].}
+[cit. 2018-11-05]. Available from: \url{https://siccode.com/en/pages/what-is-a-nace-code}
 
 \end{thebibliography}
 

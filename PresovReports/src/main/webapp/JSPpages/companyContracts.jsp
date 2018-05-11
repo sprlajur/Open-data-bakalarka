@@ -24,7 +24,7 @@
             List<ContractEntity> contracts = (List<ContractEntity>) request.getAttribute(RequestAttributeNames.ALL_CONTRACTS);
             int height = contracts.size() > 2 ? 300 : 120;
         %>
-        <div class = "table-top-container" style="height: <%=(height+50)%>px; width: 100%">
+        <div class = "table-top-container" style="height: <%=(height+70)%>px; width: 100%">
             <h4>Zmluvy s mestom Prešov</h4>
             <div class="table-container">
                 <div></div>
