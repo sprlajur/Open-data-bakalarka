@@ -49,7 +49,7 @@ public class RPOApiDataGetter {
                 conn.setRequestProperty("Authorization", AUTHORIZATION_TOKEN);
             }
             if (conn.getResponseCode() == HTTP_OK_CODE) {
-                try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                try (BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"))) {
                     String line;
                     while ((line = rd.readLine()) != null) {
                         result.append(line);

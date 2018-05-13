@@ -52,7 +52,6 @@ public abstract class AbstractServlet extends HttpServlet {
         request.setAttribute("lastPage", lastPage);
         request.setAttribute("startIndex", startIndex);
         request.setAttribute("endIndex", endIndex);
-        System.out.println("ei:" + endIndex);
         request.setAttribute(RequestAttributeNames.ENTITY_SIZE, entityCount);
     }
 
