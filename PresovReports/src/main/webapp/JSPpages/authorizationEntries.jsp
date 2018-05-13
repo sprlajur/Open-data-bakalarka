@@ -25,7 +25,7 @@
         <table class="companytable">
             <caption>Oprávnenia konať v mene právnickej osoby</caption>
             <tr>
-                <th>Text:</th>
+                <th style="text-align: center">Text:</th>
                 <th>Platné od</th>
                     <% if (isAnyEntryFinished) { %>
                 <th>Platný do</th>
@@ -37,7 +37,7 @@
                         RPOOneStringEntry de = authorizationEntries.get(i);
             %>
             <tr>
-                <td><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+                <td style="text-align: center"><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
                 <% if (isAnyEntryFinished) {%>
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>

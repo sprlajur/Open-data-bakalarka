@@ -58,8 +58,8 @@
             <strong>Typ vlastníctva: </strong> <span><%= TableDataFormatter.dataOrDash(person.getOwnershipType())%></span>
             <strong>Počet zamestnancov: </strong> <span><%= TableDataFormatter.dataOrDash(person.getOrganizationSize())%></span>
             <strong>SK NACE: </strong> <span><%= TableDataFormatter.dataOrDash(person.getSkNACECategory())%></span>
-            <strong>Hlavná ekonomická činnosť: </strong> <span><%= TableDataFormatter.dataOrDash(person.getMainActivityCode())%></span>
-            <strong>Činnost podľa ESA2010: </strong> <span><%= TableDataFormatter.dataOrDash(person.getEsa2010Code())%></span>
+<!--            <strong>Hlavná ekonomická činnosť: </strong> <span><%= TableDataFormatter.dataOrDash(person.getMainActivityCode())%></span>-->
+            <!--<strong>Činnost podľa ESA2010: </strong> <span><%= TableDataFormatter.dataOrDash(person.getEsa2010Code())%></span>-->
             <strong>Miesto registrácie: </strong> <span><%= TableDataFormatter.dataOrDash(person.getRegistration_office())%></span>
             <strong>Registračné čislo: </strong> <span><%= TableDataFormatter.dataOrDash(person.getRegistration_nr())%></span>    
             <strong>Viac informácií na:</strong><span> <a href="https://finstat.sk/<%=ico%>" target="_blank">finstat.sk/<%=ico%></a></span> 

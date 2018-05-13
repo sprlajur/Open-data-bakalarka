@@ -150,7 +150,7 @@ public class RPOJsonParser {
             }
             if (!obj.isNull(RPO_ORGANIZATIONS)) {
                 JSONArray orgs = obj.getJSONArray(RPO_ORGANIZATIONS);
-                if (orgs != null) {
+                if (orgs != null && orgs.iterator().next() != null) {
                     if (!((JSONObject) orgs.get(0)).isNull(URL)) {
                         person.setRpo_API_url(((JSONObject) orgs.get(0)).getString(URL));
                     }
@@ -158,7 +158,7 @@ public class RPOJsonParser {
             }
             if (!obj.isNull(ACCOUNTING_ENTITIES)) {
                 JSONArray orgs = obj.getJSONArray(ACCOUNTING_ENTITIES);
-                if (orgs != null) {
+                if (orgs != null && orgs.iterator().next() != null) {
                     if (!((JSONObject) orgs.get(0)).isNull(URL)) {
                         person.setAccounting_entities_API_url(((JSONObject) orgs.get(0)).getString(URL));
                     }

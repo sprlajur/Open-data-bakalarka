@@ -29,7 +29,7 @@
                 <div></div>
                 <table cellspacing="0" class="statisticstable" style="height:<%=height%>px;  width: 600px;">
                     <tr>
-                        <th><div style="width: 300px;">Názov</div></th>
+                        <th><div style="width: 400px;">Názov</div></th>
                         <th><div style="width: 130px">Platný od</div></th>
                             <% if (isAnyEntryFinished) { %>
                         <th><div style="width: 130px">Platný do</div></th>
@@ -41,7 +41,7 @@
                                 RPOOneStringEntry de = economicActivityEntries.get(i);
                     %>
                     <tr>
-                        <td  style="width: 500px; max-width: 500px"><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
+                        <td  style="width: 500px; max-width: 500px; text-align: center"><%= TableDataFormatter.dataOrEmptyString(de.getBody())%></td>
                         <td style="width: 150px; text-align: center"><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
                         <% if (isAnyEntryFinished) {%>
                         <td style="width: 150px; text-align: center"><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>

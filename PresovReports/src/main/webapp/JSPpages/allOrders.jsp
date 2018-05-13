@@ -23,6 +23,7 @@
         <jsp:include page="topMenu.jsp" />
         <jsp:include page="mainSearch.jsp" />
         <jsp:include page="basicStatistics.jsp"/>
+        <jsp:include page="pagination.jsp" />
         <%! List<OrderEntity> orders;%>
         <table id="datatable" style="width:100%">
             <tr>      

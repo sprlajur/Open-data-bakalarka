@@ -50,7 +50,7 @@
             <strong>Dátum podpisu: </strong> <span><%=signatureDate%></span>
             <strong>Dátum zverejnenia: </strong> <span><%=releaseDate%></span>
             <strong>Názov: </strong> <span><%= name%></span>
-            <strong>Hlavná/Dodatok: </strong> <span><%= mainOrAppendix%></span>
+            <strong>Hlavná / Dodatok: </strong> <span><%= mainOrAppendix%></span>
             <strong>Miesto (miesta) podpisu: </strong> <span><%=signaturePlace%></span>
             <strong>Dátum platnosti: </strong> <span><%=validityDate%></span>
         </div>

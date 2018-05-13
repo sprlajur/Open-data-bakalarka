@@ -29,12 +29,12 @@
         <table class="companytable">
             <caption><%=header%></caption>
             <tr>
-                <th>Meno</th>
-                <th>Adresa</th>
-                <th>Typ</th>
-                <th>Od</th>
+                <th style="text-align: center">Meno</th>
+                <th style="text-align: center">Adresa</th>
+                <th style="text-align: center" style="text-align: center">Typ</th>
+                <th style="text-align: center">Od</th>
                     <% if (isAnyEntryFinished) { %>
-                <th>Do</th>                
+                <th style="text-align: center">Do</th>                
                     <% } %>
             </tr>
             <%
@@ -43,18 +43,18 @@
                         RPOStatutoryStakeholderEntry de = entries.get(i);
             %>
             <tr>
-                <td>
+                <td style="text-align: center">
                     <% if (de.getIco() != null || de.getFullName() != null) {%>
                     <a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + TableDataFormatter.dataOrEmptyString(de.getIco())%>"><%=TableDataFormatter.dataOrEmptyString(de.getFullName())%></a>
                     <%} else {%>
                     <%= TableDataFormatter.dataOrEmptyString(de.getFormattedName())%>
                     <% }%>
                 </td>
-                <td><%= de.getFormattedAddress()%> </td>
-                <td><%=TableDataFormatter.dataOrEmptyString(de.getType())%></td>
-                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
+                <td style="text-align: center"><%= de.getFormattedAddress()%> </td>
+                <td style="text-align: center"><%=TableDataFormatter.dataOrEmptyString(de.getType())%></td>
+                <td style="text-align: center"><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
                 <% if (isAnyEntryFinished) {%>
-                <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
+                <td style="text-align: center"><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>
                 <% } %>
             </tr> 
             <% }

@@ -24,7 +24,7 @@
         <table class="companytable">
             <caption>Základné imanie</caption>
             <tr>
-                <th>Schválená výška podielu</th>
+                <th style="text-align: center">Schválená výška podielu</th>
                 <th>Platné od</th>
                     <% if (isAnyEntryFinished) { %>
                 <th>Platné do</th>
@@ -36,7 +36,7 @@
                         RPOEquityEntry de = equityEntries.get(i);
             %>
             <tr>
-                <td><%= TableDataFormatter.priceFormatter(de.getApprovedAmount(), de.getApprovedCurrency())%></td>
+                <td style="text-align: center"><%= TableDataFormatter.priceFormatter(de.getApprovedAmount(), de.getApprovedCurrency())%></td>
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveFrom())%></td>
                 <% if (isAnyEntryFinished) {%>
                 <td><%= TableDataFormatter.dateFormatter(de.getEffectiveTo())%></td>

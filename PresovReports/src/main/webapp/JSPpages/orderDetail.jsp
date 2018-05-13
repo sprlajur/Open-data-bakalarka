@@ -36,11 +36,13 @@
             String productionDate = TableDataFormatter.dateFormatter(order.getProductionDate());
             String notes = (String) TableDataFormatter.dataOrDash(order.getReleaseNotes());
             String status = (String) TableDataFormatter.dataOrDash(order.getCompletenessStatus());
-        %>
+            String text = (String)  TableDataFormatter.dataOrDash(order.getOrderText());
+%>
         <h1>Objednávka číslo <%=order.getOrderNr()%></h1>
         <div class="basicinfo">
             <strong>Dodávateľ: </strong> <span><a href="${pageContext.request.contextPath}<%="/" + Urls.PARTY_DETAIL + UrlParameters.PARTY_DETAIL_ICO_PARAMETER.getURLParameter() + order.getIco()%>"><%=order.getSupplier()%></a></span>
             <strong>Hodnota: </strong> <span><%= price%></span>
+            <strong>Text: </strong> <span><%= text%></span>
             <strong>Dátum vyhotovenia: </strong> <span><%=productionDate%></span>
             <strong>Dátum zverejnenia: </strong> <span><%=releaseDate%></span>
             <strong>Dátum vystavenia: </strong> <span><%=issueDate%></span>

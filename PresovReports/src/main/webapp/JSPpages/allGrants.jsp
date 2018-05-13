@@ -25,6 +25,7 @@
             <jsp:param name="dateCellType" value="hidden"/>
         </jsp:include>
         <jsp:include page="basicStatistics.jsp"/>
+        <jsp:include page="pagination.jsp" />
         <%! List<GrantEntity> grants;%>
         <table id="datatable" style="width:100%">
             <tr style=>      
