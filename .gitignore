@@ -14,3 +14,4 @@
 *.class
 
 ./PresovReports/target
+/PresovReports/target/
